@@ -1,2 +1,6 @@
 venv/*.venv/.venv/
-*.pyc*.pyo*.pyd**pycache**/.pytest_cache/.mypy_cache/.env.env.**.ini*.log*.db*.db-journal*.sqlite3.DS_StoreThumbs.db.idea/.vscode/frontend/node_modules/frontend/build/frontend/.cache/frontend/npm-debug.log*frontend/yarn-debug.log*frontend/yarn-error.log*
+*.pyc*.pyo*.pyd**pycache**/.pytest_cache/.mypy_cache/
+.env.env.**.ini*
+.log*.db*.db-journal*.sqlite3
+.DS_StoreThumbs.db.idea/.vscode/
+frontend/node_modules/frontend/build/frontend/.cache/frontend/npm-debug.log*frontend/yarn-debug.log*frontend/yarn-error.log*
