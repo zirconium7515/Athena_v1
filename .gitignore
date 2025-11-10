@@ -1,16 +1,1 @@
-Athena_v1/.gitignore
-
-Python
-pycache/*.py[cod]*$py.class*.log*.db*.sqlite3
-
-OS
-.DS_StoreThumbs.db
-
-IDE
-.idea/.vscode/*.swp
-
-Environment
-.envvenv/env/
-
-Node
-frontend/node_modules/frontend/build/npm-debug.log
+Athena_v1/.gitignorePython 관련pycache/*.py[cod]*$py.class*.log*.db*.sqlite3OS 관련 (macOS, Windows).DS_StoreThumbs.dbIDE 관련 (VSCode, PyCharm 등).idea/.vscode/*.swp환경 변수 및 가상환경 (매우 중요).envvenv/env/Node.js (프론트엔드) 관련frontend/node_modules/frontend/build/npm-debug.log
