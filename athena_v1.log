@@ -1,0 +1,2513 @@
+2025-11-11 00:38:24 [Database:INFO] - 데이터베이스 테이블 생성/확인 완료: sqlite:///athena_v1_trade_history.db
+2025-11-11 00:38:24 [Main:CRITICAL] - API 키가 .env 파일에 설정되지 않았습니다! 프로그램을 종료합니다.
+2025-11-11 00:38:24 [Main:INFO] - ========================================
+2025-11-11 00:38:24 [Main:INFO] -       Athena v1 백엔드 서버 시작       
+2025-11-11 00:38:24 [Main:INFO] - ========================================
+2025-11-11 00:44:07 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:07 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:12 [Main:INFO] - WebSocket 클라이언트 연결 (총 1명)
+2025-11-11 00:44:12 [Main:INFO] - WebSocket 클라이언트 연결 (총 2명)
+2025-11-11 00:44:17 [Main:INFO] - [KRW-1INCH] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-2Z] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-A] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AAVE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ADA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AERGO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AERO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AGLD] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AHT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AKT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ALGO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ALT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ANIME] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ANKR] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-API3] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-APT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AQT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ARB] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ARDR] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ARK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ARKM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ASTR] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ATH] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ATOM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AUCTION] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AVAX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AVNT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AWE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AXL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AXS] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BARD] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BAT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BCH] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BEAM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BERA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BIGTIME] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BIO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BLAST] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BLUR] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BONK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BORA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BOUNTY] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BSV] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BTC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BTT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CARV] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CBK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CELO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CHZ] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CKB] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-COMP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-COW] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CPOOL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CRO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CTC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CVC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-CYBER] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-DEEP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-DKA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-DOGE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-DOOD] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-DOT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-DRIFT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-EGLD] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ELF] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ENA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ENS] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ENSO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ERA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ETC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ETH] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-F] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-FCT2] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-FF] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-FIL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-FLOCK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-FLOW] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-FLUID] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-G] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-GAME2] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-GAS] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-GLM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-GMT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-GRS] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-GRT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-HBAR] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-HIVE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-HOLO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-HP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-HUNT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-HYPER] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ICX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ID] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-IMX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-IN] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-INJ] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-IOST] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-IOTA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-IP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-IQ] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-JST] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-JTO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-JUP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-KAITO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-KAVA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-KERNEL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-KITE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-KNC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-LA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-LAYER] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-LINEA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-LINK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-LPT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-LSK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MANA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MASK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MBL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ME] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MED] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-META] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MEW] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MINA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MIRA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MLK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MMT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MNT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MOC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MOCA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MOODENG] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MOVE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MTL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-MVL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-NEAR] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-NEO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-NEWT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-NOM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-NXPC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-OM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ONDO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ONG] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ONT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-OP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-OPEN] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ORBS] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ORCA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ORDER] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-PENDLE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-PENGU] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-PEPE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-POKT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-POL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-POLYX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-POWR] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-PROVE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-PUMP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-PUNDIX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-PYTH] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-QKC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-QTUM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-RAY] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-RED] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-RENDER] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-RVN] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SAFE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SAHARA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SAND] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SEI] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SHIB] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SIGN] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SNT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SOL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SOMI] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SONIC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SOPH] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-STEEM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-STG] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-STORJ] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-STRAX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-STX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SUI] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SUN] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SUPER] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SXP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-SYRUP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-T] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TAIKO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TFUEL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-THETA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TIA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TOKAMAK] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TOSHI] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TREE] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TRUMP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TRUST] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TRX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-TT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-UNI] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-USD1] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-USDC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-USDT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-VANA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-VET] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-VIRTUAL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-VTHO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-W] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-WAL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-WAVES] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-WAXP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-WCT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-WLD] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-WLFI] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-XEC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-XLM] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-XPL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-XRP] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-XTZ] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-YGG] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ZBT] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ZETA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ZIL] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ZKC] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ZORA] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ZRO] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ZRX] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [Main:INFO] - [KRW-0G] 봇 시작 명령 수신.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:44:17 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:44:17 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AERGO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AERGO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AERGO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ADA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ADA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ADA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AGLD] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AGLD] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AGLD] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [SignalEngine[KRW-2Z]:INFO] - 신호 품질 평가 점수: 14점
+2025-11-11 00:44:17 [SignalEngine[KRW-2Z]:INFO] - !!! [KRW-2Z] 롱(LONG) 신호 발생 (점수: 14점) !!!
+2025-11-11 00:44:17 [Main:INFO] - [KRW-2Z] 신호 감지 (점수: 14). 리스크 계산 시작.
+2025-11-11 00:44:17 [RiskManager:WARNING] - [KRW-2Z] 리스크 계산 불가. (낮은 점수: 14)
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-2Z] 리스크 계산 실패. (진입 취소)
+2025-11-11 00:44:17 [SignalEngine[KRW-AHT]:INFO] - 신호 품질 평가 점수: 14점
+2025-11-11 00:44:17 [SignalEngine[KRW-AHT]:INFO] - !!! [KRW-AHT] 롱(LONG) 신호 발생 (점수: 14점) !!!
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AHT] 신호 감지 (점수: 14). 리스크 계산 시작.
+2025-11-11 00:44:17 [RiskManager:WARNING] - [KRW-AHT] 리스크 계산 불가. (낮은 점수: 14)
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AHT] 리스크 계산 실패. (진입 취소)
+2025-11-11 00:44:17 [SignalEngine[KRW-API3]:INFO] - 신호 품질 평가 점수: 14점
+2025-11-11 00:44:17 [SignalEngine[KRW-API3]:INFO] - !!! [KRW-API3] 롱(LONG) 신호 발생 (점수: 14점) !!!
+2025-11-11 00:44:17 [Main:INFO] - [KRW-API3] 신호 감지 (점수: 14). 리스크 계산 시작.
+2025-11-11 00:44:17 [RiskManager:WARNING] - [KRW-API3] 리스크 계산 불가. (낮은 점수: 14)
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-API3] 리스크 계산 실패. (진입 취소)
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [SignalEngine[KRW-ARK]:INFO] - 신호 품질 평가 점수: 14점
+2025-11-11 00:44:17 [SignalEngine[KRW-ARK]:INFO] - !!! [KRW-ARK] 롱(LONG) 신호 발생 (점수: 14점) !!!
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ARK] 신호 감지 (점수: 14). 리스크 계산 시작.
+2025-11-11 00:44:17 [RiskManager:WARNING] - [KRW-ARK] 리스크 계산 불가. (낮은 점수: 14)
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ARK] 리스크 계산 실패. (진입 취소)
+2025-11-11 00:44:17 [SignalEngine[KRW-ARB]:INFO] - 신호 품질 평가 점수: 14점
+2025-11-11 00:44:17 [SignalEngine[KRW-ARB]:INFO] - !!! [KRW-ARB] 롱(LONG) 신호 발생 (점수: 14점) !!!
+2025-11-11 00:44:17 [Main:INFO] - [KRW-ARB] 신호 감지 (점수: 14). 리스크 계산 시작.
+2025-11-11 00:44:17 [RiskManager:WARNING] - [KRW-ARB] 리스크 계산 불가. (낮은 점수: 14)
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ARB] 리스크 계산 실패. (진입 취소)
+2025-11-11 00:44:17 [SignalEngine[KRW-AUCTION]:INFO] - 신호 품질 평가 점수: 14점
+2025-11-11 00:44:17 [SignalEngine[KRW-AUCTION]:INFO] - !!! [KRW-AUCTION] 롱(LONG) 신호 발생 (점수: 14점) !!!
+2025-11-11 00:44:17 [Main:INFO] - [KRW-AUCTION] 신호 감지 (점수: 14). 리스크 계산 시작.
+2025-11-11 00:44:17 [RiskManager:WARNING] - [KRW-AUCTION] 리스크 계산 불가. (낮은 점수: 14)
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AUCTION] 리스크 계산 실패. (진입 취소)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AQT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AQT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AQT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-1INCH] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-1INCH] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-1INCH] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BAT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BAT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BAT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [SignalEngine[KRW-BARD]:INFO] - 신호 품질 평가 점수: 14점
+2025-11-11 00:44:17 [SignalEngine[KRW-BARD]:INFO] - !!! [KRW-BARD] 롱(LONG) 신호 발생 (점수: 14점) !!!
+2025-11-11 00:44:17 [Main:INFO] - [KRW-BARD] 신호 감지 (점수: 14). 리스크 계산 시작.
+2025-11-11 00:44:17 [RiskManager:WARNING] - [KRW-BARD] 리스크 계산 불가. (낮은 점수: 14)
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BARD] 리스크 계산 실패. (진입 취소)
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AVAX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AVAX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AVAX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-A] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-A] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-A] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AXL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AXL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AXL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AERO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AERO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AERO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BCH] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BCH] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BCH] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-APT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-APT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-APT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BORA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BORA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BORA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BOUNTY] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BOUNTY] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BOUNTY] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BLAST] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BLAST] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BLAST] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CELO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CELO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CELO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BIGTIME] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BIGTIME] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BIGTIME] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-COMP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-COMP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-COMP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BEAM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BEAM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BEAM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ENA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ENA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ENA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CRO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CRO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CRO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CTC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CTC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CTC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CHZ] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CHZ] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CHZ] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ANKR] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ANKR] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ANKR] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CVC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CVC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CVC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ARDR] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ARDR] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ARDR] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BERA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BERA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BERA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BTT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BTT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BTT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ARKM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ARKM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ARKM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BSV] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BSV] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BSV] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ATOM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ATOM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ATOM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CKB] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CKB] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CKB] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CARV] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CARV] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CARV] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AKT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AKT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AKT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-DOT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-DOT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-DOT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BONK] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BONK] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BONK] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-DKA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-DKA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-DKA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AAVE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AAVE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AAVE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-DOOD] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-DOOD] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-DOOD] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-FLOCK] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-FLOCK] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-FLOCK] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ENSO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ENSO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ENSO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ASTR] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ASTR] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ASTR] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BIO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BIO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BIO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-GAS] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-GAS] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-GAS] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AXS] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AXS] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AXS] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-AWE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-AWE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-AWE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-HP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-HP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-HP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CPOOL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CPOOL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CPOOL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-JST] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-JST] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-JST] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ALT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ALT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ALT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BTC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BTC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BTC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-GAME2] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-GAME2] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-GAME2] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-IOTA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-IOTA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-IOTA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-FIL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-FIL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-FIL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-F] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-F] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-F] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-LINEA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-LINEA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-LINEA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ENS] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ENS] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ENS] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ERA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ERA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ERA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-JUP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-JUP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-JUP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-HOLO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-HOLO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-HOLO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-BLUR] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-BLUR] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-BLUR] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-FCT2] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-FCT2] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-FCT2] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ETH] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ETH] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ETH] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-DOGE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-DOGE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-DOGE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-IN] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-IN] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-IN] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-FLUID] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-FLUID] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-FLUID] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-GMT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-GMT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-GMT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-FF] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-FF] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-FF] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ETC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ETC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ETC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-COW] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-COW] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-COW] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-HIVE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-HIVE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-HIVE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ELF] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ELF] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ELF] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-IQ] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-IQ] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-IQ] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-HUNT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-HUNT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-HUNT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-EGLD] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-EGLD] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-EGLD] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-IOST] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-IOST] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-IOST] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-DRIFT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-DRIFT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-DRIFT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CBK] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CBK] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CBK] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-FLOW] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-FLOW] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-FLOW] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-G] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-G] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-G] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-META] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-META] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-META] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-GLM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-GLM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-GLM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-LAYER] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-LAYER] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-LAYER] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-HBAR] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-HBAR] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-HBAR] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-LA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-LA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-LA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MOODENG] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MOODENG] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MOODENG] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-KERNEL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-KERNEL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-KERNEL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ICX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ICX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ICX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-HYPER] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-HYPER] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-HYPER] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-DEEP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-DEEP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-DEEP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-LINK] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-LINK] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-LINK] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-CYBER] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-CYBER] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-CYBER] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-GRS] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-GRS] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-GRS] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ID] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ID] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ID] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-JTO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-JTO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-JTO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MINA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MINA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MINA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-IMX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-IMX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-IMX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-NEAR] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-NEAR] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-NEAR] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-PENGU] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-PENGU] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-PENGU] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MNT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MNT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MNT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ONT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ONT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ONT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-IP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-IP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-IP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MMT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MMT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MMT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-OM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-OM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-OM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-NXPC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-NXPC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-NXPC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MBL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MBL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MBL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MEW] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MEW] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MEW] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-KITE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-KITE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-KITE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MVL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MVL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MVL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-KNC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-KNC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-KNC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ONDO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ONDO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ONDO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MLK] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MLK] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MLK] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MED] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MED] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MED] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-PENDLE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-PENDLE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-PENDLE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MOCA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MOCA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MOCA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ORDER] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ORDER] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ORDER] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ORBS] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ORBS] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ORBS] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-PUMP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-PUMP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-PUMP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-POKT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-POKT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-POKT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-LSK] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-LSK] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-LSK] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-NOM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-NOM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-NOM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-GRT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-GRT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-GRT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MOVE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MOVE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MOVE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-OPEN] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-OPEN] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-OPEN] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-PEPE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-PEPE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-PEPE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-INJ] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-INJ] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-INJ] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MANA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MANA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MANA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MTL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MTL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MTL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-OP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-OP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-OP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MIRA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MIRA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MIRA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-STORJ] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-STORJ] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-STORJ] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SHIB] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SHIB] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SHIB] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-NEO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-NEO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-NEO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SOPH] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SOPH] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SOPH] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-STG] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-STG] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-STG] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SOMI] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SOMI] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SOMI] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-RVN] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-RVN] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-RVN] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-STEEM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-STEEM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-STEEM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SONIC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SONIC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SONIC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SUPER] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SUPER] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SUPER] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-STRAX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-STRAX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-STRAX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-PYTH] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-PYTH] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-PYTH] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-RAY] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-RAY] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-RAY] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SAFE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SAFE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SAFE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-RENDER] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-RENDER] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-RENDER] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SEI] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SEI] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SEI] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SAND] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SAND] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SAND] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-PUNDIX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-PUNDIX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-PUNDIX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SXP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SXP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SXP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-THETA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-THETA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-THETA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TOKAMAK] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TOKAMAK] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TOKAMAK] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SIGN] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SIGN] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SIGN] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TFUEL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TFUEL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TFUEL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SUI] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SUI] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SUI] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TAIKO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TAIKO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TAIKO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-WLD] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-WLD] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-WLD] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TOSHI] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TOSHI] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TOSHI] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-W] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-W] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-W] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-XTZ] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-XTZ] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-XTZ] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SNT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SNT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SNT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-VANA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-VANA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-VANA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SYRUP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SYRUP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SYRUP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SOL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SOL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SOL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-YGG] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-YGG] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-YGG] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-QTUM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-QTUM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-QTUM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-XPL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-XPL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-XPL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SAHARA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SAHARA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SAHARA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-STX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-STX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-STX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-XRP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-XRP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-XRP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TRX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TRX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TRX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-WLFI] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-WLFI] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-WLFI] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TRUST] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TRUST] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TRUST] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-USD1] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-USD1] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-USD1] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ZKC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ZKC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ZKC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-0G] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-0G] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-0G] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-USDT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-USDT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-USDT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-VTHO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-VTHO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-VTHO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-RED] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-RED] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-RED] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TRUMP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TRUMP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TRUMP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-USDC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-USDC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-USDC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ZIL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ZIL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ZIL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ZRX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ZRX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ZRX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-SUN] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-SUN] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-SUN] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-WAVES] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-WAVES] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-WAVES] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-XLM] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-XLM] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-XLM] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-T] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-T] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-T] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TREE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TREE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TREE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ZETA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ZETA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ZETA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-XEC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-XEC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-XEC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-VET] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-VET] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-VET] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ZBT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ZBT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ZBT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ZORA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ZORA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ZORA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-VIRTUAL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-VIRTUAL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-VIRTUAL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-WCT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-WCT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-WCT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-WAL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-WAL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-WAL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-TIA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-TIA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-TIA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ZRO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ZRO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ZRO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-WAXP] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-WAXP] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-WAXP] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-UNI] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-UNI] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-UNI] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:ERROR] - API 요청 오류 (429): Too Many Requests
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MASK] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MASK] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MASK] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-POLYX] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-POLYX] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-POLYX] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-PROVE] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-PROVE] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-PROVE] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ME] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ME] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ME] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-LPT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-LPT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-LPT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ONG] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ONG] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ONG] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-QKC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-QKC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-QKC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-NEWT] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-NEWT] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-NEWT] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-POWR] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-POWR] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-POWR] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-MOC] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-MOC] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-MOC] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-KAITO] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-KAITO] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-KAITO] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-KAVA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-KAVA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-KAVA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-POL] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-POL] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-POL] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:17 [ExchangeAPI:WARNING] - [KRW-ORCA] minutes60 캔들 데이터 수신 실패 (Empty Response)
+2025-11-11 00:44:17 [DataManager:WARNING] - [KRW-ORCA] minutes60 데이터 없음.
+2025-11-11 00:44:17 [Main:WARNING] - [KRW-ORCA] H1 데이터 수신 실패. 1분 후 재시도.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-1INCH] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-2Z] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-A] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AAVE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ADA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AERGO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AERO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AGLD] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AHT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AKT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ALGO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ALT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ANIME] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ANKR] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-API3] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-APT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AQT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARB] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARDR] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARKM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ASTR] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ATH] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ATOM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AUCTION] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AVAX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AVNT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AWE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AXL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AXS] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BARD] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BAT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BCH] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BEAM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BERA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BIGTIME] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BIO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BLAST] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BLUR] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BONK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BORA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BOUNTY] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BSV] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BTC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BTT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CARV] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CBK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CELO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CHZ] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CKB] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-COMP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-COW] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CPOOL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CRO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CTC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CVC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CYBER] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DEEP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DKA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOGE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOOD] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DRIFT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-EGLD] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ELF] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENS] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENSO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ERA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ETC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ETH] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-F] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FCT2] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FF] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FIL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLOCK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLOW] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLUID] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-G] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GAME2] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GAS] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GLM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GMT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GRS] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GRT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HBAR] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HIVE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HOLO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HUNT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HYPER] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ICX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ID] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IMX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IN] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-INJ] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IOST] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IOTA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IQ] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JST] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JTO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JUP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KAITO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KAVA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KERNEL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KITE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KNC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LAYER] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LINEA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LINK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LPT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LSK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MANA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MASK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MBL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ME] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MED] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-META] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MEW] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MINA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MIRA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MLK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MMT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MNT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOCA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOODENG] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOVE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MTL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MVL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEAR] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEWT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NOM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NXPC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONDO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONG] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OPEN] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORBS] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORCA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORDER] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PENDLE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PENGU] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PEPE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POKT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POLYX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POWR] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PROVE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PUMP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PUNDIX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PYTH] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-QKC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-QTUM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RAY] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RED] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RENDER] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RVN] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAFE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAHARA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAND] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SEI] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SHIB] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SIGN] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SNT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOMI] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SONIC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOPH] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STEEM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STG] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STORJ] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STRAX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUI] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUN] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUPER] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SXP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SYRUP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-T] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TAIKO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TFUEL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-THETA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TIA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TOKAMAK] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TOSHI] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TREE] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRUMP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRUST] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-UNI] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USD1] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USDC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USDT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VANA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VET] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VIRTUAL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VTHO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-W] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAVES] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAXP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WCT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WLD] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WLFI] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XEC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XLM] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XPL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XRP] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XTZ] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-YGG] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZBT] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZETA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZIL] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZKC] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZORA] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZRO] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZRX] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-0G] 봇 중지 명령 수신.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-1INCH] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-1INCH] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-2Z] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-2Z] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-A] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-A] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AAVE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AAVE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ADA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ADA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AERGO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AERGO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AERO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AERO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AGLD] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AGLD] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AHT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AHT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AKT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AKT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ALGO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ALGO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ALT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ALT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ANIME] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ANIME] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ANKR] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ANKR] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-API3] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-API3] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-APT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-APT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AQT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AQT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARB] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARB] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARDR] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARDR] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARKM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ARKM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ASTR] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ASTR] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ATH] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ATH] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ATOM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ATOM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AUCTION] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AUCTION] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AVAX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AVAX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AVNT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AVNT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AWE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AWE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AXL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AXL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AXS] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-AXS] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BARD] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BARD] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BAT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BAT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BCH] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BCH] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BEAM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BEAM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BERA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BERA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BIGTIME] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BIGTIME] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BIO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BIO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BLAST] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BLAST] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BLUR] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BLUR] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BONK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BONK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BORA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BORA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BOUNTY] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BOUNTY] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BSV] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BSV] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BTC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BTC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BTT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-BTT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CARV] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CARV] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CBK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CBK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CELO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CELO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CHZ] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CHZ] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CKB] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CKB] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-COMP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-COMP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-COW] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-COW] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CPOOL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CPOOL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CRO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CRO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CTC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CTC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CVC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CVC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CYBER] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-CYBER] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DEEP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DEEP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DKA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DKA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOGE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOGE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOOD] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOOD] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DOT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DRIFT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-DRIFT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-EGLD] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-EGLD] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ELF] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ELF] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENS] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENS] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENSO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ENSO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ERA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ERA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ETC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ETC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ETH] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ETH] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-F] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-F] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FCT2] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FCT2] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FF] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FF] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FIL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FIL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLOCK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLOCK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLOW] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLOW] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLUID] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-FLUID] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-G] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-G] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GAME2] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GAME2] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GAS] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GAS] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GLM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GLM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GMT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GMT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GRS] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GRS] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GRT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-GRT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HBAR] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HBAR] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HIVE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HIVE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HOLO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HOLO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HUNT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HUNT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HYPER] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-HYPER] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ICX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ICX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ID] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ID] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IMX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IMX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IN] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IN] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-INJ] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-INJ] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IOST] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IOST] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IOTA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IOTA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IQ] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-IQ] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JST] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JST] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JTO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JTO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JUP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-JUP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KAITO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KAITO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KAVA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KAVA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KERNEL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KERNEL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KITE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KITE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KNC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-KNC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LAYER] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LAYER] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LINEA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LINEA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LINK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LINK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LPT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LPT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LSK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-LSK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MANA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MANA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MASK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MASK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MBL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MBL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ME] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ME] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MED] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MED] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-META] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-META] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MEW] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MEW] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MINA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MINA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MIRA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MIRA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MLK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MLK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MMT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MMT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MNT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MNT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOCA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOCA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOODENG] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOODENG] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOVE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MOVE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MTL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MTL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MVL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-MVL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEAR] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEAR] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEWT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NEWT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NOM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NOM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NXPC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-NXPC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONDO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONDO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONG] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONG] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ONT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OPEN] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-OPEN] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORBS] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORBS] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORCA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORCA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORDER] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ORDER] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PENDLE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PENDLE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PENGU] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PENGU] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PEPE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PEPE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POKT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POKT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POLYX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POLYX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POWR] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-POWR] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PROVE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PROVE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PUMP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PUMP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PUNDIX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PUNDIX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PYTH] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-PYTH] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-QKC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-QKC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-QTUM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-QTUM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RAY] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RAY] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RED] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RED] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RENDER] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RENDER] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RVN] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-RVN] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAFE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAFE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAHARA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAHARA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAND] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SAND] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SEI] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SEI] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SHIB] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SHIB] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SIGN] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SIGN] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SNT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SNT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOMI] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOMI] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SONIC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SONIC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOPH] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SOPH] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STEEM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STEEM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STG] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STG] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STORJ] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STORJ] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STRAX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STRAX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-STX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUI] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUI] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUN] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUN] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUPER] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SUPER] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SXP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SXP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SYRUP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-SYRUP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-T] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-T] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TAIKO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TAIKO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TFUEL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TFUEL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-THETA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-THETA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TIA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TIA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TOKAMAK] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TOKAMAK] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TOSHI] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TOSHI] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TREE] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TREE] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRUMP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRUMP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRUST] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRUST] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TRX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-TT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-UNI] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-UNI] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USD1] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USD1] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USDC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USDC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USDT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-USDT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VANA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VANA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VET] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VET] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VIRTUAL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VIRTUAL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VTHO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-VTHO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-W] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-W] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAVES] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAVES] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAXP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WAXP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WCT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WCT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WLD] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WLD] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WLFI] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-WLFI] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XEC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XEC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XLM] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XLM] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XPL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XPL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XRP] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XRP] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XTZ] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-XTZ] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-YGG] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-YGG] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZBT] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZBT] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZETA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZETA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZIL] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZIL] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZKC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZKC] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZORA] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZORA] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZRO] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZRO] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZRX] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-ZRX] 봇 태스크 완전 종료.
+2025-11-11 00:44:24 [Main:INFO] - [KRW-0G] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:44:24 [Main:INFO] - [KRW-0G] 봇 태스크 완전 종료.
+2025-11-11 00:45:37 [Main:INFO] - WebSocket 클라이언트 연결 해제 (총 1명)
+2025-11-11 00:45:37 [Main:INFO] - WebSocket 클라이언트 연결 해제 (총 0명)
+2025-11-11 00:45:43 [Database:INFO] - 데이터베이스 테이블 생성/확인 완료: sqlite:///athena_v1_trade_history.db
+2025-11-11 00:45:43 [Main:CRITICAL] - API 키가 .env 파일에 설정되지 않았습니다! 프로그램을 종료합니다.
+2025-11-11 00:45:43 [Main:INFO] - ========================================
+2025-11-11 00:45:43 [Main:INFO] -       Athena v1 백엔드 서버 시작       
+2025-11-11 00:45:43 [Main:INFO] - ========================================
+2025-11-11 00:45:43 [Main:INFO] - WebSocket 클라이언트 연결 (총 1명)
+2025-11-11 00:45:43 [Main:INFO] - WebSocket 클라이언트 연결 (총 2명)
+2025-11-11 00:45:55 [Main:INFO] - WebSocket 클라이언트 연결 해제 (총 1명)
+2025-11-11 00:45:55 [Main:INFO] - WebSocket 클라이언트 연결 해제 (총 0명)
+2025-11-11 00:45:58 [Database:INFO] - 데이터베이스 테이블 생성/확인 완료: sqlite:///athena_v1_trade_history.db
+2025-11-11 00:45:58 [Main:CRITICAL] - API 키가 .env 파일에 설정되지 않았습니다! 프로그램을 종료합니다.
+2025-11-11 00:45:58 [Main:INFO] - ========================================
+2025-11-11 00:45:58 [Main:INFO] -       Athena v1 백엔드 서버 시작       
+2025-11-11 00:45:58 [Main:INFO] - ========================================
+2025-11-11 00:46:00 [Main:INFO] - WebSocket 클라이언트 연결 (총 1명)
+2025-11-11 00:46:00 [Main:INFO] - WebSocket 클라이언트 연결 (총 2명)
+2025-11-11 00:46:13 [Main:INFO] - [KRW-BTC] 봇 시작 명령 수신.
+2025-11-11 00:46:13 [ExchangeAPI:WARNING] - API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.
+2025-11-11 00:46:13 [RiskManager:INFO] - 리스크 관리자 초기화. 총 자본: 1,000,000 KRW
+2025-11-11 00:46:13 [RiskManager:INFO] -   기본 리스크 (1회): 5,000 KRW (0.5%)
+2025-11-11 00:46:19 [Main:INFO] - [KRW-BTC] 봇 중지 명령 수신.
+2025-11-11 00:46:19 [Main:INFO] - [KRW-BTC] 봇 중지 명령 수신 (Cancelled).
+2025-11-11 00:46:19 [Main:INFO] - [KRW-BTC] 봇 태스크 완전 종료.
+2025-11-11 01:00:40 [Main:INFO] - WebSocket 클라이언트 연결 해제 (총 1명)
+2025-11-11 01:00:40 [Main:INFO] - WebSocket 클라이언트 연결 해제 (총 0명)
