@@ -1,251 +1,256 @@
 /* Athena_v1/frontend/src/App.css */
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f2f5;
-  color: #333;
-}
-
+/* [수정] 2024.11.11 - GUI 레이아웃 깨짐 현상 수정 (CSS 선택자 변경) */
 .App {
   text-align: center;
 }
 
-/* --- 헤더 --- */
 .App-header {
   background-color: #282c34;
   padding: 20px;
   color: white;
+  margin-bottom: 20px;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-rows: auto 1fr; /* [수정] API 키 영역을 위한 행 추가 */
+  grid-template-areas:
+    "api api api" /* [신규] API 영역 */
+    "list control logs"
+    "list control logs";
+  gap: 20px;
+  padding: 0 20px 20px 20px;
+  height: calc(100vh - 120px); /* 헤더 높이 제외 */
+}
+
+/* --- [신규] 0. API 키 섹션 --- */
+/* [수정] 클래스 선택자를 .api-keys-section 으로 변경 (레이아웃 충돌 해결) */
+.api-keys-section {
+  grid-area: api;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.App-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-}
-
-/* 연결 상태 표시등 */
-.status-light {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  margin-left: 20px;
-  background-color: #777; /* disconnected */
-}
-.status-light.connected {
-  background-color: #4CAF50; /* green */
-  box-shadow: 0 0 10px #4CAF50;
-}
-.status-light.error {
-  background-color: #f44336; /* red */
-  box-shadow: 0 0 10px #f44336;
-}
-.status-text {
-  margin-left: 10px;
-  font-size: 0.9rem;
-  color: #ccc;
-}
-
-
-/* --- 메인 (3단 레이아웃) --- */
-.App-main {
-  display: flex;
-  flex-wrap: wrap; /* 반응형 대비 */
-  justify-content: center;
-  padding: 20px;
-  gap: 20px;
-}
-
-.container {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  box-sizing: border-box; /* 패딩 포함 크기 계산 */
-}
-
-h2 {
-  font-size: 1.3rem;
-  color: #282c34;
-  border-bottom: 2px solid #f0f2f5;
-  padding-bottom: 10px;
-  margin-top: 0;
-}
-
-/* 1. 코인 선택 (왼쪽) */
-.container-markets {
-  flex-basis: 350px;
-  min-width: 300px;
-  flex-grow: 1;
-}
-
-.market-controls {
-  margin-bottom: 15px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
+  justify-content: flex-start;
+  gap: 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box; /* 패딩 포함 */
-  margin-bottom: 10px;
 }
-
-.select-buttons {
+/* [수정] 하위 선택자 .api-keys-section 으로 통일 */
+.api-keys-section h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+.api-inputs {
   display: flex;
   gap: 10px;
 }
-.select-buttons button {
-  flex-grow: 1;
-  padding: 8px;
+/* [수정] 하위 선택자 .api-keys-section 으로 통일 */
+.api-keys-section input[type="password"] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 250px;
+  font-size: 0.9em;
+}
+.api-save-btn {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.api-save-btn:hover {
+  background-color: #0056b3;
+}
+.api-status {
+  font-size: 0.9em;
+  font-weight: bold;
+}
+.api-status.status-ok { color: #28a745; }
+.api-status.status-error { color: #dc3545; }
+.api-status.status-n\/a { color: #6c757d; }
+/* --- [신규] 끝 --- */
+
+
+/* --- 1. 코인 목록 --- */
+.market-list-section {
+  grid-area: list;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* 스크롤바가 list 내부에 생기도록 */
+}
+
+.search-bar {
+  width: calc(100% - 24px); /* padding 고려 */
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.market-list-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.market-list-buttons button {
+  padding: 5px 10px;
   background-color: #6c757d;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
 }
-.select-buttons button:hover {
+.market-list-buttons button:hover {
   background-color: #5a6268;
 }
 
 .market-list {
-  max-height: 500px;
-  overflow-y: auto;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  padding: 5px;
+  overflow-y: auto; /* 코인 목록 스크롤 */
+  flex-grow: 1;
 }
 
 .market-item {
-  padding: 10px 12px;
-  margin: 4px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
   cursor: pointer;
   text-align: left;
-  font-weight: 500;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .market-item:hover {
-  background-color: #e9ecef;
+  background-color: #f0f0f0;
 }
-/* 선택됨 */
+
 .market-item.selected {
-  background-color: #e6f7ff;
-  border: 1px solid #91d5ff;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
 }
-/* 실행중 */
-.market-item.active {
-  background-color: #f6ffed;
-  border: 1px solid #b7eb8f;
+
+.status-badge {
+  font-size: 0.8em;
+  padding: 3px 6px;
+  border-radius: 4px;
   font-weight: bold;
-  color: #389e0d;
-}
-.market-item.active:hover {
-  /* 실행 중인 것은 호버 색상 변경 없음 */
-  background-color: #f6ffed;
 }
 
-.active-badge {
-  font-size: 0.8rem;
-  font-weight: normal;
-  color: #389e0d;
+.status-badge.running {
+  background-color: #28a745;
+  color: white;
+}
+.market-item.selected .status-badge.running {
+  background-color: #ffffff;
+  color: #28a745;
 }
 
-/* 2. 제어 (가운데) */
-.container-control {
-  flex-basis: 300px;
-  min-width: 280px;
-  flex-grow: 1;
-}
 
-.control-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-.control-buttons button {
+/* --- 2. 봇 제어 --- */
+.control-section {
+  grid-area: control;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   padding: 15px;
-  font-size: 1.2rem;
+  text-align: left;
+}
+.control-section h2 {
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.control-btn {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 1.1em;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  margin-bottom: 15px;
 }
 
-.button-start {
-  background-color: #218838; /* green */
+.control-btn.start-btn {
+  background-color: #28a745;
   color: white;
 }
-.button-start:hover {
-  background-color: #1e7e34;
-  box-shadow: 0 4px 12px rgba(33, 136, 56, 0.3);
+.control-btn.start-btn:hover {
+  background-color: #218838;
 }
 
-.button-stop {
-  background-color: #c82333; /* red */
+.control-btn.stop-btn {
+  background-color: #dc3545;
   color: white;
 }
-.button-stop:hover {
-  background-color: #b21f2d;
-  box-shadow: 0 4px 12px rgba(200, 35, 51, 0.3);
+.control-btn.stop-btn:hover {
+  background-color: #c82333;
 }
 
-.active-bot-list {
+/* --- 3. 실행 중 봇 --- */
+.running-bots {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  min-height: 50px;
+  max-height: 200px;
+  overflow-y: auto;
 }
-.active-bot-item {
-  background-color: #e6f7ff;
-  border: 1px solid #91d5ff;
+.running-bot-item {
+  background-color: #e0e0e0;
   padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  border-radius: 4px;
+  font-size: 0.9em;
 }
 
-
-/* 3. 로그 (오른쪽) */
-.container-logs {
-  flex-basis: 400px;
-  min-width: 350px;
-  flex-grow: 2; /* 로그 창을 더 넓게 */
+/* --- 4. 실시간 로그 --- */
+.log-section {
+  grid-area: logs;
+  background-color: #1e1e1e; /* 어두운 배경 */
+  color: #d4d4d4; /* 밝은 글씨 */
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: left;
+}
+.log-section h2 {
+  margin-top: 0;
+  color: white;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
 }
 
 .log-output {
-  height: 600px;
   overflow-y: auto;
-  background-color: #1e1e1e; /* 어두운 배경 */
-  color: #d4d4d4; /* 밝은 글씨 */
-  font-family: 'Consolas', 'Monaco', monospace;
-  font-size: 0.9rem;
-  padding: 15px;
-  border-radius: 5px;
-  text-align: left;
-  /* 스크롤을 항상 아래로 */
-  display: flex;
-  flex-direction: column-reverse;
+  flex-grow: 1;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
 }
 
-.log-item {
-  white-space: pre-wrap; /* 줄바꿈 */
-  padding: 2px 0;
+.log-output p {
+  margin: 5px 0;
+  line-height: 1.4;
 }
+.log-timestamp {
+  color: #888;
+  margin-right: 10px;
+}
+
+/* 로그 레벨별 색상 */
+.log-level-info .log-message { color: #d4d4d4; }
+.log-level-success .log-message { color: #38a169; }
+.log-level-warn .log-message { color: #f6e05e; }
+.log-level-error .log-message { color: #f56565; }
+.log-level-debug .log-message { color: #805ad5; }

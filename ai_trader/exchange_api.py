@@ -1,228 +1,217 @@
 # Athena_v1/ai_trader/exchange_api.py
 """
-Upbit 거래소 API 래퍼 (pyupbit 및 aiohttp 기반 비동기 함수 활용)
+Upbit 거래소 API 래퍼 (Wrapper)
+(pyupbit 라이브러리 기반)
+[수정] .env 대신 __init__에서 API 키를 전달받음
+[수정] 2024.11.11 - get_market_all을 @classmethod에서 인스턴스 메소드로 변경
+[수정] 2024.11.11 - get_market_all이 pyupbit 대신 aiohttp로 직접 API 호출
 """
 import pyupbit
-import jwt
-import uuid
-import hashlib
-import aiohttp
 import asyncio
-from urllib.parse import urlencode
-from config import get_settings
-from ai_trader.utils.logger import setup_logger
+import aiohttp # [신규] aiohttp 임포트
+from typing import Optional, List, Dict, Any
 
-# [수정] 글로벌 스코프에서 로거 생성을 제거
-# logger = setup_logger("ExchangeAPI", "athena_v1.log")
+from ai_trader.utils.logger import setup_logger
 
 class UpbitExchange:
     
-    def __init__(self):
-        # [수정] 로거 생성을 __init__ 안으로 이동
-        self.logger = setup_logger("ExchangeAPI", "athena_v1.log")
+    # [신규] aiohttp 세션 관리를 위한 클래스 변수
+    _session: Optional[aiohttp.ClientSession] = None
+
+    # [신규] aiohttp 클라이언트 세션 초기화 (비동기)
+    @classmethod
+    async def get_session(cls) -> aiohttp.ClientSession:
+        """
+        싱글톤 aiohttp 클라이언트 세션을 가져옵니다.
+        """
+        if cls._session is None or cls._session.closed:
+            # 타임아웃 설정 (예: 5초)
+            timeout = aiohttp.ClientTimeout(total=5)
+            cls._session = aiohttp.ClientSession(timeout=timeout)
+        return cls._session
+
+    # [신규] aiohttp 세션 종료 (비동기)
+    @classmethod
+    async def close_session(cls):
+        """
+        싱글톤 aiohttp 세션을 닫습니다.
+        """
+        if cls._session and not cls._session.closed:
+            await cls._session.close()
+            cls._session = None
+    
+    def __init__(self, access_key: str = None, secret_key: str = None):
+        """
+        UpbitExchange 인스턴스를 초기화합니다.
+        API 키가 제공되면 Private API용 pyupbit 클라이언트를 생성합니다.
+        """
+        self.logger = setup_logger("UpbitAPI", "athena_v1.log")
         
-        settings = get_settings()
-        self.access_key = settings.get("UPBIT_ACCESS_KEY")
-        self.secret_key = settings.get("UPBIT_SECRET_KEY")
-        
-        if not self.access_key or not self.secret_key:
-            self.logger.warning("API 키가 .env 파일에 설정되지 않았습니다. 공개 API만 사용 가능합니다.")
-            self.upbit = None
-        else:
-            try:
-                self.upbit = pyupbit.Upbit(self.access_key, self.secret_key)
-                balance = self.upbit.get_balance("KRW")
-                self.logger.info(f"Upbit API 연결 성공. KRW 잔고: {balance}")
-            except Exception as e:
-                self.logger.error(f"Upbit API 연결 실패: {e}")
-                self.upbit = None
-
-    async def _request_async(self, method: str, url: str, params: dict = None, data: dict = None, is_private: bool = False):
-        """ aiohttp를 사용한 비동기 API 요청 (공개/인증 모두) """
-        
-        headers = {"Accept": "application/json"}
-        
-        if is_private:
-            if not self.access_key or not self.secret_key:
-                self.logger.error("비공개 API 호출 시도 (키 없음).")
-                return None
-                
-            payload = {
-                'access_key': self.access_key,
-                'nonce': str(uuid.uuid4()),
-            }
-            
-            # 쿼리 파라미터나 POST 데이터가 있으면 JWT 페이로드에 추가
-            query_string = None
-            if params:
-                query_string = urlencode(params)
-                payload['query'] = query_string
-                
-            if data:
-                # (참고) Upbit API는 POST/DELETE 시 data를 query처럼 취급하는 경우가 있음
-                # (v1/orders API 사양 확인 필요)
-                # 여기서는 params만 사용한다고 가정
-                pass
-
-            # JWT 토큰 생성
-            jwt_token = jwt.encode(payload, self.secret_key)
-            headers['Authorization'] = f'Bearer {jwt_token}'
-
-        async with aiohttp.ClientSession(headers=headers) as session:
-            try:
-                async with session.request(method, url, params=params, json=data) as response:
-                    response.raise_for_status() # 오류 발생 시 예외
-                    return await response.json()
-            except aiohttp.ClientResponseError as e:
-                # [수정] logger -> self.logger
-                self.logger.error(f"API 요청 오류 ({e.status}): {e.message}")
-                return None
-            except Exception as e:
-                # [수정] logger -> self.logger
-                self.logger.error(f"비동기 API 요청 중 알 수 없는 오류: {e}")
-                return None
-
-    async def get_all_market_symbols(self):
-        """ (공개) 모든 마켓 코드 조회 (비동기) """
-        url = "https://api.upbit.com/v1/market/all"
-        return await self._request_async("GET", url)
-
-    async def get_ohlcv(self, symbol: str, timeframe: str = 'minutes60', count: int = 200):
-        """ (공개) 캔들 데이터 조회 (비동기) """
-        # Upbit API 타임프레임 변환 (예: minutes60 -> minutes/60)
-        tf_map = {
-            'minutes1': 'minutes/1',
-            'minutes3': 'minutes/3',
-            'minutes5': 'minutes/5',
-            'minutes10': 'minutes/10',
-            'minutes15': 'minutes/15',
-            'minutes30': 'minutes/30',
-            'minutes60': 'minutes/60',
-            'minutes240': 'minutes/240',
-            'days': 'days',
-            'weeks': 'weeks',
-            'months': 'months'
-        }
-        
-        api_timeframe = tf_map.get(timeframe)
-        if not api_timeframe:
-            self.logger.error(f"지원하지 않는 타임프레임: {timeframe}")
-            return None
-
-        url = f"https://api.upbit.com/v1/candles/{api_timeframe}"
-        params = {
-            "market": symbol,
-            "count": count
-        }
+        self.access_key = access_key
+        self.secret_key = secret_key
         
         try:
-            data = await self._request_async("GET", url, params=params)
-            # 데이터가 비어있거나 오류가 난 경우
-            if not data:
-                # [수정] logger -> self.logger
-                self.logger.warning(f"[{symbol}] {timeframe} 캔들 데이터 수신 실패 (Empty Response)")
-                return None
-                
-            # 데이터가 리스트 형태인지 확인
-            if isinstance(data, list) and len(data) > 0:
-                return data # pandas.DataFrame 변환은 DataManager에서 수행
+            self.upbit = pyupbit.Upbit(self.access_key, self.secret_key)
+            if self.access_key:
+                self.logger.info("Upbit (Private) API 클라이언트 초기화 완료.")
             else:
-                # [수정] logger -> self.logger
-                self.logger.warning(f"[{symbol}] {timeframe} 캔들 데이터 수신 실패: {data}")
-                return None
+                self.logger.info("Upbit (Public) API 클라이언트 초기화 완료.")
+        except Exception as e:
+            self.logger.error(f"Upbit 클라이언트 초기화 실패: {e}")
+            self.upbit = None
+
+    # [수정] pyupbit 대신 aiohttp로 직접 API 호출
+    async def get_market_all(self) -> List[Dict[str, Any]]:
+        """
+        [Public] 업비트 KRW 마켓 전체 목록 조회 (비동기 - aiohttp)
+        (pyupbit.get_tickers 대신 업비트 공식 API 직접 호출)
+        """
+        url = "https://api.upbit.com/v1/market/all"
+        params = {"isDetails": "true"} # 한글명, 유의종목 등 상세정보 포함
+        
+        try:
+            session = await self.get_session()
+            async with session.get(url, params=params) as response:
+                response.raise_for_status() # (200 OK 아니면 오류 발생)
+                all_markets = await response.json()
                 
-        except Exception as e:
-            # [수정] logger -> self.logger
-            self.logger.error(f"[{symbol}] {timeframe} 캔들 데이터 조회 중 오류: {e}")
-            return None
-
-    async def get_current_price(self, symbol: str):
-        """ (공개) 현재가 조회 (비동기) - Ticker API 사용 """
-        url = "https://api.upbit.com/v1/ticker"
-        params = {"markets": symbol}
-        data = await self._request_async("GET", url, params=params)
-        if data and isinstance(data, list) and len(data) > 0:
-            return data[0].get('trade_price')
-        return None
-
-    # --- (이하 pyupbit 동기 함수 - 필요시 비동기로 전환) ---
-
-    def get_balance(self, currency: str):
-        """ (인증) 특정 화폐 잔고 조회 (동기) """
-        if not self.upbit: return 0
-        try:
-            return self.upbit.get_balance(currency)
-        except Exception as e:
-            # [수정] logger -> self.logger
-            self.logger.error(f"{currency} 잔고 조회 실패: {e}")
-            return 0
-
-    def get_avg_buy_price(self, currency: str):
-        """ (인증) 특정 화폐 평단가 조회 (동기) """
-        if not self.upbit: return 0
-        try:
-            # currency가 'KRW-BTC'이면 'BTC'를 조회해야 함
-            ticker = currency.split('-')[-1]
-            balance = self.upbit.get_balance(ticker, verbose=True)
+            if not all_markets:
+                self.logger.warning("API로부터 마켓 목록을 받았으나 비어있습니다.")
+                return []
+                
+            # KRW 마켓만 필터링하고 필요한 정보(market, korean_name)만 추출
+            krw_markets = [
+                {"market": m["market"], "korean_name": m["korean_name"]}
+                for m in all_markets
+                if m["market"].startswith("KRW-")
+            ]
             
-            if balance and 'avg_buy_price' in balance:
-                return float(balance['avg_buy_price'])
-            return 0
-        except Exception as e:
-            # [수정] logger -> self.logger
-            self.logger.error(f"{currency} 평단가 조회 실패: {e}")
-            return 0
-
-    def place_order(self, symbol: str, side: str, volume: float, price: float = None, order_type: str = 'limit'):
-        """ (인증) 주문 실행 (동기) """
-        if not self.upbit:
-            # [수정] logger -> self.logger
-            self.logger.warning("API 키가 없어 주문을 실행할 수 없습니다. (시뮬레이션)")
-            return {"uuid": f"simulated_{uuid.uuid4()}"} # 시뮬레이션 주문 ID
-
-        try:
-            if order_type == 'limit': # 지정가
-                if price is None:
-                    # [수정] logger -> self.logger
-                    self.logger.error(f"[{symbol}] 지정가 주문에 가격이 필요합니다.")
-                    return None
-                if side == 'buy':
-                    return self.upbit.buy_limit_order(symbol, price, volume)
-                elif side == 'sell':
-                    return self.upbit.sell_limit_order(symbol, price, volume)
-                    
-            elif order_type == 'market': # 시장가
-                if side == 'buy':
-                    # 시장가 매수는 총 주문 금액(KRW) 기준
-                    # (PositionManager에서 price 파라미터에 총 주문액을 넣어줌)
-                    total_cost = price 
-                    return self.upbit.buy_market_order(symbol, total_cost) 
-                elif side == 'sell':
-                    # 시장가 매도는 수량(volume) 기준
-                    return self.upbit.sell_market_order(symbol, volume)
+            self.logger.info(f"업비트 KRW 마켓 {len(krw_markets)}개 목록 로드 완료 (aiohttp).")
+            return krw_markets
             
-            # [수정] logger -> self.logger
-            self.logger.error(f"[{symbol}] 지원하지 않는 주문 유형: {order_type} / {side}")
-            return None
-
+        except aiohttp.ClientError as e:
+            self.logger.error(f"전체 마켓 조회 실패 (aiohttp): {e}")
+            return []
         except Exception as e:
-            # [수정] logger -> self.logger
-            self.logger.error(f"[{symbol}] 주문 실패 ({side}, {order_type}): {e}")
-            return None
+            self.logger.error(f"전체 마켓 조회 중 알 수 없는 오류: {e}")
+            return []
 
-    def cancel_order(self, order_uuid: str):
-        """ (인증) 주문 취소 (동기) """
-        if not self.upbit:
-            # [수정] logger -> self.logger
-            self.logger.warning(f"API 키가 없어 주문을 취소할 수 없습니다. (UUID: {order_uuid})")
-            return True
+    async def get_ohlcv(self, symbol: str, timeframe: str = 'minutes60', count: int = 200) -> List[Dict[str, Any]]:
+        """
+        [Public] OHLCV 데이터 조회 (비동기)
+        (pyupbit의 정적 메소드 호출)
+        """
+        try:
+            # (pyupbit.get_ohlcv는 동기 함수)
+            loop = asyncio.get_event_loop()
+            df = await loop.run_in_executor(
+                None, 
+                pyupbit.get_ohlcv, 
+                symbol, 
+                f"{timeframe.replace('minutes', 'minute')}", # (pyupbit 호환)
+                count
+            )
+            
+            if df is None:
+                self.logger.warning(f"[{symbol}] OHLCV 데이터 없음 (None).")
+                return []
+                
+            # (DataFrame을 JSON 리스트로 변환)
+            df = df.reset_index()
+            df.rename(columns={'index': 'candle_date_time_kst'}, inplace=True)
+            return df.to_dict('records')
+            
+        except Exception as e:
+            self.logger.error(f"[{symbol}] OHLCV 조회 실패: {e}")
+            return []
+
+    async def get_current_price(self, symbol: str) -> float:
+        """ [Public] 현재가 조회 (비동기) """
+        try:
+            loop = asyncio.get_event_loop()
+            price = await loop.run_in_executor(None, pyupbit.get_current_price, symbol)
+            return float(price) if price else 0.0
+        except Exception as e:
+            self.logger.error(f"[{symbol}] 현재가 조회 실패: {e}")
+            return 0.0
+
+    # --- Private API (키 필요) ---
+
+    async def get_balance(self, ticker: str = "KRW") -> Optional[float]:
+        """ [Private] 특정 자산 잔고 조회 """
+        if not self.upbit or not self.access_key:
+            self.logger.warning("Private API 호출 실패 (API 키 없음).")
+            return None
+        try:
+            loop = asyncio.get_event_loop()
+            # (get_balance는 동기 함수)
+            balance_data = await loop.run_in_executor(None, self.upbit.get_balance, ticker, verbose=True)
+            
+            # (verbose=True 사용 시, 반환값은 dict)
+            if balance_data and 'balance' in balance_data:
+                return float(balance_data['balance'])
+            # (verbose=False 또는 ticker="KRW"가 아닌 코인 조회 시)
+            elif isinstance(balance_data, (str, float)):
+                 return float(balance_data)
+                 
+            self.logger.warning(f"[{ticker}] 잔고 조회 결과가 예상과 다름: {balance_data}")
+            return 0.0
+            
+        except Exception as e:
+            # (pyupbit이 오류를 raise할 수 있음. 예: 인증 실패)
+            self.logger.error(f"[{ticker}] 잔고 조회 실패: {e}")
+            # (오류 메시지를 API 호출자(main.py)에게 전달하기 위해 raise)
+            raise e
+
+    async def get_avg_buy_price(self, symbol: str) -> float:
+        """ [Private] 특정 코인 매수 평단가 조회 """
+        if not self.upbit or not self.access_key:
+            return 0.0
+        try:
+            loop = asyncio.get_event_loop()
+            # (get_balance는 동기 함수)
+            balance_data = await loop.run_in_executor(None, self.upbit.get_balance, symbol, verbose=True)
+            
+            if balance_data and 'avg_buy_price' in balance_data:
+                return float(balance_data['avg_buy_price'])
+            return 0.0
+        except Exception as e:
+            self.logger.error(f"[{symbol}] 평단가 조회 실패: {e}")
+            return 0.0
+            
+    def place_order(self, symbol: str, side: str, volume: float = 0, price: float = 0, order_type: str = 'limit') -> Optional[Dict[str, Any]]:
+        """
+        [Private] 주문 실행 (동기)
+        (PositionManager에서 호출되며, 동기 실행 후 결과 즉시 반환)
+        (주의: 이 함수는 비동기(async)가 아님! PositionManager에서 sleep 처리)
+        
+        :param volume: (지정가/시장가 매도) 수량
+        :param price: (지정가) 가격 / (시장가 매수) 총액 (KRW)
+        """
+        if not self.upbit or not self.access_key:
+            self.logger.error(f"[{symbol}] 주문 실패 (API 키 없음).")
+            return None
             
         try:
-            result = self.upbit.cancel_order(order_uuid)
-            # [수정] logger -> self.logger
-            self.logger.info(f"주문 취소 성공: {result}")
+            result = None
+            if side == 'buy':
+                if order_type == 'limit': # 지정가 매수
+                    result = self.upbit.buy_limit_order(symbol, price, volume)
+                elif order_type == 'market': # 시장가 매수
+                    result = self.upbit.buy_market_order(symbol, price) # (price = 총액 KRW)
+            
+            elif side == 'sell':
+                if order_type == 'limit': # 지정가 매도
+                    result = self.upbit.sell_limit_order(symbol, price, volume)
+                elif order_type == 'market': # 시장가 매도
+                    result = self.upbit.sell_market_order(symbol, volume) # (volume = 수량)
+            
+            if result and 'error' in result:
+                raise Exception(result['error'].get('message', 'Unknown error'))
+
+            self.logger.info(f"주문 전송: {symbol} {side} {order_type} (결과: {result.get('uuid', 'Failed')})")
             return result
+            
         except Exception as e:
-            # [수정] logger -> self.logger
-            self.logger.error(f"주문 취소 실패 (UUID: {order_uuid}): {e}")
+            self.logger.error(f"[{symbol}] 주문 실행 실패: {e}")
             return None

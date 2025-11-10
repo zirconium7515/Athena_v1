@@ -1,32 +1,30 @@
 // Athena_v1/frontend/src/App.js
+// [수정] 2024.11.11 - GUI 레이아웃 깨짐 현상 수정 (className 변경)
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
-// 백엔드 API 주소 (package.json의 proxy 설정 또는 .env 파일 사용)
-// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
-// package.json proxy 설정 (http://localhost:8000)을 사용하므로 /api/... 로 요청
-const API_URL = '';
-
 function App() {
-  const [allMarkets, setAllMarkets] = useState([]); // 업비트 KRW 마켓 전체 목록
-  const [selectedMarkets, setSelectedMarkets] = useState([]); // 사용자가 선택한 마켓
-  const [activeBots, setActiveBots] = useState([]); // 현재 실행 중인 봇
+  const [markets, setMarkets] = useState([]); // 전체 코인 목록
+  const [selectedMarkets, setSelectedMarkets] = useState(new Set()); // 사용자가 선택한 코인
+  const [runningBots, setRunningBots] = useState(new Set()); // 현재 실행 중인 봇
   const [logs, setLogs] = useState([]); // 실시간 로그
   const [searchTerm, setSearchTerm] = useState(''); // 코인 검색어
-  const [status, setStatus] = useState('disconnected'); // 'disconnected', 'connected', 'error'
-  
+
+  // [신규] API 키 상태
+  const [accessKey, setAccessKey] = useState('');
+  const [secretKey, setSecretKey] = useState('');
+  const [apiKeyStatus, setApiKeyStatus] = useState('N/A'); // (N/A, OK, Error)
+
+  const logsEndRef = useRef(null); // 로그 스크롤 참조
   const ws = useRef(null); // WebSocket 참조
 
   // 1. 컴포넌트 마운트 시 실행
   useEffect(() => {
-    // 1-1. 업비트 KRW 마켓 목록 불러오기
+    // 1-1. 전체 코인 목록 불러오기
     fetchMarkets();
     
-    // 1-2. 현재 실행 중인 봇 상태 불러오기
-    fetchActiveBots();
-
-    // 1-3. WebSocket 연결
+    // 1-2. WebSocket 연결
     connectWebSocket();
 
     // 컴포넌트 언마운트 시 WebSocket 연결 해제
@@ -37,224 +35,278 @@ function App() {
     };
   }, []);
 
-  // 2. 업비트 마켓 목록 조회 함수
-  const fetchMarkets = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/api/markets`);
-      if (response.data && response.data.markets) {
-        setAllMarkets(response.data.markets);
-      }
-    } catch (error) {
-      console.error("마켓 목록 조회 실패:", error);
-      addLog("[오류] 업비트 마켓 목록 조회에 실패했습니다.");
+  // 2. 로그 업데이트 시 자동 스크롤
+  useEffect(() => {
+    logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [logs]);
+
+  // 3. (신규) API 키 저장 핸들러
+  const handleSetKeys = async () => {
+    if (!accessKey || !secretKey) {
+      addLog("액세스 키와 시크릿 키를 모두 입력하세요.", "error");
+      setApiKeyStatus("Error");
+      return;
     }
-  };
-  
-  // 3. 현재 활성화된 봇 목록 조회 함수
-  const fetchActiveBots = async () => {
-     try {
-      const response = await axios.get(`${API_URL}/api/status`);
-      if (response.data && response.data.active_bots) {
-        setActiveBots(response.data.active_bots);
-        // 활성화된 봇들을 선택 목록에도 반영 (UI 일관성)
-        setSelectedMarkets(response.data.active_bots);
+    try {
+      addLog("API 키 저장 및 인증 시도 중...", "info");
+      // 백엔드 /api/set-keys 엔드포인트로 키 전송
+      const response = await axios.post('/api/set-keys', {
+        access_key: accessKey,
+        secret_key: secretKey
+      });
+      
+      if (response.data.status === 'success') {
+        const balance = response.data.balance_krw || 0;
+        addLog(`API 키 인증 성공. (보유 KRW: ${balance.toLocaleString()} 원)`, "success");
+        setApiKeyStatus("OK");
+      } else {
+        throw new Error(response.data.detail || "알 수 없는 오류");
       }
     } catch (error) {
-      console.error("활성 봇 상태 조회 실패:", error);
+      const errorMsg = error.response?.data?.detail || error.message || "API 키 인증 실패";
+      addLog(`API 키 인증 실패: ${errorMsg}`, "error");
+      setApiKeyStatus("Error");
     }
   };
 
   // 4. WebSocket 연결 함수
   const connectWebSocket = () => {
-    // WebSocket 주소 (백엔드 /ws 엔드포인트)
-    // (주의: React 개발 서버(3000)가 아닌 백엔드(8000) 주소 기준)
-    const wsUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + 
-                  (window.location.hostname) + 
-                  ':8000/ws'; // (포트 8000 고정)
-
+    // WebSocket 주소 (백엔드: 8000번 포트)
+    // React 개발서버(3000)가 아니므로 전체 주소를 사용합니다.
+    const wsUrl = "ws://localhost:8000/ws";
     ws.current = new WebSocket(wsUrl);
 
     ws.current.onopen = () => {
-      console.log("WebSocket 연결됨");
-      setStatus('connected');
+      addLog("백엔드 서버와 연결되었습니다 (WebSocket).", "info");
     };
 
     ws.current.onmessage = (event) => {
-      // 백엔드에서 broadcast_log(message)로 보낸 메시지
-      addLog(event.data);
+      // 백엔드에서 전송된 로그(JSON) 수신
+      try {
+        const logEntry = JSON.parse(event.data);
+        addLog(logEntry.message, logEntry.level);
+      } catch (e) {
+        addLog(event.data, "info");
+      }
     };
 
     ws.current.onclose = () => {
-      console.log("WebSocket 연결 끊김. 5초 후 재시도...");
-      setStatus('disconnected');
-      // 5초 후 재연결 시도
+      addLog("백엔드 서버와 연결이 끊겼습니다. 5초 후 재연결을 시도합니다.", "error");
+      // 5초 후 재연결
       setTimeout(connectWebSocket, 5000);
     };
-    
+
     ws.current.onerror = (error) => {
-      console.error("WebSocket 오류:", error);
-      setStatus('error');
-      ws.current.close(); // 오류 발생 시 닫고, onclose가 재연결 시도
+      addLog("WebSocket 오류 발생. (백엔드 서버 실행 확인 필요)", "error");
+      ws.current.close();
     };
   };
 
-  // 5. 로그 추가 함수 (최대 100개 유지)
-  const addLog = (message) => {
+  // 5. 로그 추가 함수
+  const addLog = (message, level = "info") => {
     const timestamp = new Date().toLocaleTimeString();
-    setLogs(prevLogs => [`[${timestamp}] ${message}`, ...prevLogs.slice(0, 99)]);
+    setLogs(prevLogs => [
+      ...prevLogs,
+      { timestamp, message, level }
+    ]);
   };
 
-  // 6. 코인 선택/해제 핸들러
-  const handleMarketToggle = (market) => {
-    // (주의) 이미 실행 중인 봇은 선택 해제할 수 없음 (중지 버튼을 통해서만 가능)
-    if (activeBots.includes(market)) {
-      addLog(`[알림] ${market} 봇은 이미 실행 중입니다. 중지하려면 '선택 봇 중지' 버튼을 사용하세요.`);
-      return;
+  // 6. 업비트 KRW 마켓 목록 불러오기
+  const fetchMarkets = async () => {
+    try {
+      const response = await axios.get('/api/markets');
+      setMarkets(response.data || []);
+      addLog(`업비트 KRW 마켓 ${response.data.length}개 목록 로드 완료.`, "info");
+    } catch (error) {
+      addLog("업비트 마켓 목록 로드 실패. 백엔드 실행 확인.", "error");
     }
-    
-    setSelectedMarkets(prev => 
-      prev.includes(market) 
-        ? prev.filter(m => m !== market) 
-        : [...prev, market]
-    );
   };
-  
-  // 7. 검색어 필터링된 마켓 목록
-  const filteredMarkets = allMarkets.filter(market => 
-    market.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  
-  // 8. '선택 봇 시작' 버튼 클릭
+
+  // 7. 코인 선택/해제 핸들러
+  const handleMarketSelect = (market) => {
+    setSelectedMarkets(prevSelected => {
+      const newSelected = new Set(prevSelected);
+      if (newSelected.has(market)) {
+        newSelected.delete(market);
+      } else {
+        newSelected.add(market);
+      }
+      return newSelected;
+    });
+  };
+
+  // 8. 봇 시작 핸들러
   const handleStartBots = async () => {
-    const botsToStart = selectedMarkets.filter(m => !activeBots.includes(m));
+    const botsToStart = Array.from(selectedMarkets).filter(m => !runningBots.has(m));
     if (botsToStart.length === 0) {
-      addLog("[알림] 이미 모두 실행 중이거나 선택된 코인이 없습니다.");
+      addLog("시작할 신규 코인이 선택되지 않았거나, 이미 실행 중입니다.", "warn");
       return;
     }
     
-    addLog(`[요청] ${botsToStart.join(', ')} 봇 시작...`);
     try {
-      const response = await axios.post(`${API_URL}/api/start`, botsToStart);
-      if (response.data && response.data.bots) {
-        // 성공적으로 시작된 봇들을 activeBots 상태에 추가
-        setActiveBots(prev => [...prev, ...response.data.bots]);
+      // 백엔드 /api/start로 시작할 코인 목록 전송
+      const response = await axios.post('/api/start', botsToStart);
+      
+      if (response.data.status === 'success') {
+        const started = response.data.started || [];
+        setRunningBots(prevRunning => new Set([...prevRunning, ...started]));
+        addLog(`[${started.join(', ')}] 봇 시작 요청 성공.`, "success");
+      } else {
+        addLog(`봇 시작 요청 실패: ${response.data.message}`, "error");
       }
     } catch (error) {
-      console.error("봇 시작 실패:", error);
-      addLog(`[오류] 봇 시작 요청 실패: ${error.message}`);
+      addLog(`봇 시작 API 오류: ${error.message}`, "error");
     }
+    setSelectedMarkets(new Set()); // 선택 해제
   };
-  
-  // 9. '선택 봇 중지' 버튼 클릭
+
+  // 9. 봇 중지 핸들러
   const handleStopBots = async () => {
-    // 선택된 마켓 중에서 현재 활성화된 봇들만 필터링
-    const botsToStop = selectedMarkets.filter(m => activeBots.includes(m));
+    const botsToStop = Array.from(selectedMarkets).filter(m => runningBots.has(m));
     if (botsToStop.length === 0) {
-      addLog("[알림] 중지할 대상(활성화된 봇)이 선택되지 않았습니다.");
+      addLog("중지할 실행 중인 코인이 선택되지 않았습니다.", "warn");
       return;
     }
-    
-    addLog(`[요청] ${botsToStop.join(', ')} 봇 중지...`);
+
     try {
-      const response = await axios.post(`${API_URL}/api/stop`, botsToStop);
-      if (response.data && response.data.bots) {
-        // 성공적으로 중지된 봇들을 activeBots 및 selectedMarkets 상태에서 제거
-        setActiveBots(prev => prev.filter(b => !response.data.bots.includes(b)));
-        setSelectedMarkets(prev => prev.filter(b => !response.data.bots.includes(b)));
+      // 백엔드 /api/stop으로 중지할 코인 목록 전송
+      const response = await axios.post('/api/stop', botsToStop);
+      
+      if (response.data.status === 'success') {
+        const stopped = response.data.stopped || [];
+        setRunningBots(prevRunning => {
+          const newRunning = new Set(prevRunning);
+          stopped.forEach(m => newRunning.delete(m));
+          return newRunning;
+        });
+        addLog(`[${stopped.join(', ')}] 봇 중지 요청 성공.`, "success");
+      } else {
+        addLog(`봇 중지 요청 실패: ${response.data.message}`, "error");
       }
     } catch (error) {
-      console.error("봇 중지 실패:", error);
-      addLog(`[오류] 봇 중지 요청 실패: ${error.message}`);
+      addLog(`봇 중지 API 오류: ${error.message}`, "error");
+    }
+    setSelectedMarkets(new Set()); // 선택 해제
+  };
+
+  // 10. 전체 선택/해제
+  const toggleSelectAll = (select) => {
+    if (select) {
+      setSelectedMarkets(new Set(filteredMarkets.map(m => m.market)));
+    } else {
+      setSelectedMarkets(new Set());
     }
   };
 
-  // 10. 전체 선택/해제 (활성화된 봇 제외)
-  const handleSelectAll = () => {
-    const nonActiveMarkets = allMarkets.filter(m => !activeBots.includes(m));
-    setSelectedMarkets([...activeBots, ...nonActiveMarkets]); // 활성 봇 + 나머지 전체
-  };
-  const handleDeselectAll = () => {
-    setSelectedMarkets([...activeBots]); // 활성 봇만 남기고 해제
-  };
-
+  // 11. 코인 목록 필터링 (검색)
+  const filteredMarkets = markets.filter(m =>
+    m.korean_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    m.market.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Athena v1 - 자동매매 (Strategy v3.5)</h1>
-        <div className={`status-light ${status}`}></div>
-        <span className="status-text">
-          {status === 'connected' ? '서버 연결됨' : (status === 'error' ? '연결 오류' : '연결 중...')}
-        </span>
+        <h1>Athena v1 - 자동매매 프로그램</h1>
       </header>
       
-      <main className="App-main">
-        {/* --- 왼쪽: 코인 선택 --- */}
-        <div className="container container-markets">
-          <h2>1. 거래 코인 선택 (KRW 마켓)</h2>
-          <div className="market-controls">
-            <input 
-              type="text"
-              placeholder="코인 검색 (예: BTC)"
-              className="search-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+      <div className="main-container">
+
+        {/* [신규] 0. API 키 설정 섹션 */}
+        {/* [수정] className을 "api-keys-section"으로 변경 (CSS 충돌 해결) */}
+        <div className="api-keys-section">
+          <h2>0. API 키 설정 (필수)</h2>
+          <div className="api-inputs">
+            <input
+              type="password"
+              placeholder="Upbit Access Key"
+              value={accessKey}
+              onChange={(e) => setAccessKey(e.target.value)}
             />
-            <div className="select-buttons">
-              <button onClick={handleSelectAll}>전체 선택</button>
-              <button onClick={handleDeselectAll}>전체 해제</button>
-            </div>
+            <input
+              type="password"
+              placeholder="Upbit Secret Key"
+              value={secretKey}
+              onChange={(e) => setSecretKey(e.target.value)}
+            />
           </div>
-          
+          <button onClick={handleSetKeys} className="api-save-btn">
+            API 키 저장
+          </button>
+          <span className={`api-status status-${apiKeyStatus.toLowerCase()}`}>
+            상태: {apiKeyStatus}
+          </span>
+        </div>
+
+        {/* 1. 코인 선택 섹션 */}
+        <div className="market-list-section">
+          <h2>1. 거래 코인 선택</h2>
+          <input
+            type="text"
+            placeholder="코인명 또는 심볼 검색..."
+            className="search-bar"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div className="market-list-buttons">
+            <button onClick={() => toggleSelectAll(true)}>전체 선택</button>
+            <button onClick={() => toggleSelectAll(false)}>전체 해제</button>
+          </div>
           <div className="market-list">
-            {allMarkets.length === 0 && <p>마켓 목록을 불러오는 중...</p>}
             {filteredMarkets.map(market => (
-              <div 
-                key={market} 
-                className={`market-item 
-                            ${selectedMarkets.includes(market) ? 'selected' : ''}
-                            ${activeBots.includes(market) ? 'active' : ''}`}
-                onClick={() => handleMarketToggle(market)}
+              <div
+                key={market.market}
+                className={`market-item ${selectedMarkets.has(market.market) ? 'selected' : ''}`}
+                onClick={() => handleMarketSelect(market.market)}
               >
-                {market}
-                {activeBots.includes(market) && <span className="active-badge">실행중</span>}
+                <span>{market.korean_name} ({market.market})</span>
+                {runningBots.has(market.market) && (
+                  <span className="status-badge running">실행중</span>
+                )}
               </div>
             ))}
           </div>
         </div>
 
-        {/* --- 가운데: 제어 및 상태 --- */}
-        <div className="container container-control">
+        {/* 2. 봇 제어 섹션 */}
+        <div className="control-section">
           <h2>2. 봇 제어</h2>
-          <div className="control-buttons">
-            <button className="button-start" onClick={handleStartBots}>
-              선택 봇 시작
-            </button>
-            <button className="button-stop" onClick={handleStopBots}>
-              선택 봇 중지
-            </button>
-          </div>
-          
+          <button onClick={handleStartBots} className="control-btn start-btn">
+            선택 봇 시작
+          </button>
+          <button onClick={handleStopBots} className="control-btn stop-btn">
+            선택 봇 중지
+          </button>
+
+          {/* 3. 실행 중인 봇 목록 */}
           <h2>3. 실행중인 봇</h2>
-          <div className="active-bot-list">
-            {activeBots.length === 0 ? (
-              <p>(실행 중인 봇이 없습니다)</p>
+          <div className="running-bots">
+            {Array.from(runningBots).length > 0 ? (
+              Array.from(runningBots).map(market => (
+                <span key={market} className="running-bot-item">
+                  {market}
+                </span>
+              ))
             ) : (
-              activeBots.map(bot => <span key={bot} className="active-bot-item">{bot}</span>)
+              <p>실행 중인 봇이 없습니다.</p>
             )}
           </div>
         </div>
 
-        {/* --- 오른쪽: 실시간 로그 --- */}
-        <div className="container container-logs">
+        {/* 4. 실시간 로그 섹션 */}
+        <div className="log-section">
           <h2>4. 실시간 로그</h2>
           <div className="log-output">
             {logs.map((log, index) => (
-              <div key={index} className="log-item">{log}</div>
+              <p key={index} className={`log-level-${log.level.toLowerCase()}`}>
+                <span className="log-timestamp">[{log.timestamp}]</span>
+                <span className="log-message">{log.message}</span>
+              </p>
             ))}
+            <div ref={logsEndRef} />
           </div>
         </div>
-      </main>
+
+      </div>
     </div>
   );
 }
