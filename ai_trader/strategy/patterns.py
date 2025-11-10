@@ -1,40 +1,41 @@
 # Athena_v1/ai_trader/strategy/patterns.py
 """
-Strategy v3.5 - 1-3 (추세), 2-C, 2-D (패턴)
+Strategy v3.5 - 2-C, 2-D단계: 고전 패턴 인식
 """
 import pandas as pd
+from typing import Optional, Dict, Any
 
-def detect_trend_sma(df: pd.DataFrame, short_ma: int, long_ma: int) -> str:
+def check_bullish_patterns_v3_5(df_h1: pd.DataFrame) -> Optional[Dict[str, Any]]:
     """
-    1-3: 시장 구조/추세 판단 (SMA 50/200 기준)
+    v3.5 2-C (상승형), 2-D (지속형) 패턴 인식
+    (df_h1의 피벗(PH, PL)을 기반으로 패턴을 찾습니다)
     """
-    if len(df) < long_ma:
-        return 'FLAT' # 데이터 부족
+    
+    # (임시 구현)
+    # TODO: v3.5 전략 문서에 정의된 '패턴 인식' 로직 구현 필요
+    
+    # (초간단 임시 로직: 최근 3개 PL이 높아지는가? (상승 추세))
+    if 'PL' not in df_h1.columns:
+        return None
+        
+    recent_pls = df_h1['PL'].dropna().iloc[-3:]
+    
+    if len(recent_pls) < 3:
+        return None
+        
+    pl1, pl2, pl3 = recent_pls.iloc[0], recent_pls.iloc[1], recent_pls.iloc[2]
 
-    df[f'sma_{short_ma}'] = df['close'].rolling(window=short_ma).mean()
-    df[f'sma_{long_ma}'] = df['close'].rolling(window=long_ma).mean()
-    
-    last_short = df[f'sma_{short_ma}'].iloc[-1]
-    last_long = df[f'sma_{long_ma}'].iloc[-1]
-    
-    if last_short > last_long:
-        return 'UP' # 정배열
-    elif last_short < last_long:
-        return 'DOWN' # 역배열
-    else:
-        return 'FLAT'
-
-def analyze_patterns_v3_5(df_h1: pd.DataFrame, valid_ob: dict, context: dict) -> dict:
-    """
-    2-C, 2-D: 기타 패턴 분석
-    """
-    
-    patterns = {
-        "is_breakout": False,         # 2-C: 추세선/채널 상단 돌파 (임시)
-        "is_classic_pattern": True    # 2-D: 고전 패턴 (예: 상승장악형) (임시)
-    }
-    
-    # TODO: 실제 패턴 인식 로직 구현
-    # (예: 채널 상단 돌파 확인, 캔들스틱 패턴(상승장악형 등) 확인)
-    
-    return patterns
+    # (저점이 높아지는가?)
+    if pl1 < pl2 < pl3:
+        
+        # (임시) 목표가(TP) = 현재가 * 1.1 (10% 상승)
+        tp_price = df_h1.iloc[-1]['close'] * 1.1
+        
+        pattern_result = {
+            'name': 'Rising Lows (Temp)',
+            'type': 'bullish', # (2-C: 상승형 패턴)
+            'target_price': tp_price
+        }
+        return pattern_result
+        
+    return None
