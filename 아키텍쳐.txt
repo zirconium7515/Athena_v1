@@ -1,0 +1,54 @@
+# Athena v1 - 자동매매 프로그램
+
+## 프로젝트 개요
+'Athena v1'은 Strategy v3.5 전략을 기반으로 하는 업비트(Upbit)용 암호화폐 자동매매 프로그램입니다.
+사용자는 GUI를 통해 거래를 원하는 코인을 선택할 수 있으며, 프로그램은 24시간 자동으로 해당 코인들의 매매 신호를 포착하여 거래를 실행합니다 (현재 Long 포지션만 지원).
+
+## 주요 기능
+- **다중 코인 거래:** 업비트 KRW 마켓의 모든 코인을 지원하며, 사용자가 원하는 코인을 선택하여 동시에 거래할 수 있습니다.
+- **Strategy v3.5:** 제공된 v3.5 전략 문서를 기반으로 롱(Long) 포지션 진입 신호를 생성합니다.
+- **GUI 제공 (React):** 웹 기반 GUI를 통해 프로그램 상태 확인, 거래 코인 선택, 설정 변경 등을 쉽게 조작할 수 있습니다.
+- **24시간 자동 구동:** 안정적인 자동매매를 위해 24시간 운영을 목표로 설계되었습니다.
+
+## 폴더 구조
+Athena_v1/
+├── .env                 # API 키 등 민감 정보 (업데이트 필요)
+├── .gitignore           # Git 추적 제외 파일 목록
+├── requirements.txt     # Python 의존성 라이브러리
+├── main.py              # 메인 애플리케이션 (백엔드 실행)
+├── config.py            # 프로젝트 설정 파일
+├── athena_v1.log        # 프로그램 실행 로그
+├── athena_v1_trade_history.db # 거래 내역 데이터베이스
+│
+├── ai_trader/           # 트레이딩 로직 핵심 모듈
+│   ├── __init__.py
+│   ├── data_manager.py    # 데이터 수집 및 관리
+│   ├── data_models.py     # 데이터 모델 (dataclasses)
+│   ├── database.py        # 데이터베이스 연결 및 관리
+│   ├── exchange_api.py    # 업비트 API 래퍼
+│   ├── position_manager.py# 포지션 관리
+│   ├── risk_manager.py    # 리스크 관리 (Strategy v3.5 기반)
+│   ├── signal_engine.py   # 매매 신호 생성 (Strategy v3.5 로직 구현)
+│   │
+│   ├── strategy/          # 전략 세부 로직
+│   │   ├── __init__.py
+│   │   ├── context.py       # 1단계: 컨텍스트 분석
+│   │   ├── order_block.py   # 2-A: 오더블록 정의
+│   │   ├── patterns.py      # 2-C, 2-D: 패턴 인식
+│   │   └── pivot_channel.py # 1-1, 1-2: 피벗 및 채널
+│   │
+│   └── utils/             # 유틸리티
+│       ├── __init__.py
+│       └── logger.py        # 로깅 설정
+│
+└── frontend/            # React 프론트엔드
+    ├── node_modules/      # (설치 시 자동 생성)
+    ├── public/
+    │   └── index.html
+    ├── src/
+    │   ├── App.css
+    │   ├── App.js         # 메인 React 컴포넌트 (코인 선택 GUI)
+    │   ├── index.css
+    │   └── index.js
+    ├── package.json
+    └── package-lock.json

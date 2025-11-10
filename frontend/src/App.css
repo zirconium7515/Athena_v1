@@ -1,0 +1,251 @@
+/* Athena_v1/frontend/src/App.css */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+.App {
+  text-align: center;
+}
+
+/* --- 헤더 --- */
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+/* 연결 상태 표시등 */
+.status-light {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: 20px;
+  background-color: #777; /* disconnected */
+}
+.status-light.connected {
+  background-color: #4CAF50; /* green */
+  box-shadow: 0 0 10px #4CAF50;
+}
+.status-light.error {
+  background-color: #f44336; /* red */
+  box-shadow: 0 0 10px #f44336;
+}
+.status-text {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+
+/* --- 메인 (3단 레이아웃) --- */
+.App-main {
+  display: flex;
+  flex-wrap: wrap; /* 반응형 대비 */
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  box-sizing: border-box; /* 패딩 포함 크기 계산 */
+}
+
+h2 {
+  font-size: 1.3rem;
+  color: #282c34;
+  border-bottom: 2px solid #f0f2f5;
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+
+/* 1. 코인 선택 (왼쪽) */
+.container-markets {
+  flex-basis: 350px;
+  min-width: 300px;
+  flex-grow: 1;
+}
+
+.market-controls {
+  margin-bottom: 15px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box; /* 패딩 포함 */
+  margin-bottom: 10px;
+}
+
+.select-buttons {
+  display: flex;
+  gap: 10px;
+}
+.select-buttons button {
+  flex-grow: 1;
+  padding: 8px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.select-buttons button:hover {
+  background-color: #5a6268;
+}
+
+.market-list {
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.market-item {
+  padding: 10px 12px;
+  margin: 4px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.market-item:hover {
+  background-color: #e9ecef;
+}
+/* 선택됨 */
+.market-item.selected {
+  background-color: #e6f7ff;
+  border: 1px solid #91d5ff;
+}
+/* 실행중 */
+.market-item.active {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+  font-weight: bold;
+  color: #389e0d;
+}
+.market-item.active:hover {
+  /* 실행 중인 것은 호버 색상 변경 없음 */
+  background-color: #f6ffed;
+}
+
+.active-badge {
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: #389e0d;
+}
+
+/* 2. 제어 (가운데) */
+.container-control {
+  flex-basis: 300px;
+  min-width: 280px;
+  flex-grow: 1;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.control-buttons button {
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-start {
+  background-color: #218838; /* green */
+  color: white;
+}
+.button-start:hover {
+  background-color: #1e7e34;
+  box-shadow: 0 4px 12px rgba(33, 136, 56, 0.3);
+}
+
+.button-stop {
+  background-color: #c82333; /* red */
+  color: white;
+}
+.button-stop:hover {
+  background-color: #b21f2d;
+  box-shadow: 0 4px 12px rgba(200, 35, 51, 0.3);
+}
+
+.active-bot-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  min-height: 50px;
+}
+.active-bot-item {
+  background-color: #e6f7ff;
+  border: 1px solid #91d5ff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+
+/* 3. 로그 (오른쪽) */
+.container-logs {
+  flex-basis: 400px;
+  min-width: 350px;
+  flex-grow: 2; /* 로그 창을 더 넓게 */
+}
+
+.log-output {
+  height: 600px;
+  overflow-y: auto;
+  background-color: #1e1e1e; /* 어두운 배경 */
+  color: #d4d4d4; /* 밝은 글씨 */
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.9rem;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: left;
+  /* 스크롤을 항상 아래로 */
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.log-item {
+  white-space: pre-wrap; /* 줄바꿈 */
+  padding: 2px 0;
+}
