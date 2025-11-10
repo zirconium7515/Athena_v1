@@ -1,1 +1,2 @@
-Athena_v1/.gitignore가상환경venv/*.venv/.venv/컴파일된 Python 파일*.pyc*.pyo*.pydPython 캐시**pycache**/.pytest_cache/.mypy_cache/설정 및 민감 정보 (API 키 등).env.env.**.ini  # .env.ini와 같은 설정 파일 무시로그 및 데이터베이스*.log*.db*.db-journal*.sqlite3OS/Editor 설정.DS_StoreThumbs.db.idea/.vscode/프론트엔드 (React)frontend/node_modules/frontend/build/frontend/.cache/frontend/npm-debug.log*frontend/yarn-debug.log*frontend/yarn-error.log*
+venv/*.venv/.venv/
+*.pyc*.pyo*.pyd**pycache**/.pytest_cache/.mypy_cache/.env.env.**.ini*.log*.db*.db-journal*.sqlite3.DS_StoreThumbs.db.idea/.vscode/frontend/node_modules/frontend/build/frontend/.cache/frontend/npm-debug.log*frontend/yarn-debug.log*frontend/yarn-error.log*
