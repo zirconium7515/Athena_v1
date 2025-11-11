@@ -54,3 +54,14 @@ git pull origin main
 # 2. (충돌(conflict)이 없다면) 다시 푸시합니다.
 git push origin main
 해결책 2 (위험): GitHub의 변경 내역을 무시하고 강제로 덮어쓰기 (Force Push)(주의: 이 방법은 GitHub의 기존 내역을 삭제하므로, 협업 시 절대 사용하면 안 됩니다. 혼자 쓰는 저장소이고 GitHub 내역이 필요 없을 때만 사용하세요.)git push origin main --force
+[문제 3] (API 키 노출 후) GitHub 저장소를 삭제하고 새로 만들었는데 이전 커밋이 남을 때원인: 로컬 PC의 .git 폴더가 이전 저장소의 기록과 연결을 기억하고 있기 때문입니다.해결책: 로컬 Git의 원격 연결을 강제로 삭제하고, 새 저장소 주소로 덮어쓰기(Force Push)합니다.# (위치: Athena_v1)
+
+# 1. 기존 'origin' 연결 강제 삭제
+git remote remove origin
+
+# 2. GitHub에서 새로 만든 (비어있는) 저장소의 주소로 다시 연결
+# (주의: "YourUsername" 부분을 실제 GitHub 이름으로 변경)
+git remote add origin [https://github.com/YourUsername/Athena_v1.git](https://github.com/YourUsername/Athena_v1.git)
+
+# 3. 로컬의 'main' 브랜치 코드를 GitHub에 강제로 덮어쓰기
+git push origin main --force
