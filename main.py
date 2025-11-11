@@ -8,9 +8,10 @@
 # [수정] 2024.11.11 - (요청) 차트 실시간 갱신 (Upbit WebSocket Ticker) 추가
 # [수정] 2024.11.11 - (리팩토링) WebSocket 메시지 포맷 표준화 (type, payload)
 # [수정] 2024.11.11 - (요청) 차트 2단계: 다중 차트 구독 (Ticker Set)
-# [수정] 2024.11.11 - (요청) /api/set-keys가 KRW 잔고를 JSON으로 반환
 # [수정] 2024.11.11 - (오류) InsufficientFundsBid Race Condition 해결 (asyncio.Lock)
 # [수정] 2024.11.11 - (오류) pyupbit 캐시 문제 해결 (Private Exchange 공유 객체)
+# [수정] 2024.11.11 - (요청) /api/set-keys가 KRW + 코인 자산 요약(List)을 반환
+# [수정] 2024.11.12 - (오류) AttributeError: module 'uuid' has no attribute 'v4' (uuid.uuid4()로 수정)
 
 import sys
 import os
@@ -18,9 +19,9 @@ import asyncio
 import pandas as pd 
 import json 
 import websockets 
-import uuid 
+import uuid # (표준 uuid 라이브러리)
 from contextlib import asynccontextmanager
-from typing import Dict, List, Optional, Set 
+from typing import Dict, List, Optional, Set, Any 
 from fastapi import FastAPI, WebSocket, HTTPException, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -56,7 +57,7 @@ api_keys_store: Dict[str, Optional[str]] = {
 
 # 공용 API (Public - 키 없음)
 public_exchange = UpbitExchange(access_key=None, secret_key=None)
-# [신규] (오류 수정) 봇/잔고용 API (Private - 키 있음)
+# 봇/잔고용 API (Private - 키 있음)
 private_exchange: Optional[UpbitExchange] = None
 
 # 봇 관리 딕셔너리
@@ -119,8 +120,10 @@ async def start_upbit_ticker_ws(symbols: List[str]):
         async with websockets.connect(uri) as ws:
             upbit_ws_client = ws 
             
+            # (구독 메시지 전송)
             subscribe_msg = json.dumps([
-                {"ticket": f"athena-chart-{uuid.v4()}"}, 
+                # [오류 수정] uuid.v4() -> uuid.uuid4()
+                {"ticket": f"athena-chart-{uuid.uuid4()}"}, 
                 {"type": "ticker", "codes": symbols} 
             ])
             await ws.send(subscribe_msg)
@@ -218,42 +221,82 @@ class ChartSubscribeListModel(BaseModel):
 async def set_api_keys(keys: ApiKeyModel):
     logger.info("API 키 저장 요청 수신. 인증 시도...")
     
-    # [신규] (오류 수정) (공유 Private Exchange 객체 생성)
     global private_exchange
     
     try:
-        # (인증 시도용 임시 객체)
         exchange = UpbitExchange(keys.access_key, keys.secret_key)
-        # (get_balance -> get_balance_no_cache로 변경)
-        account_info = await exchange.get_balance(ticker="KRW", verbose=True, use_cache=False)
         
-        if account_info and 'error' not in account_info:
-            # (인증 성공 시, 전역 객체에 키 저장 및 생성)
-            api_keys_store["access_key"] = keys.access_key
-            api_keys_store["secret_key"] = keys.secret_key
-            private_exchange = exchange # (인증에 성공한 객체를 전역 객체로 사용)
-            
-            krw_balance = float(account_info.get('balance', 0))
-            success_msg = f"API 키 인증 성공. (보유 KRW: {krw_balance:,.0f}원)"
-            logger.info(success_msg)
-            
-            await manager.broadcast({
-                "type": "log", 
-                "payload": {"level": "success", "message": success_msg}
-            })
-            
-            return {"message": success_msg, "krw_balance": krw_balance}
+        all_balances_raw = await exchange.get_balance(ticker=None, verbose=True, use_cache=False)
         
-        else:
-            error_msg = f"API 키 인증 실패: {account_info.get('error', '알 수 없는 오류')}"
-            logger.warning(error_msg)
-            private_exchange = None # (인증 실패 시 전역 객체 비우기)
-            raise HTTPException(status_code=401, detail=error_msg)
+        # (pyupbit이 None을 반환하거나, aiohttp가 dict(error)를 반환하는 경우)
+        if not all_balances_raw or (isinstance(all_balances_raw, dict) and 'error' in all_balances_raw):
+            error_msg = all_balances_raw.get('error', 'API 키는 유효하나, 자산 목록을 불러오지 못했습니다.') if isinstance(all_balances_raw, dict) else "자산 목록 조회 실패 (None)"
+            raise Exception(error_msg)
+
+        # (인증 성공)
+        api_keys_store["access_key"] = keys.access_key
+        api_keys_store["secret_key"] = keys.secret_key
+        private_exchange = exchange 
+        
+        # --- 자산 요약 생성 ---
+        account_summary = []
+        tickers_to_fetch_price = []
+        total_assets_krw = 0.0
+
+        for asset in all_balances_raw:
+            balance = float(asset.get('balance', 0.0))
             
+            if asset['currency'] == "KRW":
+                krw_balance = balance
+                account_summary.append({
+                    "currency": "KRW",
+                    "name": "원화",
+                    "balance": balance,
+                    "avg_buy_price": 1.0,
+                    "value_krw": balance
+                })
+                total_assets_krw += balance
+            
+            elif balance * float(asset.get('avg_buy_price', 0.0)) > 1.0:
+                tickers_to_fetch_price.append(f"KRW-{asset['currency']}")
+                account_summary.append({
+                    "currency": asset['currency'],
+                    "name": f"KRW-{asset['currency']}", 
+                    "balance": balance,
+                    "avg_buy_price": float(asset.get('avg_buy_price', 0.0)),
+                    "value_krw": 0.0 
+                })
+
+        if tickers_to_fetch_price:
+            current_prices = await public_exchange.get_current_price(tickers_to_fetch_price)
+            all_markets_map = {m['market']: m['korean_name'] for m in await public_exchange.get_market_all()}
+
+            for asset in account_summary:
+                if asset['currency'] == 'KRW':
+                    continue
+                
+                ticker = f"KRW-{asset['currency']}"
+                asset['name'] = all_markets_map.get(ticker, asset['currency']) 
+                
+                current_price = current_prices.get(ticker, 0.0)
+                asset['value_krw'] = asset['balance'] * current_price
+                total_assets_krw += asset['value_krw']
+        
+        success_msg = f"API 키 인증 성공. (총 보유자산: {total_assets_krw:,.0f}원)"
+        logger.info(success_msg)
+        
+        await manager.broadcast({
+            "type": "log", 
+            "payload": {"level": "success", "message": success_msg}
+        })
+        
+        return {"message": success_msg, "account_summary": account_summary}
+        
     except Exception as e:
-        logger.error(f"API 키 설정 중 예외 발생: {e}", exc_info=True)
-        private_exchange = None # (인증 실패 시 전역 객체 비우기)
-        raise HTTPException(status_code=500, detail=f"서버 오류: {str(e)}")
+        error_msg = f"API 키 인증/자산 조회 실패: {str(e)}"
+        logger.warning(error_msg, exc_info=True)
+        private_exchange = None 
+        raise HTTPException(status_code=401, detail=error_msg)
 
 @app.get("/api/markets")
 async def get_all_markets():
@@ -295,7 +338,6 @@ async def get_ohlcv_data(symbol: str, interval: str = "minute60", count: int = 2
 async def start_bots(control: BotControlModel):
     symbols = control.symbols
     
-    # [신규] (오류 수정) (전역 private_exchange 객체 확인)
     global private_exchange
     if not private_exchange or not api_keys_store.get("access_key"):
         logger.warning("봇 시작 실패: API 키가 설정되지 않았습니다.")
@@ -310,7 +352,7 @@ async def start_bots(control: BotControlModel):
                 task = asyncio.create_task(
                     trading_bot_task(
                         symbol=symbol,
-                        exchange=private_exchange # (수정) 공유 객체 전달
+                        exchange=private_exchange 
                     )
                 )
                 active_bots[symbol] = task
@@ -404,13 +446,11 @@ async def websocket_endpoint(websocket: WebSocket):
 
 # --- 핵심: 개별 봇 비동기 태스크 ---
 
-# [수정] (오류 수정) (시그니처 변경: access_key, secret_key -> exchange)
 async def trading_bot_task(symbol: str, exchange: UpbitExchange):
     
     global capital_lock 
     
     try:
-        # (수정) (exchange 객체를 전달받음)
         data_manager = DataManager(exchange)
         db = Database(DB_FILE_PATH)
         
@@ -452,7 +492,6 @@ async def trading_bot_task(symbol: str, exchange: UpbitExchange):
                     async with capital_lock:
                         logger.info(f"[{symbol}] 자본 Lock 획득. 잔고 확인 및 주문 시작...")
                         try:
-                            # [수정] (오류 수정) (캐시되지 않는 잔고 조회 호출)
                             current_krw_balance = await exchange.get_krw_balance(use_cache=False)
                             
                             final_signal = risk_manager.calculate_position_size(

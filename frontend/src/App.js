@@ -5,9 +5,11 @@
 // [수정] 2024.11.11 - (요청) 차트 실시간 갱신 (WebSocket Ticker) 추가
 // [수정] 2024.11.11 - (요청) 차트 2단계: 다중 차트 추가/삭제 (+/-)
 // [수정] 2024.11.11 - (요청) 1. '모두 선택/해제' 버튼 및 '선택 개수' 추가
-// [수정] 2024.11.11 - (요청) API 키 섹션에 '현재 자산(KRW)' 표시 추가
+// [수정] 2024.11.11 - (요청) API 키 섹션에 '전체 자산 요약(List)' 표시
+// [수정] 2024.11.11 - (요청) 자산 요약 갱신을 위해 Ticker 구독 로직 수정
+// [수정] 2024.11.11 - (오류) 'useMemo' is not defined (no-undef) 임포트 누락 수정
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'; // [오류 수정] useMemo 임포트
 import axios from 'axios';
 import './App.css';
 import ChartComponent from './ChartComponent'; 
@@ -51,6 +53,7 @@ const ChartItem = ({
             value={chart.symbol} 
             onChange={handleSymbolChange}
           >
+            {/* [수정] allMarkets가 로드되기 전에 렌더링될 수 있으므로 방어 코드 추가 */}
             {allMarkets && allMarkets.map(market => (
               <option key={market.market} value={market.market}>
                 {market.korean_name} ({market.market})
@@ -69,6 +72,7 @@ const ChartItem = ({
             </button>
           ))}
         </div>
+        {/* (고정 차트가 아닐 때만 'X' 버튼 표시) */}
         {!isFixed && (
           <button 
             className="chart-remove-button" 
@@ -110,7 +114,8 @@ function App() {
   const [accessKey, setAccessKey] = useState('');
   const [secretKey, setSecretKey] = useState('');
   const [apiKeyStatus, setApiKeyStatus] = useState({ message: '', type: 'info' });
-  const [krwBalance, setKrwBalance] = useState(null); // [신규] (요청) KRW 잔고
+  // [수정] (krwBalance(float) -> accountSummary(Array))
+  const [accountSummary, setAccountSummary] = useState([]); 
 
   // 1. 코인 목록
   const [allMarkets, setAllMarkets] = useState([]); 
@@ -134,6 +139,7 @@ function App() {
 
   // 5. 실시간 Ticker
   const [realtimeTick, setRealtimeTick] = useState(null); 
+  const [tickerPrices, setTickerPrices] = useState({}); // [신규] (자산 평가용)
   const wsRef = useRef(null); 
 
   // --- 차트 테마 ---
@@ -162,7 +168,15 @@ function App() {
           addLogMessage(msg.payload.message, msg.payload.level);
         } 
         else if (msg.type === 'tick') {
+          // (차트용)
           setRealtimeTick(msg.payload);
+          
+          // [신규] (자산 평가용)
+          // (수신한 틱의 최신 가격을 tickerPrices 맵(Map)에 저장)
+          setTickerPrices(prevPrices => ({
+            ...prevPrices,
+            [msg.payload.code]: msg.payload.trade_price
+          }));
         }
         else if (msg.type === 'info') {
           addLogMessage(msg.payload.message, 'info');
@@ -251,19 +265,32 @@ function App() {
   }, [charts, fetchChartData]); 
 
 
-  // --- 차트 실시간 구독 (다중 차트 리스트 전송) ---
+  // --- [수정] 차트 실시간 구독 (보유 자산 포함) ---
   useEffect(() => {
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-      const symbolsToSubscribe = Array.from(new Set(charts.map(c => c.symbol)));
       
-      wsRef.current.send(JSON.stringify({
-        type: "subscribe_charts_list",
-        symbols: symbolsToSubscribe
-      }));
+      // (1. 현재 모든 차트의 심볼)
+      const chartSymbols = charts.map(c => c.symbol);
+      
+      // (2. 현재 보유 중인 코인 심볼)
+      const heldSymbols = accountSummary
+        .filter(asset => asset.currency !== 'KRW')
+        .map(asset => `KRW-${asset.currency}`);
+        
+      // (3. 두 리스트를 합치고 중복 제거)
+      const symbolsToSubscribe = Array.from(new Set([...chartSymbols, ...heldSymbols]));
+      
+      if (symbolsToSubscribe.length > 0) {
+        wsRef.current.send(JSON.stringify({
+          type: "subscribe_charts_list",
+          symbols: symbolsToSubscribe
+        }));
+      }
       
       setRealtimeTick(null);
     }
-  }, [charts]); 
+  // [수정] (charts 뿐만 아니라 accountSummary가 변경될 때도 재구독)
+  }, [charts, accountSummary]); 
 
 
   // --- 로그 자동 스크롤 ---
@@ -283,14 +310,14 @@ function App() {
 
   // --- 이벤트 핸들러 ---
   
-  // [수정] (요청) (API 키 저장 버튼 클릭)
+  // [수정] (API 키 저장 버튼 클릭)
   const handleSetApiKeys = async () => {
     if (!accessKey || !secretKey) {
       setApiKeyStatus({ message: 'Access Key와 Secret Key를 모두 입력해야 합니다.', type: 'error' });
       return;
     }
     setApiKeyStatus({ message: 'API 키 인증 중...', type: 'info' });
-    setKrwBalance(null); // (인증 시도 시 기존 잔고 숨김)
+    setAccountSummary([]); // (인증 시도 시 기존 잔고 숨김)
     
     try {
       const response = await axios.post('/api/set-keys', {
@@ -298,15 +325,13 @@ function App() {
         secret_key: secretKey,
       });
       
-      // (백엔드로부터 메시지와 잔고를 받음)
       const successMsg = response.data.message || 'API 키 저장 및 인증 성공.';
-      const balance = response.data.krw_balance; 
+      const summary = response.data.account_summary; // (리스트 받기)
       
       setApiKeyStatus({ message: successMsg, type: 'success' });
       
-      // (잔고가 유효하면 state에 저장)
-      if (balance !== undefined && balance !== null) {
-          setKrwBalance(balance);
+      if (summary) {
+          setAccountSummary(summary); // (리스트 저장)
       }
       
     } catch (error) {
@@ -315,7 +340,7 @@ function App() {
         errorMsg = error.response.data.detail;
       }
       setApiKeyStatus({ message: errorMsg, type: 'error' });
-      setKrwBalance(null); // (실패 시 잔고 숨김)
+      setAccountSummary([]); // (실패 시 잔고 숨김)
     }
   };
 
@@ -436,6 +461,34 @@ function App() {
       market.market.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // [수정] (총 자산 계산)
+  // (실시간 Ticker 가격으로 자산 가치 재계산)
+  const { totalAssetsKrw, processedAccountSummary } = useMemo(() => {
+    let total = 0;
+    
+    // (accountSummary(매수평균가 기준) -> processedAccountSummary(현재가 기준))
+    const processed = accountSummary.map(asset => {
+      let value_krw = asset.value_krw; // (기본값: API 인증 시 계산된 값)
+      
+      if (asset.currency === 'KRW') {
+        value_krw = asset.balance;
+      } else {
+        // (실시간 틱 가격(tickerPrices)이 있으면, 갱신)
+        const currentPrice = tickerPrices[`KRW-${asset.currency}`];
+        if (currentPrice) {
+          value_krw = asset.balance * currentPrice;
+        }
+      }
+      
+      total += value_krw;
+      return { ...asset, value_krw: value_krw }; // (갱신된 value_krw)
+    });
+
+    return { totalAssetsKrw: total, processedAccountSummary: processed };
+  // (tickerPrices(실시간 틱) 또는 accountSummary(최초 인증)가 바뀔 때마다 재계산)
+  }, [accountSummary, tickerPrices]);
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -447,7 +500,7 @@ function App() {
         {/* --- 상단 제어판 --- */}
         <div className="control-panel">
           
-          {/* --- 0. API 키 설정 [수정] (요청) --- */}
+          {/* --- 0. API 키 설정 --- */}
           <div className="api-keys-section">
             <h2>0. API 키 설정</h2>
             <p>봇을 실행하기 전에 API 키를 저장해야 합니다.</p>
@@ -455,11 +508,10 @@ function App() {
               type="text"
               placeholder="Upbit Access Key"
               value={accessKey}
-              // [수정] (키 변경 시, 잔고/상태 초기화)
               onChange={(e) => {
                 setAccessKey(e.target.value);
                 setApiKeyStatus({ message: '', type: 'info' });
-                setKrwBalance(null);
+                setAccountSummary([]); // [수정]
               }}
               className="api-input"
             />
@@ -467,11 +519,10 @@ function App() {
               type="password"
               placeholder="Upbit Secret Key"
               value={secretKey}
-              // [수정] (키 변경 시, 잔고/상태 초기화)
               onChange={(e) => {
                 setSecretKey(e.target.value);
                 setApiKeyStatus({ message: '', type: 'info' });
-                setKrwBalance(null);
+                setAccountSummary([]); // [수정]
               }}
               className="api-input"
             />
@@ -479,19 +530,45 @@ function App() {
               API 키 저장
             </button>
             
-            {/* (API 상태 메시지) */}
             {apiKeyStatus.message && (
               <div className={`api-status ${apiKeyStatus.type}`}>
                 {apiKeyStatus.message}
               </div>
             )}
             
-            {/* [신규] (요청) (자산 정보 표시) */}
-            {(krwBalance !== null && apiKeyStatus.type === 'success') && (
-              <div className="asset-info">
-                <strong>현재 보유 KRW:</strong> 
-                {/* (숫자에 콤마(,) 포맷 적용) */}
-                <span>{new Intl.NumberFormat('ko-KR').format(krwBalance)} 원</span>
+            {/* [수정] (자산 요약 테이블) */}
+            {(processedAccountSummary.length > 0 && apiKeyStatus.type === 'success') && (
+              <div className="asset-summary-container">
+                <table className="asset-table">
+                  <thead>
+                    <tr>
+                      <th>자산</th>
+                      <th>보유수량</th>
+                      <th>평가(KRW)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {processedAccountSummary.map(asset => (
+                      <tr key={asset.currency}>
+                        <td>{asset.name} ({asset.currency})</td>
+                        <td>
+                          {new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 8 }).format(asset.balance)}
+                        </td>
+                        <td>
+                          {new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 0 }).format(asset.value_krw)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr className="total-assets-row">
+                      <td colSpan="2">총 보유자산</td>
+                      <td>
+                        {new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 0 }).format(totalAssetsKrw)} 원
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             )}
             

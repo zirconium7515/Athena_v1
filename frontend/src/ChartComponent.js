@@ -3,9 +3,9 @@
 // [수정] 2024.11.11 - (요청) 차트 양 끝 공백 제거 (fitContent)
 // [수정] 2024.11.11 - (오류) addCandlestickSeries 오타 수정
 // [수정] 2024.11.11 - (요청) 차트 실시간 갱신 (WebSocket Ticker) 추가
-// [수정] 2024.11.11 - (오류) addCandlistickSeries -> addCandlestickSeries 오타 수정
 // [수정] 2024.11.11 - (요청) 차트 2단계: 틱(Tick) 라우팅 로직 추가 (props.symbol)
 // [수정] 2024.11.11 - (오류) TypeError: ResizeObserver parameter 1 is not of type 'Function' 수정
+// [수정] 2024.11.11 - (오류) addCandlistickSeries -> addCandlestickSeries 오타 수정 (재확인)
 
 import React, { useEffect, useRef, useMemo } from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
@@ -110,6 +110,7 @@ const ChartComponent = ({ data, theme, realtimeTick, chartInterval, symbol }) =>
     });
     chartRef.current = chart;
 
+    // [오타 수정] addCandlistickSeries -> addCandlestickSeries
     const candleSeries = chart.addCandlestickSeries(candleSeriesOptions);
     candleSeriesRef.current = candleSeries;
 

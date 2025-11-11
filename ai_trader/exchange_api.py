@@ -4,14 +4,16 @@
 # [수정] 2024.11.11 - (오류) NameError: 'pd' is not defined (pandas 임포트 추가)
 # [수정] 2024.11.11 - (오류) InsufficientFundsBid (None) 반환 시, 'NoneType' object has no attribute 'get' 버그 수정
 # [수정] 2024.11.11 - (오류) InsufficientFundsBid Race Condition 해결 (pyupbit 캐시 우회)
+# [수정] 2024.11.11 - (요청) get_current_price가 List[str]를 지원하도록 수정
+# [수정] 2024.11.12 - (오류) 'float' object has no attribute 'get' (pyupbit 단일 리스트 반환 버그 수정)
 
 import pyupbit
 import asyncio
 import aiohttp 
 import pandas as pd 
 from typing import Optional, List, Dict, Any
-import jwt  # [신규] (오류 수정) PyJWT 임포트
-import uuid # [신규] (오류 수정) UUID 임포트
+import jwt  
+import uuid 
 
 from ai_trader.utils.logger import setup_logger
 
@@ -103,18 +105,33 @@ class UpbitExchange:
             self.logger.error(f"[{symbol}] {timeframe} OHLCV 조회 실패: {e}")
             return pd.DataFrame() 
 
-    async def get_current_price(self, symbol: str) -> float:
+    # [수정] (오류 수정) (pyupbit 단일 리스트 반환 버그 수정)
+    async def get_current_price(self, symbol: str | List[str]) -> Any: 
         try:
+            # (요청이 리스트였는지, 단일 문자열이었는지 기록)
+            is_list_request = isinstance(symbol, list)
+            
             loop = asyncio.get_running_loop()
-            price = await loop.run_in_executor(None, pyupbit.get_current_price, symbol)
-            return float(price) if price else 0.0
+            price_data = await loop.run_in_executor(None, pyupbit.get_current_price, symbol)
+
+            # (pyupbit이 None을 반환한 경우)
+            if not price_data:
+                return {} if is_list_request else 0.0
+
+            # [핵심] (pyupbit 버그): 리스트(['KRW-BTC'])로 요청했는데 float(50000.0)을 반환한 경우
+            if is_list_request and isinstance(price_data, float):
+                # (강제로 dict로 변환하여 반환)
+                return {symbol[0]: price_data}
+            
+            # (정상 반환)
+            return price_data
+            
         except Exception as e:
             self.logger.error(f"[{symbol}] 현재가 조회 실패: {e}")
-            return 0.0
+            return {} if isinstance(symbol, list) else 0.0 # (요청 타입에 맞게 빈 값 반환)
 
     # --- Private API (키 필요) ---
 
-    # [수정] (오류 수정) (use_cache 파라미터 추가)
     async def get_balance(self, ticker: str = "KRW", verbose: bool = False, use_cache: bool = True) -> Optional[float]:
         if not self.upbit or not self.access_key:
             self.logger.warning(f"[{ticker}] 잔고 조회 실패 (Private API 키 없음).")
@@ -123,12 +140,9 @@ class UpbitExchange:
             return None
             
         try:
-            # (캐시 사용 O: pyupbit 라이브러리 사용)
             if use_cache:
                 loop = asyncio.get_running_loop()
                 balance_data = await loop.run_in_executor(None, self.upbit.get_balance, ticker, verbose)
-            
-            # (캐시 사용 X: aiohttp 직접 호출)
             else:
                 self.logger.debug(f"[{ticker}] (No-Cache) 잔고 조회 시도...")
                 balance_data = await self.get_balance_no_cache(ticker, verbose)
@@ -144,7 +158,6 @@ class UpbitExchange:
                 return {"error": str(e)}
             return None 
             
-    # [수정] (오류 수정) (use_cache 파라미터 전달)
     async def get_krw_balance(self, use_cache: bool = True) -> float:
         balance = await self.get_balance(ticker="KRW", verbose=False, use_cache=use_cache)
         return balance if balance else 0.0
@@ -155,16 +168,11 @@ class UpbitExchange:
             return float(balance_data['avg_buy_price'])
         return 0.0
         
-    # [신규] (오류 수정) pyupbit 캐시 우회를 위한 비동기, 비캐시 잔고 조회
-    async def get_balance_no_cache(self, ticker: str = "KRW", verbose: bool = False) -> Optional[float]:
-        """
-        pyupbit의 lru_cache를 우회하여 API로 직접 잔고를 조회합니다 (aiohttp).
-        """
+    async def get_balance_no_cache(self, ticker: str = "KRW", verbose: bool = False) -> Optional[float | List[Dict]]:
         if not self.access_key or not self.secret_key:
             return None
 
         try:
-            # (JWT 토큰 생성)
             payload = {
                 'access_key': self.access_key,
                 'nonce': str(uuid.uuid4()),
@@ -172,7 +180,6 @@ class UpbitExchange:
             jwt_token = jwt.encode(payload, self.secret_key)
             headers = {'Authorization': f'Bearer {jwt_token}'}
 
-            # (API 요청)
             session = await self.get_session()
             url = "https://api.upbit.com/v1/accounts"
             
@@ -180,15 +187,19 @@ class UpbitExchange:
                 response.raise_for_status()
                 all_accounts = await response.json()
 
-            # (결과 파싱)
+            if ticker is None:
+                if verbose:
+                    return all_accounts 
+                else:
+                    return all_accounts 
+
             for account in all_accounts:
                 if account['currency'] == ticker:
                     if verbose:
-                        return account # (상세 정보 dict 반환)
+                        return account 
                     else:
-                        return float(account['balance']) # (잔고 float 반환)
+                        return float(account['balance']) 
             
-            # (해당 티커를 찾지 못한 경우)
             if verbose:
                 return {"currency": ticker, "balance": "0.0", "locked": "0.0", "avg_buy_price": "0.0"}
             else:
@@ -207,10 +218,6 @@ class UpbitExchange:
 
             
     def place_order(self, symbol: str, side: str, volume: float = 0, price: float = 0, order_type: str = 'limit') -> Optional[Dict[str, Any]]:
-        """
-        [Private] 주문 실행 (동기)
-        (pyupbit의 동기 함수를 사용 - 봇 태스크 내부에서 실행됨)
-        """
         if not self.upbit or not self.access_key:
             self.logger.error(f"[{symbol}] 주문 실패 (API 키 없음).")
             return {"error": "API key is not set."}
@@ -234,7 +241,6 @@ class UpbitExchange:
                 return None
             
             if 'error' in result:
-                # (pyupbit이 반환하는 오류 dict)
                 raise Exception(result['error'].get('message', 'Unknown error'))
 
             self.logger.info(f"주문 전송: {symbol} {side} {order_type} (결과: {result.get('uuid', 'Success')})")

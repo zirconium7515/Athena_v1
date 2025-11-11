@@ -5,7 +5,7 @@
 /* [수정] 2024.11.11 - (요청) 차트 2단계: 다중 차트 레이아웃, +/- 버튼 스타일 추가 */
 /* [수정] 2024.11.11 - (요청 1) '모두 선택' 버튼 스타일 추가 */
 /* [수정] 2024.11.11 - (요청 2) 레이아웃 전면 수정 (상/하 구조) 및 로그 창 축소 */
-/* [수정] 2024.11.11 - (요청) '자산 정보'(.asset-info) 스타일 추가 */
+/* [수정] 2024.11.11 - (요청) '자산 요약 테이블'(.asset-summary-container) 스타일 추가 */
 
 /* --- 기본 레이아웃 --- */
 .App {
@@ -225,7 +225,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   text-align: left;
   
-  /* (신규) (세로 정렬을 위해) */
   display: flex;
   flex-direction: column;
 }
@@ -264,24 +263,54 @@
 .api-status.success { background-color: #e6ffed; border: 1px solid #b3ffc6; color: #006622; }
 .api-status.error { background-color: #ffeeed; border: 1px solid #ffb3b3; color: #cc0000; }
 
-/* [신규] (요청) 자산 정보 */
-.asset-info {
+/* [수정] (요청) 자산 요약 테이블 */
+.asset-summary-container {
   margin-top: 15px;
-  padding: 10px;
-  background-color: #f8f9fa; /* (밝은 회색) */
-  border: 1px solid #ddd;
+  max-height: 200px; /* (자산이 많을 경우 스크롤) */
+  overflow-y: auto;
+  border: 1px solid #eee;
   border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.95rem;
+  /* (남은 세로 공간 차지) */
+  flex: 1;
 }
-.asset-info span {
+.asset-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.asset-table th,
+.asset-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+.asset-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  position: sticky; /* (스크롤 시 헤더 고정) */
+  top: 0;
+}
+.asset-table td:nth-child(2), /* (수량) */
+.asset-table td:nth-child(3) { /* (가치) */
+  text-align: right;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+.asset-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.asset-table tfoot .total-assets-row td {
+  border-top: 2px solid #ddd;
   font-weight: bold;
-  color: #0056b3; /* (파란색) */
-  font-size: 1.05rem;
+  font-size: 1rem;
+  position: sticky; /* (스크롤 시 총계 고정) */
+  bottom: 0;
+  background-color: #f8f9fa;
 }
-/* [신규 끝] */
+.asset-table tfoot .total-assets-row td:nth-child(3) { /* [수정] colSpan(2) -> 3 */
+  text-align: right;
+  color: #0056b3;
+}
+/* [수정 끝] */
 
 
 /* --- 1. 코인 선택 (상단) --- */
@@ -323,7 +352,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* (신규) (코인 목록이 남은 공간 차지) */
   flex: 1;
 }
 
@@ -370,7 +398,6 @@
   overflow-y: auto;
   border: 1px solid #eee;
   border-radius: 4px;
-  /* (신규) (코인 목록이 남은 공간 차지) */
   flex: 1;
 }
 .market-item {
@@ -400,7 +427,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   margin-top: 0; 
   
-  /* (신규) (세로 정렬을 위해) */
   display: flex;
   flex-direction: column;
 }
@@ -412,7 +438,6 @@
 .button-group {
   display: flex;
   gap: 15px;
-  /* (신규) (하단에 고정) */
   margin-top: auto; 
 }
 .control-button {
@@ -433,28 +458,24 @@
 
 /* --- 반응형 레이아웃 (9:16 세로 화면 등) --- */
 @media (max-width: 900px) {
-  /* (상/하 구조는 모바일에서도 동일하게 유지) */
   .main-content {
     flex-direction: column; 
     overflow-y: auto; 
     overflow-x: hidden;
   }
 
-  /* (상단 제어판이 가로 -> 세로로 쌓이도록) */
   .control-panel {
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 20px;
   }
   
-  /* (상단 제어판 아이템들 최소 너비 제거) */
   .api-keys-section,
   .market-selector,
   .bot-controls {
     min-width: 0;
   }
 
-  /* (하단 컨텐츠) */
   .main-content-right {
     flex: none; 
     min-width: 0;
