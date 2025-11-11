@@ -1,5 +1,6 @@
 // Athena_v1/frontend/src/App.js
 // [수정] 2024.11.11 - 레이아웃 충돌 해결 (className 수정)
+// [수정] 2024.11.11 - (요청 2) 코인 목록 접기/펴기 기능 추가
 
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
@@ -18,6 +19,7 @@ function App() {
   const [allMarkets, setAllMarkets] = useState([]); // 업비트 전체 KRW 마켓
   const [searchQuery, setSearchQuery] = useState(''); // 검색어
   const [selectedMarkets, setSelectedMarkets] = useState(new Set()); // 사용자가 선택한 마켓
+  const [isCoinListOpen, setIsCoinListOpen] = useState(true); // (요청 2: 코인 목록 토글 state)
 
   // 2. 봇 상태
   const [runningBots, setRunningBots] = useState(new Set()); // 현재 실행 중인 봇
@@ -229,7 +231,6 @@ function App() {
         {/* --- 왼쪽: 제어판 --- */}
         <div className="control-panel">
           
-          {/* [수정] 2024.11.11 - className을 "api-keys-section"으로 변경 (레이아웃 충돌 방지) */}
           {/* --- 0. API 키 설정 --- */}
           <div className="api-keys-section">
             <h2>0. API 키 설정</h2>
@@ -258,37 +259,52 @@ function App() {
             )}
           </div>
           
-          {/* --- 1. 코인 선택 --- */}
+          {/* --- 1. 코인 선택 (요청 2: 수정) --- */}
           <div className="market-selector">
-            <h2>1. 거래 코인 선택</h2>
-            <input
-              type="text"
-              placeholder="코인 이름 또는 심볼 검색..."
-              className="search-bar"
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            <div className="market-list">
-              {filteredMarkets.length > 0 ? (
-                filteredMarkets.map((market) => (
-                  <div
-                    key={market.market}
-                    className={`market-item ${selectedMarkets.has(market.market) ? 'selected' : ''}`}
-                    onClick={() => handleMarketClick(market.market)}
-                  >
-                    <span className="market-name">{market.korean_name}</span>
-                    <span className="market-symbol">{market.market}</span>
-                    {runningBots.has(market.market) && (
-                      <span className="status-indicator"> (실행중)</span>
-                    )}
-                  </div>
-                ))
-              ) : (
-                <div className="loading-text">
-                  {allMarkets.length === 0 ? "코인 목록 로딩 중..." : "검색 결과 없음"}
-                </div>
-              )}
+            
+            {/* (클릭 가능한 헤더) */}
+            <div 
+              className="collapsible-header" 
+              onClick={() => setIsCoinListOpen(!isCoinListOpen)}
+            >
+              <h2>1. 거래 코인 선택</h2>
+              {/* (토글 아이콘) */}
+              <span className="toggle-icon">{isCoinListOpen ? '▲ 숨기기' : '▼ 펼치기'}</span>
             </div>
+            
+            {/* (isCoinListOpen이 true일 때만 내용 표시) */}
+            {isCoinListOpen && (
+              <div className="market-list-content">
+                <input
+                  type="text"
+                  placeholder="코인 이름 또는 심볼 검색..."
+                  className="search-bar"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+                <div className="market-list">
+                  {filteredMarkets.length > 0 ? (
+                    filteredMarkets.map((market) => (
+                      <div
+                        key={market.market}
+                        className={`market-item ${selectedMarkets.has(market.market) ? 'selected' : ''}`}
+                        onClick={() => handleMarketClick(market.market)}
+                      >
+                        <span className="market-name">{market.korean_name}</span>
+                        <span className="market-symbol">{market.market}</span>
+                        {runningBots.has(market.market) && (
+                          <span className="status-indicator"> (실행중)</span>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="loading-text">
+                      {allMarkets.length === 0 ? "코인 목록 로딩 중..." : "검색 결과 없음"}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
           
           {/* --- 2. 봇 제어 --- */}
