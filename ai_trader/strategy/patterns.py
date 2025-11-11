@@ -1,4 +1,5 @@
 # Athena_v1/ai_trader/strategy/patterns.py
+# [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
 """
 Strategy v3.5 - 2-C, 2-D단계: 고전 패턴 인식
 """
@@ -18,6 +19,7 @@ def check_bullish_patterns_v3_5(df_h1: pd.DataFrame) -> Optional[Dict[str, Any]]
     if 'PL' not in df_h1.columns:
         return None
         
+    # (dropna: 피벗이 없는 NaN 값 제거)
     recent_pls = df_h1['PL'].dropna().iloc[-3:]
     
     if len(recent_pls) < 3:
@@ -26,7 +28,7 @@ def check_bullish_patterns_v3_5(df_h1: pd.DataFrame) -> Optional[Dict[str, Any]]
     pl1, pl2, pl3 = recent_pls.iloc[0], recent_pls.iloc[1], recent_pls.iloc[2]
 
     # (저점이 높아지는가?)
-    if pl1 < pl2 < pl3:
+    if pl1 < pl2 and pl2 < pl3:
         
         # (임시) 목표가(TP) = 현재가 * 1.1 (10% 상승)
         tp_price = df_h1.iloc[-1]['close'] * 1.1

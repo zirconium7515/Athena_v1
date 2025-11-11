@@ -1,4 +1,5 @@
 # Athena_v1/ai_trader/database.py
+# [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
 """
 데이터베이스 (SQLite) 관리
 (거래 내역 저장 및 조회)
@@ -32,15 +33,15 @@ class TradeLogDB(Base):
 
 class Database:
     
-    def __init__(self, db_name: str = "athena_v1_trade_history.db"):
+    def __init__(self, db_path: str = "athena_v1_trade_history.db"):
         """
         데이터베이스 엔진 및 세션 초기화
         (FastAPI 비동기 환경 및 다중 스레드(봇) 접근을 위해
          check_same_thread=False 및 StaticPool 사용)
         """
-        self.db_name = db_name
+        self.db_path = db_path
         self.engine = create_engine(
-            f'sqlite:///{db_name}',
+            f'sqlite:///{db_path}',
             echo=False,
             poolclass=StaticPool, # (경고) StaticPool은 단일 연결만 허용
             connect_args={'check_same_thread': False} 
@@ -51,17 +52,17 @@ class Database:
         self.logger = setup_logger("Database", "athena_v1.log")
 
     def create_tables(self):
-        """ 테이블 생성 (trade_logs) """
+        """ 테이블 생성 (trade_logs) - (동기) """
         try:
             Base.metadata.create_all(bind=self.engine)
             # [수정] logger -> self.logger
-            self.logger.info(f"데이터베이스 '{self.db_name}' 및 테이블 'trade_logs' 초기화 완료.")
+            self.logger.info(f"데이터베이스 '{self.db_path}' 및 테이블 'trade_logs' 초기화 완료.")
         except Exception as e:
             # [수정] logger -> self.logger
             self.logger.error(f"테이블 생성 실패: {e}")
 
     def log_trade(self, log_entry: TradeLog):
-        """ 거래 내역(TradeLog 객체)을 DB에 저장 """
+        """ 거래 내역(TradeLog 객체)을 DB에 저장 - (동기) """
         session = self.SessionLocal()
         try:
             db_log = TradeLogDB(
@@ -86,7 +87,7 @@ class Database:
             session.close()
 
     def get_trade_history(self, symbol: str = None, limit: int = 100) -> list[TradeLog]:
-        """ DB에서 최근 거래 내역 조회 """
+        """ DB에서 최근 거래 내역 조회 - (동기) """
         session = self.SessionLocal()
         try:
             query = session.query(TradeLogDB)

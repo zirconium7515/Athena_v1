@@ -1,348 +1,501 @@
 # Athena_v1/main.py
-# [수정] GUI에서 API 키를 입력받도록 대폭 수정
+# [수정] 2024.11.11 - (요청) GUI에서 API 키 입력
+# [수정] 2024.11.11 - (요청) 차트 데이터용 /api/ohlcv 엔드포인트 신설
+# [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
+# [수정] 2024.11.11 - (오류) NameError: 'pd' is not defined (pandas 임포트 추가)
+# [수정] 2024.11.11 - (오류) trading_bot_task v3.5 로직 호출 오류 수정
+# [수정] 2024.11.11 - (오류) TypeError: __init__ got unexpected keyword 'exchange'
+# [수정] 2024.11.11 - (요청) 차트 실시간 갱신 (Upbit WebSocket Ticker) 추가
+# [수정] 2024.11.11 - (리팩토링) WebSocket 메시지 포맷 표준화 (type, payload)
+# [수정] 2024.11.11 - (요청) 차트 2단계: 다중 차트 구독 (Ticker Set)
+# [수정] 2024.11.11 - (요청) /api/set-keys가 KRW 잔고를 JSON으로 반환
+# [수정] 2024.11.11 - (오류) InsufficientFundsBid Race Condition 해결 (asyncio.Lock)
+# [수정] 2024.11.11 - (오류) pyupbit 캐시 문제 해결 (Private Exchange 공유 객체)
 
 import sys
 import os
 import asyncio
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
+import pandas as pd 
+import json 
+import websockets 
+import uuid 
+from contextlib import asynccontextmanager
+from typing import Dict, List, Optional, Set 
+from fastapi import FastAPI, WebSocket, HTTPException, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 from pydantic import BaseModel
-from typing import List, Dict, Any, Set
-import logging
 
-# --- 경로 설정 (기존 ImportError 해결) ---
-# (이 코드는 `python main.py` 실행 시 필요)
-project_root = os.path.dirname(os.path.abspath(__file__))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+# --- 경로 설정 (중요) ---
+current_file_path = os.path.abspath(__file__)
+project_root_dir = os.path.dirname(current_file_path)
+if project_root_dir not in sys.path:
+    sys.path.append(project_root_dir)
 # --- 경로 설정 끝 ---
 
-# --- 모듈 임포트 (순서 재조정됨) ---
-from config import get_settings
+# --- 모듈 임포트 ---
+from config import LOG_FILE_PATH, DB_FILE_PATH, LOG_LEVEL
 from ai_trader.utils.logger import setup_logger
 from ai_trader.exchange_api import UpbitExchange
 from ai_trader.database import Database
 from ai_trader.data_manager import DataManager
-from ai_trader.signal_engine import SignalEngine
+from ai_trader.signal_engine import SignalEngineV3_5
 from ai_trader.risk_manager import RiskManager
 from ai_trader.position_manager import PositionManager
-from ai_trader.data_models import SignalV3_5
-# --- 모듈 임포트 끝 ---
+
+# --- 전역 변수 및 설정 ---
+
+# 로거 설정
+logger = setup_logger("MainApp", LOG_FILE_PATH, LOG_LEVEL)
+
+# API 키 저장소
+api_keys_store: Dict[str, Optional[str]] = {
+    "access_key": None,
+    "secret_key": None
+}
+
+# 공용 API (Public - 키 없음)
+public_exchange = UpbitExchange(access_key=None, secret_key=None)
+# [신규] (오류 수정) 봇/잔고용 API (Private - 키 있음)
+private_exchange: Optional[UpbitExchange] = None
+
+# 봇 관리 딕셔너리
+active_bots: Dict[str, asyncio.Task] = {}
+
+# 자본 접근 동기화를 위한 Lock
+capital_lock = asyncio.Lock()
+
+# 업비트 틱(Ticker) WebSocket 관리
+upbit_ws_task: Optional[asyncio.Task] = None
+upbit_ws_client: Optional[websockets.WebSocketClientProtocol] = None
+current_ticker_symbols: Set[str] = {"KRW-BTC"} 
+
+# WebSocket 연결 관리 (GUI 클라이언트)
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+        logger.info(f"새 WebSocket 연결: {websocket.client}")
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+        logger.info(f"WebSocket 연결 해제: {websocket.client}")
+        
+        if len(self.active_connections) == 0:
+            logger.info("모든 GUI 클라이언트 연결 해제. 업비트 Ticker WebSocket 종료 중...")
+            global upbit_ws_task, upbit_ws_client
+            if upbit_ws_task:
+                upbit_ws_task.cancel()
+                upbit_ws_task = None
+            if upbit_ws_client:
+                logger.info("업비트 Ticker 태스크 취소됨.")
+                pass
+
+    async def broadcast(self, message: dict):
+        for connection in self.active_connections:
+            try:
+                await connection.send_json(message)
+            except Exception as e:
+                logger.error(f"WebSocket 전송 오류: {e}")
+
+manager = ConnectionManager()
+
+# --- 업비트 실시간 Ticker WebSocket 클라이언트 ---
+
+async def start_upbit_ticker_ws(symbols: List[str]):
+    global upbit_ws_client, manager, current_ticker_symbols
+    
+    current_ticker_symbols = set(symbols) 
+    if not symbols:
+        logger.warning("업비트 Ticker WS: 구독할 심볼이 없습니다. 연결을 시작하지 않습니다.")
+        return
+        
+    uri = "wss://api.upbit.com/websocket/v1"
+    
+    try:
+        async with websockets.connect(uri) as ws:
+            upbit_ws_client = ws 
+            
+            subscribe_msg = json.dumps([
+                {"ticket": f"athena-chart-{uuid.v4()}"}, 
+                {"type": "ticker", "codes": symbols} 
+            ])
+            await ws.send(subscribe_msg)
+            logger.info(f"업비트 Ticker WebSocket 연결 성공. [{', '.join(symbols)}] 구독 시작.")
+            
+            async for message in ws:
+                if isinstance(message, bytes):
+                    try:
+                        data = json.loads(message.decode('utf-8'))
+                        await manager.broadcast({
+                            "type": "tick",
+                            "payload": data
+                        })
+                    except json.JSONDecodeError:
+                        logger.warning("업비트 Ticker WS: JSON 디코딩 실패")
+                    except Exception as e:
+                        logger.error(f"업비트 Ticker WS: 틱 처리 중 오류: {e}")
+
+    except asyncio.CancelledError:
+        logger.info(f"업비트 Ticker WS [{', '.join(symbols)}] 작업이 취소되었습니다 (심볼 변경 또는 서버 종료).")
+    except websockets.exceptions.ConnectionClosed as e:
+        logger.warning(f"업비트 Ticker WS [{', '.join(symbols)}] 연결 끊김 (재시도 필요): {e}")
+    except Exception as e:
+        logger.error(f"업비트 Ticker WS [{', '.join(symbols)}] 치명적 오류: {e}", exc_info=True)
+    finally:
+        upbit_ws_client = None
+        logger.info(f"업비트 Ticker WS [{', '.join(symbols)}] 연결 종료.")
 
 
-# --- 기본 설정 ---
-# (주의: 이제 .env에서 API 키를 읽어오지 않음)
-settings = get_settings()
-db = Database(settings.get("DB_NAME"))
-db.create_tables()
+# --- FastAPI 수명 주기 (Lifespan) ---
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("--- Athena v1 (FastAPI) 서버 시작 ---")
+    try:
+        db = Database(db_path=DB_FILE_PATH)
+        db.create_tables() 
+        logger.info(f"데이터베이스 초기화 성공: {DB_FILE_PATH}")
+    except Exception as e:
+        logger.error(f"데이터베이스 초기화 실패: {e}")
+    
+    global upbit_ws_task
+    if upbit_ws_task is None:
+        upbit_ws_task = asyncio.create_task(start_upbit_ticker_ws(list(current_ticker_symbols)))
+    
+    yield 
+    
+    logger.info("--- Athena v1 (FastAPI) 서버 종료 중 ---")
+    
+    if upbit_ws_task:
+        upbit_ws_task.cancel()
+        await upbit_ws_task
+        
+    if active_bots:
+        logger.info(f"실행 중인 {len(active_bots)}개의 봇을 모두 중지합니다...")
+        tasks = []
+        for symbol, task in active_bots.items():
+            task.cancel()
+            tasks.append(task)
+        await asyncio.gather(*tasks, return_exceptions=True)
+        logger.info("모든 봇이 중지되었습니다.")
+    
+    await UpbitExchange.close_session()
+    logger.info("aiohttp 클라이언트 세션 종료.")
 
-# 메인 로거 (서버 활동용)
-logger = setup_logger("MainApp", settings.get("LOG_FILE"))
 
-# FastAPI 앱 생성
-app = FastAPI()
+# --- FastAPI 앱 초기화 ---
+app = FastAPI(
+    title="Athena v1 Trading Bot API",
+    lifespan=lifespan
+)
 
-# --- CORS 설정 ---
-# (React 개발 서버(localhost:3000)에서의 요청 허용)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
-# --- [신규] API 키 저장을 위한 글로벌 변수 ---
-api_keys = {
-    "access": None,
-    "secret": None
-}
-
-# --- 공용 API 호출을 위한 UpbitExchange 인스턴스 (키 없음) ---
-public_exchange = UpbitExchange()
-
-# --- 봇 관리 ---
-# (실행 중인 봇 태스크 저장: {'KRW-BTC': asyncio.Task, ...})
-active_bots: Dict[str, asyncio.Task] = {}
-
-# --- WebSocket 관리 (GUI 로그 전송용) ---
-connected_clients: Set[WebSocket] = set()
-
-async def send_log_to_clients(message: str, level: str = "info"):
-    """ 연결된 모든 GUI 클라이언트에게 로그 메시지 전송 """
-    log_entry = {"message": message, "level": level}
-    for ws in connected_clients:
-        try:
-            await ws.send_json(log_entry)
-        except Exception:
-            # (연결 끊김 등 예외 발생 시, 세트에서 제거는 on_disconnect에서 처리)
-            pass
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    """ WebSocket 연결 처리 """
-    await websocket.accept()
-    connected_clients.add(websocket)
-    logger.info("GUI 클라이언트 연결됨.")
-    await send_log_to_clients("백엔드 서버에 연결되었습니다.", "info")
-    try:
-        while True:
-            # (클라이언트로부터 메시지 수신 대기 - 현재는 사용 안 함)
-            await websocket.receive_text()
-    except WebSocketDisconnect:
-        connected_clients.remove(websocket)
-        logger.info("GUI 클라이언트 연결 끊김.")
-
-
-# --- [신규] API 엔드포인트: API 키 설정 ---
-class ApiKeys(BaseModel):
+# --- API 모델 (Pydantic) ---
+class ApiKeyModel(BaseModel):
     access_key: str
     secret_key: str
 
+class BotControlModel(BaseModel):
+    symbols: List[str]
+    
+class ChartSubscribeListModel(BaseModel):
+    type: str # "subscribe_charts_list"
+    symbols: List[str]
+
+# --- API 엔드포인트 (HTTP) ---
+
 @app.post("/api/set-keys")
-async def set_api_keys(keys: ApiKeys):
-    """
-    GUI로부터 API 키를 받아 메모리에 저장하고 인증합니다.
-    """
-    if not keys.access_key or not keys.secret_key:
-        raise HTTPException(status_code=400, detail="API keys cannot be empty")
-        
+async def set_api_keys(keys: ApiKeyModel):
+    logger.info("API 키 저장 요청 수신. 인증 시도...")
+    
+    # [신규] (오류 수정) (공유 Private Exchange 객체 생성)
+    global private_exchange
+    
     try:
-        # 키를 사용하여 임시 Exchange 객체 생성 및 인증 테스트
-        test_exchange = UpbitExchange(keys.access_key, keys.secret_key)
-        # (get_balance는 private API 호출)
-        krw_balance = await test_exchange.get_balance("KRW")
+        # (인증 시도용 임시 객체)
+        exchange = UpbitExchange(keys.access_key, keys.secret_key)
+        # (get_balance -> get_balance_no_cache로 변경)
+        account_info = await exchange.get_balance(ticker="KRW", verbose=True, use_cache=False)
         
-        if krw_balance is not None:
-            # 인증 성공 시에만 글로벌 변수에 저장
-            api_keys["access"] = keys.access_key
-            api_keys["secret"] = keys.secret_key
+        if account_info and 'error' not in account_info:
+            # (인증 성공 시, 전역 객체에 키 저장 및 생성)
+            api_keys_store["access_key"] = keys.access_key
+            api_keys_store["secret_key"] = keys.secret_key
+            private_exchange = exchange # (인증에 성공한 객체를 전역 객체로 사용)
             
-            success_msg = f"API 키 저장 및 인증 성공. (보유 KRW: {krw_balance:,.0f} 원)"
+            krw_balance = float(account_info.get('balance', 0))
+            success_msg = f"API 키 인증 성공. (보유 KRW: {krw_balance:,.0f}원)"
             logger.info(success_msg)
-            await send_log_to_clients(success_msg, "success")
-            return {"status": "success", "message": "API keys set and verified", "balance_krw": krw_balance}
+            
+            await manager.broadcast({
+                "type": "log", 
+                "payload": {"level": "success", "message": success_msg}
+            })
+            
+            return {"message": success_msg, "krw_balance": krw_balance}
+        
         else:
-            raise Exception("Failed to get balance (None returned)")
+            error_msg = f"API 키 인증 실패: {account_info.get('error', '알 수 없는 오류')}"
+            logger.warning(error_msg)
+            private_exchange = None # (인증 실패 시 전역 객체 비우기)
+            raise HTTPException(status_code=401, detail=error_msg)
             
     except Exception as e:
-        # 인증 실패
-        logger.warning(f"API 키 인증 실패: {e}")
-        api_keys["access"] = None # 키 초기화
-        api_keys["secret"] = None
-        error_msg = f"API 키 인증 실패: {str(e)}"
-        await send_log_to_clients(error_msg, "error")
-        # (pyupbit은 오류 메시지를 상세히 반환하므로 detail에 포함)
-        raise HTTPException(status_code=401, detail=error_msg)
+        logger.error(f"API 키 설정 중 예외 발생: {e}", exc_info=True)
+        private_exchange = None # (인증 실패 시 전역 객체 비우기)
+        raise HTTPException(status_code=500, detail=f"서버 오류: {str(e)}")
 
-
-# --- API 엔드포인트: 전체 마켓 목록 ---
 @app.get("/api/markets")
 async def get_all_markets():
-    """ 업비트 KRW 마켓 목록 반환 (공용 API) """
     try:
-        # [수정] 키가 없는 'public_exchange' 인스턴스 사용
         markets = await public_exchange.get_market_all()
         if not markets:
-             raise HTTPException(status_code=404, detail="Markets not found")
+            logger.warning("get_market_all()이 빈 목록을 반환했습니다.")
+            raise HTTPException(status_code=404, detail="업비트에서 마켓 목록을 가져오지 못했습니다.")
         return markets
     except Exception as e:
-        logger.error(f"마켓 목록 로드 실패: {e}")
+        logger.error(f"마켓 목록 조회 실패: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
-
-# --- API 엔드포인트: 봇 시작 ---
-@app.post("/api/start")
-async def start_bots(symbols: List[str]):
-    """ 선택된 심볼(코인)들에 대한 자동매매 봇 태스크 시작 """
-    started_bots = []
-    
-    # [신규] 봇 시작 전 API 키 설정 여부 확인
-    if not api_keys["access"] or not api_keys["secret"]:
-        msg = "봇 시작 실패: API 키가 설정되지 않았습니다. GUI에서 먼저 키를 저장하세요."
-        logger.warning(msg)
-        await send_log_to_clients(msg, "error")
-        return {"status": "error", "message": msg, "started": []}
-
-    for symbol in symbols:
-        if symbol not in active_bots:
-            logger.info(f"[{symbol}] 봇 시작 명령 수신.")
-            await send_log_to_clients(f"[{symbol}] 봇 시작 중...", "info")
-            
-            # 비동기 태스크(trading_bot_task) 생성 및 실행
-            task = asyncio.create_task(trading_bot_task(symbol))
-            active_bots[symbol] = task
-            started_bots.append(symbol)
-        else:
-            logger.warning(f"[{symbol}] 봇이 이미 실행 중입니다.")
-            await send_log_to_clients(f"[{symbol}] 봇이 이미 실행 중입니다.", "warn")
-            
-    return {"status": "success", "message": f"{len(started_bots)} bots started.", "started": started_bots}
-
-
-# --- API 엔드포인트: 봇 중지 ---
-@app.post("/api/stop")
-async def stop_bots(symbols: List[str]):
-    """ 선택된 심볼(코인)들에 대한 자동매매 봇 태스크 중지 """
-    stopped_bots = []
-    for symbol in symbols:
-        task = active_bots.pop(symbol, None) # 딕셔너리에서 제거
-        if task:
-            try:
-                task.cancel() # 태스크 취소
-                await task # 태스크가 완전히 종료될 때까지 대기
-            except asyncio.CancelledError:
-                pass
-            except Exception as e:
-                logger.error(f"[{symbol}] 봇 중지 중 오류: {e}")
-                
-            logger.info(f"[{symbol}] 봇이 중지되었습니다.")
-            await send_log_to_clients(f"[{symbol}] 봇이 중지되었습니다.", "info")
-            stopped_bots.append(symbol)
-        else:
-            logger.warning(f"[{symbol}] 봇이 실행 중이지 않습니다.")
-            await send_log_to_clients(f"[{symbol}] 봇이 실행 중이지 않습니다.", "warn")
-
-    return {"status": "success", "message": f"{len(stopped_bots)} bots stopped.", "stopped": stopped_bots}
-
-
-# --- 자동매매 핵심 로직 (개별 봇 태스크) ---
-async def trading_bot_task(symbol: str):
-    """
-    개별 코인(심볼)에 대한 v3.5 전략 기반 자동매매 비동기 태스크
-    """
-    
-    # --- [신규] 봇 시작 시 API 키 재확인 ---
-    if not api_keys["access"] or not api_keys["secret"]:
-        msg = f"[{symbol}] API 키가 설정되지 않아 봇을 시작할 수 없습니다."
-        logger.error(msg)
-        await send_log_to_clients(msg, "error")
-        active_bots.pop(symbol, None) # (혹시 모르니 다시 제거)
-        return
-    
-    # --- [수정] 봇 모듈 초기화 (메모리에 저장된 API 키 사용) ---
+@app.get("/api/ohlcv/{symbol}")
+async def get_ohlcv_data(symbol: str, interval: str = "minute60", count: int = 200):
+    logger.debug(f"차트 데이터 요청: {symbol}, {interval}, {count}")
     try:
-        # (주의) 이 객체들은 봇이 실행되는 동안 메모리에 유지됨
+        data_manager = DataManager(exchange_api=public_exchange)
+        df = await data_manager.fetch_ohlcv(symbol, interval, count)
         
-        # [수정] 봇 전용 'private_exchange' 생성 (키 전달)
-        private_exchange = UpbitExchange(
-            access_key=api_keys["access"], 
-            secret_key=api_keys["secret"]
-        )
+        if df.empty:
+            logger.warning(f"OHLCV 데이터 없음: {symbol}, {interval}")
+            return []
+
+        df_utc = df.tz_localize('Asia/Seoul').tz_convert('UTC')
         
-        # [수정] private_exchange를 사용하는 DataManager 생성
-        data_manager = DataManager(private_exchange)
+        df_chart = df_utc[['open', 'high', 'low', 'close']].copy()
+        df_chart['time'] = df_utc.index.astype(int) // 10**9 
         
-        # (임시) 총 자본금 100만원, 1회 거래 리스크 0.5% (5,000원)
-        # TODO: 이 설정도 GUI에서 입력받도록 수정 필요
-        risk_manager = RiskManager(total_capital=1_000_000, base_risk_per_trade_pct=0.5)
+        chart_data = df_chart.reset_index(drop=True).to_dict('records')
         
-        # [수정] data_manager가 private_exchange를 참조
-        signal_engine = SignalEngine(data_manager, db, symbol)
-        
-        # [수정] private_exchange 전달
-        position_manager = PositionManager(private_exchange, db, risk_manager, symbol)
-        
-        await send_log_to_clients(f"[{symbol}] 봇 초기화 완료 (전략: v3.5).", "success")
+        return chart_data
 
     except Exception as e:
-        logger.critical(f"[{symbol}] 봇 초기화 실패: {e}")
-        await send_log_to_clients(f"[{symbol}] 봇 초기화 실패: {e}", "error")
-        active_bots.pop(symbol, None)
+        logger.error(f"OHLCV 데이터 조회 실패 ({symbol}, {interval}): {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"OHLCV 데이터 조회 실패: {str(e)}")
+
+@app.post("/api/start")
+async def start_bots(control: BotControlModel):
+    symbols = control.symbols
+    
+    # [신규] (오류 수정) (전역 private_exchange 객체 확인)
+    global private_exchange
+    if not private_exchange or not api_keys_store.get("access_key"):
+        logger.warning("봇 시작 실패: API 키가 설정되지 않았습니다.")
+        raise HTTPException(status_code=401, detail="API 키가 설정되지 않았습니다. 먼저 API 키를 저장하세요.")
+
+    started = []
+    failed = []
+    
+    for symbol in symbols:
+        if symbol not in active_bots:
+            try:
+                task = asyncio.create_task(
+                    trading_bot_task(
+                        symbol=symbol,
+                        exchange=private_exchange # (수정) 공유 객체 전달
+                    )
+                )
+                active_bots[symbol] = task
+                started.append(symbol)
+                logger.info(f"{symbol} 봇 시작.")
+                await manager.broadcast({
+                    "type": "log",
+                    "payload": {"level": "success", "message": f"{symbol} 봇이 시작되었습니다."}
+                })
+                
+                await asyncio.sleep(0.2) 
+                
+            except Exception as e:
+                logger.error(f"{symbol} 봇 시작 중 예외 발생: {e}", exc_info=True)
+                failed.append(symbol)
+        else:
+            logger.warning(f"{symbol} 봇은 이미 실행 중입니다.")
+
+    return {"status": "success", "started": started, "failed": failed}
+
+@app.post("/api/stop")
+async def stop_bots(control: BotControlModel):
+    symbols = control.symbols
+    stopped = []
+    not_found = []
+
+    for symbol in symbols:
+        task = active_bots.pop(symbol, None)
+        if task:
+            try:
+                task.cancel()
+                await asyncio.sleep(0) 
+                stopped.append(symbol)
+                logger.info(f"{symbol} 봇 중지 요청.")
+                await manager.broadcast({
+                    "type": "log",
+                    "payload": {"level": "info", "message": f"{symbol} 봇이 중지되었습니다."}
+                })
+            except Exception as e:
+                logger.error(f"{symbol} 봇 중지 중 예외 발생: {e}", exc_info=True)
+        else:
+            not_found.append(symbol)
+            logger.warning(f"{symbol} 봇을 찾을 수 없습니다 (이미 중지됨).")
+
+    return {"status": "success", "stopped": stopped, "not_found": not_found}
+
+@app.get("/api/status")
+async def get_status():
+    return {"running_bots": list(active_bots.keys())}
+
+
+# --- WebSocket 엔드포인트 ---
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+    
+    global current_ticker_symbols
+    try:
+        await websocket.send_json({
+            "type": "info",
+            "payload": {"message": f"서버 연결 성공. 현재 차트 Ticker: {', '.join(current_ticker_symbols)}"}
+        })
+    except Exception:
+        pass 
+
+    try:
+        while True:
+            data_text = await websocket.receive_text()
+            data = json.loads(data_text)
+            
+            if data.get("type") == "subscribe_charts_list":
+                symbols = data.get("symbols")
+                
+                if isinstance(symbols, list):
+                    logger.info(f"WebSocket 수신: 차트 구독 변경 요청 -> {symbols}")
+                    global upbit_ws_task
+                    
+                    if upbit_ws_task:
+                        upbit_ws_task.cancel()
+                    
+                    upbit_ws_task = asyncio.create_task(start_upbit_ticker_ws(symbols))
+
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+    except Exception as e:
+        logger.error(f"WebSocket 오류: {e}", exc_info=True)
+        if websocket in manager.active_connections:
+            manager.disconnect(websocket)
+
+
+# --- 핵심: 개별 봇 비동기 태스크 ---
+
+# [수정] (오류 수정) (시그니처 변경: access_key, secret_key -> exchange)
+async def trading_bot_task(symbol: str, exchange: UpbitExchange):
+    
+    global capital_lock 
+    
+    try:
+        # (수정) (exchange 객체를 전달받음)
+        data_manager = DataManager(exchange)
+        db = Database(DB_FILE_PATH)
+        
+        total_capital_temp = 1000000 
+        risk_manager = RiskManager(
+            total_capital=total_capital_temp,
+            base_risk_per_trade_pct=0.5
+        )
+        
+        position_manager = PositionManager(exchange, db, risk_manager, symbol, manager.broadcast)
+        signal_engine = SignalEngineV3_5()
+    
+    except Exception as e:
+        await manager.broadcast({
+            "type": "log",
+            "payload": {"level": "error", "message": f"[{symbol}] 봇 초기화 실패: {e}"}
+        })
+        logger.error(f"[{symbol}] 봇 초기화 실패: {e}", exc_info=True)
         return
 
-    # --- 봇 메인 루프 (Loop) ---
-    while True:
-        try:
-            # (태스크 취소 감지 지점 1)
-            await asyncio.sleep(1) 
-            
-            # --- 1. 현재 가격 확인 ---
-            current_price = await data_manager.get_current_price(symbol)
-            if current_price == 0.0:
-                await send_log_to_clients(f"[{symbol}] 현재 가격 조회 실패. (루프 건너뜀)", "warn")
-                await asyncio.sleep(30) # (오류 시 30초 대기)
-                continue
-
-            # --- 2. 포지션 관리 (손절/익절 확인) ---
-            if position_manager.has_position():
-                await position_manager.update_positions(current_price)
-                # (포지션 보유 중에는 신규 진입 신호 체크 안 함)
-                await asyncio.sleep(10) # (포지션 보유 시 10초마다 가격 체크)
-                continue
-
-            # --- 3. 신규 신호 확인 ---
-            # (포지션이 없을 때만 실행)
-            
-            # (v3.5는 H1(1시간봉) 기준)
-            # TODO: 현재는 매 루프마다 H1 데이터를 새로 가져옴
-            # (개선: 1시간에 1번만 가져오도록 최적화 필요)
-            df_h1 = await data_manager.fetch_ohlcv(symbol, 'minutes60', 200)
-            
+    try:
+        while True:
+            df_h1 = await data_manager.fetch_ohlcv(symbol, timeframe="minute60", count=200)
             if df_h1.empty:
-                await send_log_to_clients(f"[{symbol}] H1 데이터 로드 실패. (루프 건너뜀)", "warn")
-                await asyncio.sleep(60) # (데이터 오류 시 1분 대기)
+                await asyncio.sleep(60)
                 continue
-
-            # (태스크 취소 감지 지점 2)
-            await asyncio.sleep(1)
-
-            # --- 4. v3.5 전략 실행 (1, 2, 3단계) ---
-            signal_dict = signal_engine.generate_signal_v3_5(df_h1)
-
-            if signal_dict:
-                # (신호 발생!)
-                await send_log_to_clients(f"[{symbol}] 신호 감지 (점수: {signal_dict['score']}). 리스크 계산 시작...", "info")
-                
-                # --- 5. 리스크 계산 (v3.5 4단계) ---
-                final_signal = risk_manager.calculate_position_v3_5(signal_dict, current_price)
-                
-                if final_signal:
-                    # (최종 진입 결정)
-                    await send_log_to_clients(f"[{symbol}] 최종 진입 결정. (총 {final_signal.total_position_size_krw:,.0f} KRW)", "success")
-                    
-                    # --- 6. 포지션 진입 (v3.5 4단계 실행) ---
-                    await position_manager.enter_position(final_signal)
-                    
-                    # (진입 후 1시간 대기 - 중복 진입 방지)
-                    await send_log_to_clients(f"[{symbol}] 신규 진입 완료. 1시간 동안 대기합니다.", "info")
-                    await asyncio.sleep(3600) 
-                
-            # (신호 없음)
-            # await send_log_to_clients(f"[{symbol}] 신호 없음. (대기)", "debug")
             
-            # --- 7. 루프 대기 (v3.5는 1시간봉 기준) ---
-            # (임시) 1분마다 신호를 체크
-            # (개선 필요: H1 캔들이 완성될 때(매 정시)만 체크하도록)
+            current_price = df_h1.iloc[-1]['close']
+            current_position = position_manager.get_position(symbol)
+            
+            if current_position:
+                await position_manager.check_exit_conditions(current_position, df_h1.iloc[-1])
+            
+            if not current_position:
+                signal_dict = signal_engine.generate_signal(df_h1, symbol)
+                
+                if signal_dict and signal_dict.get("score", 0) >= 12:
+                    
+                    async with capital_lock:
+                        logger.info(f"[{symbol}] 자본 Lock 획득. 잔고 확인 및 주문 시작...")
+                        try:
+                            # [수정] (오류 수정) (캐시되지 않는 잔고 조회 호출)
+                            current_krw_balance = await exchange.get_krw_balance(use_cache=False)
+                            
+                            final_signal = risk_manager.calculate_position_size(
+                                signal_data=signal_dict,
+                                current_price=current_price,
+                                krw_balance=current_krw_balance 
+                            )
+                            
+                            if final_signal:
+                                await position_manager.enter_position(final_signal)
+                        
+                        except Exception as e:
+                            await manager.broadcast({
+                                "type": "log",
+                                "payload": {"level": "warn", "message": f"[{symbol}] 진입 처리 중 오류 (Lock 내부): {e}"}
+                            })
+                            logger.warning(f"[{symbol}] 진입 처리 중 오류 (Lock 내부): {e}", exc_info=True)
+                        
+                        logger.info(f"[{symbol}] 자본 Lock 해제.")
+                    
             await asyncio.sleep(60) 
 
-        except asyncio.CancelledError:
-            # (봇 중지 명령 수신)
-            logger.info(f"[{symbol}] 봇 태스크 취소됨 (정상 중지).")
-            # (필요시, 중지 직전 포지션 정리 로직 추가)
-            # await position_manager.close_position(reason="BotStopped")
-            break # 루프 탈출
-            
-        except Exception as e:
-            # (메인 루프 오류)
-            logger.error(f"[{symbol}] 봇 메인 루프 오류: {e}")
-            import traceback
-            logger.error(traceback.format_exc())
-            await send_log_to_clients(f"[{symbol}] 봇 실행 중 심각한 오류 발생: {e}", "error")
-            await asyncio.sleep(60) # (오류 발생 시 1분 대기 후 재시도)
-
-
-# --- (개발용) React 빌드 파일 서빙 ---
-# (주: uvicorn으로 FastAPI 실행 시, React는 npm start로 별도 실행 권장)
-# (만약 npm run build 후 FastAPI로만 서빙하려면 아래 주석 해제)
-# app.mount("/", StaticFiles(directory="frontend/build", html=True), name="static")
-
-# --- 서버 실행 (python main.py 로 실행 시) ---
-if __name__ == "__main__":
-    logger.info("Athena v1 백엔드 서버를 시작합니다...")
-    logger.info(" (주의: React GUI는 'frontend' 폴더에서 'npm start'로 별도 실행해야 합니다.)")
+    except asyncio.CancelledError:
+        await manager.broadcast({
+            "type": "log",
+            "payload": {"level": "info", "message": f"[{symbol}] 봇이 외부 요청에 의해 중지되었습니다."}
+        })
+        logger.info(f"[{symbol}] 봇이 외부 요청에 의해 중지되었습니다.")
     
-    # (uvicorn --reload 옵션 대신 수동 실행)
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    except Exception as e:
+        await manager.broadcast({
+            "type": "log",
+            "payload": {"level": "error", "message": f"[{symbol}] 봇 실행 중 치명적 오류: {e}"}
+        })
+        logger.error(f"[{symbol}] 봇 실행 중 치명적 오류: {e}", exc_info=True)
+    
+    finally:
+        active_bots.pop(symbol, None)
+        logger.info(f"[{symbol}] 봇 태스크가 완전히 종료되었습니다.")
+
+
+# (개발 중: uvicorn main:app --reload 로 실행 시)
+if __name__ == "__main__":
+    import uvicorn
+    logger.info("--- Uvicorn 개발 서버로 직접 실행 ---")
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

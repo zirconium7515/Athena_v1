@@ -1,6 +1,11 @@
 /* Athena_v1/frontend/src/App.css */
-/* [수정] 2024.11.11 - (요청 1, 2, 3) 레이아웃, 토글, 반응형 수정 */
-/* [수정] 2024.11.11 - (요청 3) 로그 창 비율 2:1로 추가 수정 */
+/* [수정] 2024.11.11 - (요청) 차트 1단계 및 로그 토글 기능 추가 */
+/* [수정] 2024.11.11 - (요청) 레이아웃 전면 개편 (좌/우 -> 좌/우상/우하) */
+/* [수정] 2024.11.11 - (오류) 로그 숨기기 시 차트 영역이 늘어나는 버그 수정 (flex: 1.5 -> flex: 0 1 auto) */
+/* [수정] 2024.11.11 - (요청) 차트 2단계: 다중 차트 레이아웃, +/- 버튼 스타일 추가 */
+/* [수정] 2024.11.11 - (요청 1) '모두 선택' 버튼 스타일 추가 */
+/* [수정] 2024.11.11 - (요청 2) 레이아웃 전면 수정 (상/하 구조) 및 로그 창 축소 */
+/* [수정] 2024.11.11 - (요청) '자산 정보'(.asset-info) 스타일 추가 */
 
 /* --- 기본 레이아웃 --- */
 .App {
@@ -17,6 +22,7 @@
   padding: 20px;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10; 
 }
 
 .App-header h1 {
@@ -24,236 +30,164 @@
   font-size: 1.8rem;
 }
 
+/* (레이아웃 (상/하 구조)) */
 .main-content {
   display: flex;
-  flex: 1; /* (헤더 제외 나머지 공간 모두 차지) */
-  flex-direction: row;
+  flex: 1; 
+  flex-direction: column; 
   padding: 20px;
   gap: 20px;
-}
-
-/* (요청 1: 비율 수정 -> 요청 3: 추가 수정) */
-.control-panel {
-  flex: 2; /* (제어판이 2 비율) */
-  min-width: 450px;
-  max-width: 700px; /* (너무 커지는 것 방지) */
-  
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* (요청 1: 비율 수정) */
-.log-viewer {
-  flex: 1; /* (로그 창이 1 비율) */
-  min-width: 400px;
-  
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  overflow: hidden; /* (스크롤바는 내부 .log-output에) */
-}
-
-/* --- 0. API 키 설정 --- */
-.api-keys-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  text-align: left;
-}
-.api-keys-section h2 {
-  margin-top: 0;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-}
-.api-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box; /* (padding 포함 100%) */
-}
-.api-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-}
-.api-button:hover {
-  background-color: #0056b3;
-}
-.api-status {
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-.api-status.info {
-  background-color: #e6f7ff;
-  border: 1px solid #b3e0ff;
-  color: #0056b3;
-}
-.api-status.success {
-  background-color: #e6ffed;
-  border: 1px solid #b3ffc6;
-  color: #006622;
-}
-.api-status.error {
-  background-color: #ffeeed;
-  border: 1px solid #ffb3b3;
-  color: #cc0000;
-}
-
-
-/* --- 1. 코인 선택 (요청 2: 수정) --- */
-.market-selector {
-  /* [수정] flex: 1 제거 -> 내용물 크기에 맞게 높이 조절 */
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   overflow: hidden; 
 }
 
-/* (요청 2: 신규) 코인 목록 헤더 (토글 버튼) */
-.collapsible-header {
+/* --- 1. 상단: 제어판 --- */
+.control-panel {
+  flex: 0 0 auto; 
+  display: flex;
+  flex-direction: row; 
+  flex-wrap: wrap; 
+  gap: 20px;
+}
+
+/* --- 2. 하단: 차트 + 로그 --- */
+.main-content-right {
+  flex: 1; 
+  min-width: 0; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto; 
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f0f2f5;
+}
+
+/* --- 2-1. 하단: 차트 영역 (개별 차트) --- */
+.chart-area {
+  flex: 0 0 auto; 
+  min-height: 400px;
+  
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.chart-controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
+  padding: 10px 20px;
   border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 15px; /* (검색창과의 간격) */
+  flex-wrap: wrap; 
+  gap: 10px;
 }
-.collapsible-header h2 {
-  margin: 0;
-  border: none; /* (스타일 헤더로 이동) */
-  padding: 0;
-}
-.toggle-icon {
+.chart-symbol-select label {
+  margin-right: 10px;
   font-size: 0.9rem;
-  font-weight: bold;
-  color: #007bff;
-  user-select: none; /* (텍스트 선택 방지) */
-}
-
-/* (요청 2: 신규) 코인 목록 내용 래퍼 */
-.market-list-content {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* (토글 애니메이션을 위해) */
-}
-
-.search-bar {
-  width: 100%;
-  padding: 10px;
-  /* [수정] margin-bottom 제거 (header가 담당) */
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box; 
-  margin-bottom: 15px; /* (목록과의 간격) */
-}
-
-.market-list {
-  /* [수정] flex: 1 제거 */
-  max-height: 400px; /* (너무 길어지는 것 방지) */
-  overflow-y: auto;
-  border: 1px solid #eee;
-  border-radius: 4px;
-}
-.market-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 15px;
-  border-bottom: 1px solid #f0f0f0;
-  cursor: pointer;
-  text-align: left;
-}
-.market-item:last-child {
-  border-bottom: none;
-}
-.market-item:hover {
-  background-color: #f9f9f9;
-}
-.market-item.selected {
-  background-color: #e6f7ff;
-  font-weight: bold;
-}
-.market-name {
-  flex: 1;
   font-weight: 500;
 }
-.market-symbol {
-  color: #666;
+.chart-symbol-select select {
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
   font-size: 0.9rem;
 }
-.status-indicator {
-  color: #007bff;
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin-left: 10px;
-}
-.loading-text {
-  padding: 20px;
-  color: #888;
-}
-
-/* --- 2. 봇 제어 --- */
-.bot-controls {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-.bot-controls h2 {
-  margin-top: 0;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-}
-.button-group {
+.chart-interval-select {
   display: flex;
-  gap: 15px;
+  gap: 5px;
 }
-.control-button {
-  flex: 1;
-  padding: 12px;
-  border: none;
+.interval-button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
+}
+.interval-button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
   font-weight: bold;
+}
+.interval-button:hover:not(.active) {
+  background-color: #eee;
+}
+.chart-remove-button {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto; 
+}
+.chart-remove-button:hover {
+  background-color: #dc3545;
   color: white;
 }
-.control-button.start {
-  background-color: #28a745; /* (초록) */
+.chart-container {
+  flex: 1;
+  position: relative; 
 }
-.control-button.start:hover {
-  background-color: #218838;
+.chart-container-inner {
+  width: 100%;
+  height: 100%;
 }
-.control-button.stop {
-  background-color: #dc3545; /* (빨강) */
-}
-.control-button.stop:hover {
-  background-color: #c82333;
+.chart-status {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #888;
+  font-size: 1.1rem;
 }
 
-/* --- 3. 로그 뷰어 --- */
-.log-viewer h2 {
-  margin-top: 0;
-  padding: 20px;
-  border-bottom: 1px solid #eee;
+/* --- 차트 추가 (+) 버튼 --- */
+.chart-add-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-top: -5px; 
+  margin-bottom: -5px; 
+}
+.chart-add-button:hover {
+  background-color: #218838;
+}
+
+/* --- 2-2. 하단: 로그 뷰어 (크기 축소) --- */
+.log-viewer {
+  flex: 0 1 250px; 
+  min-height: 65px; 
+  
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  
+  transition: flex-basis 0.3s ease-out, min-height 0.3s ease-out;
+}
+.log-viewer.closed {
+  flex-basis: 65px; 
+}
+.log-viewer .log-header {
   margin-bottom: 0;
+  padding: 20px; 
+}
+.log-viewer.open .log-header {
+  border-bottom: 1px solid #eee;
 }
 .log-output {
   flex: 1;
@@ -267,46 +201,277 @@
 .log-entry {
   margin-bottom: 8px;
   line-height: 1.4;
-  white-space: pre-wrap; /* (긴 메시지 줄바꿈) */
+  white-space: pre-wrap;
   word-break: break-all;
 }
 .log-timestamp {
   color: #888;
   margin-right: 10px;
 }
-/* (로그 레벨별 색상) */
-.log-entry.info .log-message {
-  color: #333;
+.log-entry.info .log-message { color: #333; }
+.log-entry.success .log-message { color: #28a745; font-weight: bold; }
+.log-entry.warn .log-message { color: #ffc107; }
+.log-entry.error .log-message { color: #dc3545; font-weight: bold; }
+
+
+/* --- 0. API 키 설정 (상단) --- */
+.api-keys-section {
+  flex: 1; 
+  min-width: 400px;
+  
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  
+  /* (신규) (세로 정렬을 위해) */
+  display: flex;
+  flex-direction: column;
 }
-.log-entry.success .log-message {
-  color: #28a745;
+.api-keys-section h2 {
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+.api-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.api-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
   font-weight: bold;
 }
-.log-entry.warn .log-message {
-  color: #ffc107;
+.api-button:hover { background-color: #0056b3; }
+.api-status {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
-.log-entry.error .log-message {
-  color: #dc3545;
+.api-status.info { background-color: #e6f7ff; border: 1px solid #b3e0ff; color: #0056b3; }
+.api-status.success { background-color: #e6ffed; border: 1px solid #b3ffc6; color: #006622; }
+.api-status.error { background-color: #ffeeed; border: 1px solid #ffb3b3; color: #cc0000; }
+
+/* [신규] (요청) 자산 정보 */
+.asset-info {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8f9fa; /* (밝은 회색) */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+.asset-info span {
   font-weight: bold;
+  color: #0056b3; /* (파란색) */
+  font-size: 1.05rem;
+}
+/* [신규 끝] */
+
+
+/* --- 1. 코인 선택 (상단) --- */
+.market-selector {
+  flex: 2; 
+  min-width: 400px;
+  
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden; 
+}
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.collapsible-header h2 {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+.toggle-icon {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #007bff;
+  user-select: none;
+}
+.market-selector .collapsible-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.market-list-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* (신규) (코인 목록이 남은 공간 차지) */
+  flex: 1;
 }
 
-/* --- (요청 3: 반응형 레이아웃) --- */
-/* (화면 너비가 900px 이하일 때 (9:16 세로 화면 등)) */
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; 
+  margin-bottom: 15px;
+}
+
+/* (요청 1) 모두 선택/해제 버튼 */
+.market-selection-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.button-group-small {
+  display: flex;
+  gap: 10px;
+}
+.button-group-small button {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.button-group-small button:hover {
+  background-color: #e0e0e0;
+}
+.market-selection-summary {
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+}
+
+
+.market-list {
+  max-height: 400px; 
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  /* (신규) (코인 목록이 남은 공간 차지) */
+  flex: 1;
+}
+.market-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  text-align: left;
+}
+.market-item:last-child { border-bottom: none; }
+.market-item:hover { background-color: #f9f9f9; }
+.market-item.selected { background-color: #e6f7ff; font-weight: bold; }
+.market-name { flex: 1; font-weight: 500; }
+.market-symbol { color: #666; font-size: 0.9rem; }
+.status-indicator { color: #007bff; font-weight: bold; font-size: 0.9rem; margin-left: 10px; }
+.loading-text { padding: 20px; color: #888; }
+
+/* --- 2. 봇 제어 (상단) --- */
+.bot-controls {
+  flex: 1;
+  min-width: 300px;
+  
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-top: 0; 
+  
+  /* (신규) (세로 정렬을 위해) */
+  display: flex;
+  flex-direction: column;
+}
+.bot-controls h2 {
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+.button-group {
+  display: flex;
+  gap: 15px;
+  /* (신규) (하단에 고정) */
+  margin-top: auto; 
+}
+.control-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+.control-button.start { background-color: #28a745; }
+.control-button.start:hover { background-color: #218838; }
+.control-button.stop { background-color: #dc3545; }
+.control-button.stop:hover { background-color: #c82333; }
+
+
+/* --- 반응형 레이아웃 (9:16 세로 화면 등) --- */
 @media (max-width: 900px) {
+  /* (상/하 구조는 모바일에서도 동일하게 유지) */
   .main-content {
-    flex-direction: column; /* (제어판과 로그를 수직으로 쌓기) */
+    flex-direction: column; 
+    overflow-y: auto; 
+    overflow-x: hidden;
   }
 
+  /* (상단 제어판이 가로 -> 세로로 쌓이도록) */
   .control-panel {
-    flex: none; /* (비율 제거) */
-    min-width: 0; /* (최소 너비 제거) */
-    max-width: none; /* (최대 너비 제거) */
-    width: 100%; /* (화면 꽉 채우기) */
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
+  
+  /* (상단 제어판 아이템들 최소 너비 제거) */
+  .api-keys-section,
+  .market-selector,
+  .bot-controls {
+    min-width: 0;
   }
 
-  .log-viewer {
-    flex: 1; /* (남은 높이 꽉 채우기) */
+  /* (하단 컨텐츠) */
+  .main-content-right {
+    flex: none; 
     min-width: 0;
-    min-height: 400px; /* (최소 높이 보장) */
+    width: 100%;
+    overflow-y: visible; 
+  }
+
+  .chart-area {
+    flex: none;
+    height: 450px; 
+  }
+  .log-viewer {
+    flex: 0 1 300px; 
+    min-height: 65px; 
+  }
+  .log-viewer.closed {
+    flex: 0 0 65px; 
+    min-height: 65px;
   }
 }

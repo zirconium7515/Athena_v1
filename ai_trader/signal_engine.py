@@ -1,10 +1,13 @@
 # Athena_v1/ai_trader/signal_engine.py
+# [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
+# [수정] 2024.11.11 - (오류) NameError: 'Optional' is not defined (typing 임포트 추가)
 """
 매매 신호 생성 엔진 (Strategy v3.5 - 1, 2, 3단계)
 (DataManager로부터 H1 DataFrame을 받아, v3.5 전략을 분석하고
  최종 점수(Score)와 신호 딕셔너리를 반환)
 """
 import pandas as pd
+from typing import Optional, Dict, Any # [수정] NameError: 'Optional' is not defined 오류 해결
 from ai_trader.data_manager import DataManager
 from ai_trader.database import Database
 from ai_trader.utils.logger import setup_logger
@@ -22,13 +25,10 @@ from ai_trader.strategy.patterns import (
 )
 
 
-class SignalEngine:
+class SignalEngineV3_5: # [수정] 클래스 이름 변경 (SignalEngine -> SignalEngineV3_5)
     
-    def __init__(self, data_manager: DataManager, db: Database, symbol: str):
-        self.data_manager = data_manager
-        self.db = db
-        self.symbol = symbol
-        self.logger = setup_logger(f"SignalEngine[{symbol}]", "athena_v1.log")
+    def __init__(self): # [수정] (data_manager, db, symbol 등 제거 - generate_signal에서 받음)
+        self.logger = setup_logger(f"SignalEngineV3.5", "athena_v1.log")
         
         # (v3.5 전략 점수 가중치)
         self.weights_v3_5 = {
@@ -39,15 +39,18 @@ class SignalEngine:
             'pattern_continuation': 2 # 2-D. 지속형 패턴
             # (총점 18점 만점)
         }
+        self.logger.info("SignalEngineV3_5 초기화 완료.")
 
-    def generate_signal_v3_5(self, df_h1: pd.DataFrame) -> dict:
+    # [수정] 반환 타입 힌트 (Optional, Dict, Any) 임포트
+    def generate_signal(self, df_h1: pd.DataFrame, symbol: str) -> Optional[Dict[str, Any]]:
         """
         v3.5 전략 1, 2, 3단계를 실행하여 Long 신호 딕셔너리를 반환합니다.
         (신호가 없거나 점수가 12점 미만이면 None 반환)
+        [수정] (symbol을 인자로 받음)
         """
         
         if df_h1.empty or len(df_h1) < 50: # (최소 50개 캔들 필요)
-            self.logger.warning("v3.5 신호 생성 실패 (H1 데이터 부족)")
+            self.logger.warning(f"[{symbol}] v3.5 신호 생성 실패 (H1 데이터 부족)")
             return None
 
         # --- (임시) 현재가 = 마지막 캔들 종가 ---
@@ -57,8 +60,9 @@ class SignalEngine:
         score = 0
         # (v3.5 신호 메타데이터)
         signal_meta = {
-            "symbol": self.symbol,
+            "symbol": symbol,
             "strategy_id": "v3.5",
+            "reason": "",
             "ob_low": None,
             "ob_high": None,
             "ob_height": None,
@@ -75,7 +79,8 @@ class SignalEngine:
             is_channel_support = check_channel_v3_4(df_h1, current_price)
             if is_channel_support:
                 score += self.weights_v3_5['context_channel']
-                self.logger.info(" (v3.5) 1. 컨텍스트: 채널 하단 지지 (+5점)")
+                signal_meta['reason'] += "채널 하단 지지 (+5점)\n"
+                self.logger.info(f"[{symbol}] (v3.5) 1. 컨텍스트: 채널 하단 지지 (+5점)")
 
             # --- 2단계: 핵심 근거 (OB, 패턴) ---
             
@@ -88,7 +93,8 @@ class SignalEngine:
                 signal_meta['ob_low'] = valid_ob['low']
                 signal_meta['ob_high'] = valid_ob['high']
                 signal_meta['ob_height'] = valid_ob['high'] - valid_ob['low']
-                self.logger.info(f" (v3.5) 2A. 유효 OB 찾음: {valid_ob['low']:.2f}~{valid_ob['high']:.2f} (+5점)")
+                signal_meta['reason'] += f"유효 OB ({valid_ob['low']:.2f}) (+5점)\n"
+                self.logger.info(f"[{symbol}] (v3.5) 2A. 유효 OB 찾음: {valid_ob['low']:.2f}~{valid_ob['high']:.2f} (+5점)")
                 
                 # 2-B. OB + FRVP 매물대 (미구현)
                 # TODO: FRVP(고정 범위 볼륨 프로파일) 계산 로직 필요
@@ -96,7 +102,8 @@ class SignalEngine:
                 is_ob_on_frvp = True 
                 if is_ob_on_frvp:
                     score += self.weights_v3_5['ob_frvp']
-                    self.logger.info(" (v3.5) 2B. OB가 FRVP 매물대와 일치 (+2점)")
+                    signal_meta['reason'] += "OB가 FRVP 매물대와 일치 (+2점)\n"
+                    self.logger.info(f"[{symbol}] (v3.5) 2B. OB가 FRVP 매물대와 일치 (+2점)")
             
             # 2-C, 2-D. 고전 패턴 (상승형/지속형)
             # (최근 N개 피벗이 상승형/지속형 패턴을 만들었는가?)
@@ -104,13 +111,16 @@ class SignalEngine:
             if pattern_result:
                 pattern_type = pattern_result.get('type')
                 pattern_tp = pattern_result.get('target_price')
+                pattern_name = pattern_result.get('name')
                 
                 if pattern_type == 'bullish': # (상승형: 2-C)
                     score += self.weights_v3_5['pattern_bullish']
-                    self.logger.info(f" (v3.5) 2C. 상승형 패턴 감지: {pattern_result.get('name')} (+4점)")
+                    signal_meta['reason'] += f"상승형 패턴 ({pattern_name}) (+4점)\n"
+                    self.logger.info(f"[{symbol}] (v3.5) 2C. 상승형 패턴 감지: {pattern_name} (+4점)")
                 elif pattern_type == 'continuation': # (지속형: 2-D)
                     score += self.weights_v3_5['pattern_continuation']
-                    self.logger.info(f" (v3.5) 2D. 지속형 패턴 감지: {pattern_result.get('name')} (+2점)")
+                    signal_meta['reason'] += f"지속형 패턴 ({pattern_name}) (+2점)\n"
+                    self.logger.info(f"[{symbol}] (v3.5) 2D. 지속형 패턴 감지: {pattern_name} (+2점)")
                 
                 if pattern_tp:
                     signal_meta['pattern_tp'] = pattern_tp
@@ -120,15 +130,15 @@ class SignalEngine:
             
             # (v3.5 3-2. 최소 점수)
             if score >= 12:
-                self.logger.info(f" (v3.5) 최종 진입 신호: 총 {score}점 (최소 12점 통과)")
+                self.logger.info(f"[{symbol}] (v3.5) 최종 진입 신호: 총 {score}점 (최소 12점 통과)")
                 return signal_meta
             
             # (점수 미달)
-            # self.logger.debug(f" (v3.5) 점수 미달: 총 {score}점 (12점 미만)")
+            self.logger.debug(f"[{symbol}] (v3.5) 점수 미달: 총 {score}점 (12점 미만)")
             return None
 
         except Exception as e:
-            self.logger.error(f"v3.5 신호 생성 중 오류: {e}")
+            self.logger.error(f"[{symbol}] v3.5 신호 생성 중 오류: {e}")
             import traceback
             self.logger.error(traceback.format_exc())
             return None

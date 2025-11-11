@@ -1,4 +1,5 @@
 # Athena_v1/ai_trader/strategy/order_block.py
+# [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
 """
 Strategy v3.5 - 2-A단계: 오더블록(OB) 정의
 """
@@ -20,35 +21,27 @@ def find_valid_ob_v3_5(df_h1: pd.DataFrame, current_price: float) -> Optional[Di
     # (임시 구현)
     # TODO: v3.5 전략 문서에 정의된 '유효 OB' 탐색 로직 구현 필요
     
-    # (초간단 임시 로직: 최근 50개 캔들 중 가장 큰 하락 캔들을 OB로 가정)
+    # (초간단 임시 로직: 최근 50개 캔들 중 현재가보다 낮은 음봉)
     
-    # (하락폭 계산)
-    df_h1['ob_body'] = (df_h1['open'] - df_h1['close']).abs()
+    # (음봉 캔들만 필터링)
+    df_h1_bullish_ob = df_h1[(df_h1['close'] < df_h1['open']) & (df_h1['high'] < current_price)]
     
-    # (현재가보다 낮은 캔들만 대상)
-    candidates = df_h1[df_h1['high'] < current_price]
-    
-    if len(candidates) < 10:
+    if df_h1_bullish_ob.empty:
         return None
 
-    # (최근 50개 중 가장 하락폭이 컸던 캔들)
-    # (단, 너무 오래 전 캔들은 제외: -50 ~ -10)
-    recent_candidates = candidates.iloc[-50:-10] 
-    if recent_candidates.empty:
+    # (최근 50개 캔들 중)
+    candidates = df_h1_bullish_ob.iloc[-50:]
+    if candidates.empty:
         return None
         
-    strongest_candle_index = recent_candidates['ob_body'].idxmax()
-    strongest_candle = recent_candidates.loc[strongest_candle_index]
-
-    # (v3.5 2-A 지지 OB는 음봉(하락 캔들)이어야 함)
-    if strongest_candle['close'] >= strongest_candle['open']:
-         return None # (양봉이면 탈락)
+    # (가장 최근의 음봉 캔들을 OB로 가정)
+    strongest_candle = candidates.iloc[-1]
 
     # (유효 OB 찾음 - 임시)
     ob_dict = {
         'datetime': strongest_candle.name,
-        'low': strongest_candle['low'],
-        'high': strongest_candle['high'] # (v3.5는 몸통(Body) 기준일 수 있음)
+        'low': strongest_candle['low'], # (v3.5는 몸통(Body) 기준일 수 있음: strongest_candle['close'])
+        'high': strongest_candle['high'] # (v3.5는 몸통(Body) 기준일 수 있음: strongest_candle['open'])
     }
     
     return ob_dict

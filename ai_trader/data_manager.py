@@ -1,4 +1,5 @@
 # Athena_v1/ai_trader/data_manager.py
+# [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
 """
 데이터 수집 및 DataFrame 변환/관리
 (exchange_api로부터 원본 데이터를 받아 pandas DataFrame으로 가공)
@@ -6,9 +7,6 @@
 import pandas as pd
 from ai_trader.exchange_api import UpbitExchange
 from ai_trader.utils.logger import setup_logger
-
-# [수정] 글로벌 스코프에서 로거 생성을 제거
-# logger = setup_logger("DataManager", "athena_v1.log")
 
 class DataManager:
     
@@ -22,40 +20,40 @@ class DataManager:
         지정된 심볼과 타임프레임의 OHLCV 데이터를 비동기적으로 가져와
         Pandas DataFrame으로 변환합니다.
         
-        Strategy v3.5는 H1(minutes60)을 메인으로 사용합니다.
+        [수정] exchange_api.get_ohlcv()가 DataFrame을 반환하도록 변경됨
         """
         try:
-            # exchange_api.get_ohlcv는 JSON 리스트를 반환
-            raw_data = await self.exchange_api.get_ohlcv(symbol, timeframe, count)
+            # exchange_api.get_ohlcv는 이제 KST 기준 DataFrame을 반환
+            df = await self.exchange_api.get_ohlcv(symbol, timeframe, count)
             
-            if raw_data is None or not isinstance(raw_data, list) or len(raw_data) == 0:
+            if df is None or df.empty:
                 # [수정] logger -> self.logger
                 self.logger.warning(f"[{symbol}] {timeframe} 데이터 없음.")
                 return pd.DataFrame()
 
-            # DataFrame 생성
-            df = pd.DataFrame(raw_data)
+            # (pyupbit이 반환한 컬럼 이름: 'opening_price', 'trade_price' 등)
+            # (표준 이름: 'open', 'close' 등으로 변경)
+            df.rename(columns={
+                'opening_price': 'open',
+                'high_price': 'high',
+                'low_price': 'low',
+                'trade_price': 'close',
+                'candle_acc_trade_volume': 'volume'
+            }, inplace=True)
             
-            # 필요한 컬럼만 선택 및 이름 변경
-            df = df[['candle_date_time_kst', 'opening_price', 'high_price', 'low_price', 'trade_price', 'candle_acc_trade_volume']]
-            df.columns = ['datetime', 'open', 'high', 'low', 'close', 'volume']
+            # (날짜/시간(datetime) 인덱스는 pyupbit이 이미 설정함)
             
-            # 데이터 타입 변환
-            df['datetime'] = pd.to_datetime(df['datetime'])
-            df['open'] = pd.to_numeric(df['open'])
-            df['high'] = pd.to_numeric(df['high'])
-            df['low'] = pd.to_numeric(df['low'])
-            df['close'] = pd.to_numeric(df['close'])
-            df['volume'] = pd.to_numeric(df['volume'])
+            # (필요한 컬럼만 선택)
+            df = df[['open', 'high', 'low', 'close', 'volume']]
             
-            # 날짜/시간(datetime)을 인덱스로 설정
-            df = df.set_index('datetime')
+            # (데이터 타입 변환 - pyupbit이 이미 numeric으로 반환)
             
-            # API는 최신순으로 데이터를 주므로, 시간 오름차순으로 정렬
-            df = df.sort_index(ascending=True)
+            # (API는 최신순으로 데이터를 주므로, 시간 오름차순으로 정렬)
+            # (pyupbit은 기본적으로 오름차순으로 반환하므로 불필요)
+            # df = df.sort_index(ascending=True) 
             
             # [수정] logger -> self.logger
-            self.logger.debug(f"[{symbol}] {timeframe} 데이터 {len(df)}개 로드 완료.")
+            self.logger.debug(f"[{symbol}] {timeframe} 데이터 {len(df)}개 로드 완료 (KST).")
             return df
 
         except Exception as e:
