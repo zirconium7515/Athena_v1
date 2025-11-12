@@ -5,12 +5,15 @@
 # [수정] 2024.11.11 - (오류) 'NoneType' object has no attribute 'get' 버그 수정
 # [수정] 2024.11.11 - (오류) 'str' object has no attribute 'get' 버그 수정 (Upbit 오류 포맷 2가지 처리)
 # [수정] 2024.11.11 - (오류) InsufficientFundsBid (None)일 때 Exception 대신 Warning 처리 (봇 중지 방지)
+# [수정] 2024.11.12 - (오류) AttributeError: 'SignalV3_5' object has no attribute 'strategy_id' 버그 수정
 
 import asyncio
 import pandas as pd
 from datetime import datetime
 from typing import Callable, Awaitable, Dict, Any, Optional
 from ai_trader.exchange_api import UpbitExchange
+# [수정] (모의/실전 동시 지원을 위해 MockExchange 임포트)
+from ai_trader.mock_exchange import MockExchange
 from ai_trader.database import Database
 from ai_trader.risk_manager import RiskManager
 from ai_trader.data_models import SignalV3_5, Position, TradeLog
@@ -19,7 +22,7 @@ from ai_trader.utils.logger import setup_logger
 class PositionManager:
     
     def __init__(self, 
-                 exchange_api: UpbitExchange, 
+                 exchange_api: UpbitExchange | MockExchange, # [수정]
                  db: Database, 
                  risk_manager: RiskManager, 
                  symbol: str,
@@ -29,7 +32,7 @@ class PositionManager:
         self.db = db
         self.risk_manager = risk_manager
         self.symbol = symbol
-        self.broadcast = broadcast_func # (WebSocket 브로드캐스트 함수)
+        self.broadcast = broadcast_func 
         self.logger = setup_logger(f"PositionMgr[{symbol}]", "athena_v1.log")
         
         self.current_position: Optional[Position] = None
@@ -74,16 +77,14 @@ class PositionManager:
                 order_type='market'
             )
             
-            # [오류 수정] (None일 때 Exception 대신 Warning/return 처리)
             if order_result is None:
-                # (Rate Limit 또는 InsufficientFundsBid)
                 error_msg = f"[{self.symbol}] 주문 API 오류: API가 응답하지 않았습니다 (None). (잔고 부족 또는 Rate Limit)"
                 self.logger.warning(error_msg.replace(f"[{self.symbol}] ", ""))
                 await self.broadcast({
                     "type": "log",
                     "payload": {"level": "warn", "message": error_msg}
                 })
-                return # (봇을 중지시키지 않고, 이번 턴만 종료)
+                return 
             
             if 'error' in order_result:
                 error_data = order_result['error']
@@ -110,7 +111,9 @@ class PositionManager:
                 volume=volume,
                 target_price=signal.target_price,
                 stop_loss_price=signal.stop_loss_price,
-                strategy_id=signal.strategy_id,
+                # [오류 수정] (signal.strategy_id -> "v3.5")
+                # (Position dataclass의 기본값이 "v3.5"이므로, 이 라인 제거)
+                # strategy_id="v3.5",
             )
 
             success_msg = f"[{self.symbol}] 포지션 진입 완료 (매수 평단가: {entry_price:,.2f}, 수량: {volume:.4f})"
@@ -126,7 +129,8 @@ class PositionManager:
                 side='buy',
                 price=entry_price,
                 volume=volume,
-                strategy_id=signal.strategy_id,
+                # [오류 수정] (signal.strategy_id -> "v3.5")
+                strategy_id="v3.5",
                 signal_score=signal.signal_score
             )
             self.db.log_trade(log_entry)
@@ -187,7 +191,6 @@ class PositionManager:
         })
 
         try:
-            # --- 시장가 매도 주문 실행 ---
             order_result = self.exchange_api.place_order(
                 symbol=self.symbol,
                 side='sell',
@@ -195,16 +198,14 @@ class PositionManager:
                 order_type='market'
             )
 
-            # [오류 수정] (None일 때 Exception 대신 Warning/return 처리)
             if order_result is None:
-                # (Rate Limit 또는 InsufficientFundsBid)
                 error_msg = f"[{self.symbol}] (청산) 주문 API 오류: API가 응답하지 않았습니다 (None). (Rate Limit 가능성)"
                 self.logger.warning(error_msg.replace(f"[{self.symbol}] ", ""))
                 await self.broadcast({
                     "type": "log",
                     "payload": {"level": "warn", "message": error_msg}
                 })
-                return # (봇을 중지시키지 않고, 이번 턴만 종료)
+                return 
             
             if 'error' in order_result:
                 error_data = order_result['error']
@@ -217,7 +218,6 @@ class PositionManager:
 
             await asyncio.sleep(3) 
 
-            # --- 실현 손익 (Profit) 계산 ---
             profit = (close_price - pos.entry_price) * volume_to_sell
             profit_msg_level = "success" if profit > 0 else "warn"
             success_msg = f"[{self.symbol}] 포지션 청산 완료 (청산가: {close_price:,.2f}). 실현 손익: {profit:,.0f} KRW"
@@ -227,14 +227,14 @@ class PositionManager:
                 "payload": {"level": profit_msg_level, "message": success_msg}
             })
 
-            # --- 거래 내역 DB 기록 ---
             log_entry = TradeLog(
                 symbol=self.symbol,
                 side='sell',
                 price=close_price,
                 volume=volume_to_sell,
                 profit=profit,
-                strategy_id=pos.strategy_id,
+                # [오류 수정] (pos.strategy_id -> "v3.5")
+                strategy_id="v3.5",
                 signal_score=0
             )
             self.db.log_trade(log_entry)
