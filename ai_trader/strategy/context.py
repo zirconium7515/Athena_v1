@@ -1,8 +1,9 @@
 # Athena_v1/ai_trader/strategy/context.py
 # [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
 # [수정] 2024.11.11 - (경고) FutureWarning: fillna(method='ffill') -> ffill()
+# [수정] 2024.11.14 - (Owl v1) 임시 함수 'check_channel_v3_4' 제거
 """
-Strategy v3.5 - 1단계: 컨텍스트 분석
+Strategy v3.5 (Owl - Tactic 1) - 1단계: 컨텍스트 분석
 (피벗, 채널 등)
 """
 import pandas as pd
@@ -36,26 +37,6 @@ def calculate_pivots(df: pd.DataFrame, left: int, right: int) -> pd.DataFrame:
     
     return df
 
-def check_channel_v3_4(df: pd.DataFrame, current_price: float) -> bool:
-    """
-    v3.5 1-2. 채널 분석 (v3.4 기준)
-    (현재가가 가장 최근 채널의 하단 지지선 근처인지 확인)
-    """
-    
-    # (임시 구현)
-    # TODO: v3.4 전략 문서에 정의된 '채널 작도' 로직 구현 필요
-    
-    # (초간단 임시 로직: 최근 20개 캔들 저가(PL) 근처인가?)
-    if 'PL' not in df.columns:
-        return False
-        
-    recent_low_pivot = df.iloc[-20:]['PL'].min()
-    
-    if pd.isna(recent_low_pivot):
-        return False
-        
-    # (현재가가 최근 저가 피벗의 1% 이내에 있는가?)
-    if (recent_low_pivot) <= current_price <= (recent_low_pivot * 1.01):
-        return True
-        
-    return False
+# [제거] (Owl v1) (v3.5의 임시 채널 함수 제거)
+# def check_channel_v3_4(df: pd.DataFrame, current_price: float) -> bool:
+#    ...

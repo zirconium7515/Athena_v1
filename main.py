@@ -14,6 +14,8 @@
 # [수정] 2024.11.12 - (오류) AttributeError: module 'uuid' has no attribute 'v4' (uuid.uuid4()로 수정)
 # [수정] 2024.11.12 - (요청) 모의 투자 (MockExchange) 기능 추가
 # [수정] 2024.11.12 - (요청) 자산 요약(수량) 갱신을 위한 /api/account-summary 엔드포인트 신설
+# [수정] 2024.11.14 - (Owl v1) SignalEngineV3_5 -> SignalEngineOwlV1로 교체
+# [수정] 2024.11.15 - (Owl v1.1) S4 청산 위해 check_exit_conditions에 df_h1 전체 전달
 
 import sys
 import os
@@ -43,7 +45,7 @@ from ai_trader.exchange_api import UpbitExchange
 from ai_trader.mock_exchange import MockExchange 
 from ai_trader.database import Database
 from ai_trader.data_manager import DataManager
-from ai_trader.signal_engine import SignalEngineV3_5
+from ai_trader.signal_engine import SignalEngineOwlV1
 from ai_trader.risk_manager import RiskManager
 from ai_trader.position_manager import PositionManager
 
@@ -218,22 +220,16 @@ class ChartSubscribeListModel(BaseModel):
     type: str # "subscribe_charts_list"
     symbols: List[str]
 
-# --- [신규] (요청) 자산 요약 헬퍼 함수 ---
+# --- 자산 요약 헬퍼 함수 ---
 async def _get_account_summary(exchange: UpbitExchange | MockExchange) -> Dict[str, Any]:
-    """
-    (신규) exchange 객체에서 전체 자산 목록(수량)을 가져오고,
-    public_exchange를 이용해 현재가와 평가액을 계산하여 반환합니다.
-    """
     global public_exchange
     
-    # 1. 자산 수량 조회 (Private API)
     all_balances_raw = await exchange.get_balance(ticker=None, verbose=True, use_cache=False)
     
     if not all_balances_raw or (isinstance(all_balances_raw, dict) and 'error' in all_balances_raw):
         error_msg = all_balances_raw.get('error', '자산 목록(수량)을 불러오지 못했습니다.') if isinstance(all_balances_raw, dict) else "자산 목록 조회 실패 (None)"
         raise Exception(error_msg)
 
-    # 2. 자산 요약 리스트 생성
     account_summary = []
     tickers_to_fetch_price = []
     total_assets_krw = 0.0
@@ -251,7 +247,6 @@ async def _get_account_summary(exchange: UpbitExchange | MockExchange) -> Dict[s
             })
             total_assets_krw += balance
         
-        # (1원 이상의 가치를 가진 코인만)
         elif balance * float(asset.get('avg_buy_price', 0.0)) > 1.0:
             tickers_to_fetch_price.append(f"KRW-{asset['currency']}")
             account_summary.append({
@@ -262,7 +257,6 @@ async def _get_account_summary(exchange: UpbitExchange | MockExchange) -> Dict[s
                 "value_krw": 0.0 
             })
 
-    # 3. 코인 현재가 조회 (Public API)
     if tickers_to_fetch_price:
         current_prices = await public_exchange.get_current_price(tickers_to_fetch_price)
         all_markets_map = {m['market']: m['korean_name'] for m in await public_exchange.get_market_all()}
@@ -274,7 +268,6 @@ async def _get_account_summary(exchange: UpbitExchange | MockExchange) -> Dict[s
             ticker = f"KRW-{asset['currency']}"
             asset['name'] = all_markets_map.get(ticker, asset['currency']) 
             
-            # (get_current_price가 float을 반환한 경우 예외 처리)
             current_price = 0.0
             if isinstance(current_prices, dict):
                  current_price = current_prices.get(ticker, 0.0)
@@ -309,13 +302,11 @@ async def set_api_keys(keys: ApiKeyModel):
             
             exchange = UpbitExchange(keys.access_key, keys.secret_key)
             
-            # (인증 테스트 - get_balance_no_cache를 호출)
             test_balance = await exchange.get_balance(ticker="KRW", verbose=True, use_cache=False)
             if not test_balance or (isinstance(test_balance, dict) and 'error' in test_balance):
                 error_msg = test_balance.get('error', 'API 키 인증 실패') if isinstance(test_balance, dict) else "API 키 인증 실패"
                 raise Exception(error_msg)
 
-            # (인증 성공)
             api_keys_store["access_key"] = keys.access_key
             api_keys_store["secret_key"] = keys.secret_key
             private_exchange = exchange 
@@ -340,7 +331,6 @@ async def set_api_keys(keys: ApiKeyModel):
         private_exchange = None 
         raise HTTPException(status_code=401, detail=error_msg)
 
-# [신규] (요청) 자산 요약(수량) 수동/자동 갱신용
 @app.get("/api/account-summary")
 async def get_account_summary():
     global private_exchange
@@ -522,7 +512,7 @@ async def trading_bot_task(symbol: str, exchange: UpbitExchange | MockExchange):
         )
         
         position_manager = PositionManager(exchange, db, risk_manager, symbol, manager.broadcast)
-        signal_engine = SignalEngineV3_5()
+        signal_engine = SignalEngineOwlV1()
     
     except Exception as e:
         await manager.broadcast({
@@ -542,19 +532,25 @@ async def trading_bot_task(symbol: str, exchange: UpbitExchange | MockExchange):
             current_price = df_h1.iloc[-1]['close']
             current_position = position_manager.get_position(symbol)
             
+            # 1. (포지션 보유 시) 청산 조건 확인
             if current_position:
-                await position_manager.check_exit_conditions(current_position, df_h1.iloc[-1])
+                # [수정] (Owl v1.1) (S4 청산을 위해 df_h1 전체를 전달)
+                await position_manager.check_exit_conditions(current_position, df_h1)
             
+            # 2. (포지션 미보유 시) 신규 진입 확인
             if not current_position:
-                signal_dict = signal_engine.generate_signal(df_h1, symbol)
                 
-                if signal_dict and signal_dict.get("score", 0) >= 12:
+                signal_dict = signal_engine.generate_signal_owl(df_h1.copy(), symbol)
+                
+                # (Owl v1: Tactic 1(v3.5) 또는 Tactic 3(Range) 신호 감지 시)
+                if signal_dict:
                     
                     async with capital_lock:
                         logger.info(f"[{symbol}] 자본 Lock 획득. 잔고 확인 및 주문 시작...")
                         try:
                             current_krw_balance = await exchange.get_krw_balance(use_cache=False)
                             
+                            # (RiskManager가 (regime, sl, tp) 기반으로 동적 계산)
                             final_signal = risk_manager.calculate_position_size(
                                 signal_data=signal_dict,
                                 current_price=current_price,

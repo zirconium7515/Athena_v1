@@ -1,47 +1,79 @@
 # Athena_v1/ai_trader/data_models.py
-"""
-프로젝트에서 사용되는 데이터 모델 (dataclasses)
-(이전 버전의 TradeLog, SignalData 등을 필요시 여기에 정의)
-"""
+# [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
+# [수정] 2024.11.11 - (오류) 'float' object has no attribute 'get' (SignalV3_5 -> dict 수정)
+# [수정] 2024.11.14 - (Owl v1) Signal, Position, TradeLog 모델 업그레이드
 
+import pandas as pd
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
+from typing import Literal # [신규]
 
+# [신규] (Owl v1) 포지션 타입 (오타 방지)
+PositionType = Literal["LONG", "SHORT"]
+MarketRegime = Literal["BULL", "BEAR", "RANGE"]
+
+# [수정] (SignalV3_5 -> SignalOwlV1)
 @dataclass
-class TradeLog:
-    """ 거래 내역 (DB 저장용) """
-    id: Optional[int] = None
-    timestamp: datetime = field(default_factory=datetime.now)
-    symbol: str = ""
-    side: str = "" # 'buy' or 'sell'
-    price: float = 0.0
-    volume: float = 0.0
-    profit: float = 0.0 # 실현 손익
-    strategy_id: str = "v3.5" # 사용된 전략
-    signal_score: int = 0 # v3.5 점수
+class SignalOwlV1:
+    """
+    Owl v1 시그널 엔진이 생성하는 최종 진입 신호 객체
+    (RiskManager가 이 객체를 받아 PositionManager에게 전달)
+    """
+    symbol: str
+    signal_type: PositionType # [수정] (LONG/SHORT)
+    timestamp: datetime
+    
+    # 리스크 관리
+    entry_price_avg: float
+    stop_loss_price: float
+    target_price: float
+    
+    total_position_size_krw: float
+    total_position_size_coin: float
+    
+    # (Owl v1 신규 필드)
+    regime: MarketRegime # (진입 근거가 된 시장 국면)
+    tactic: str # (진입 근거가 된 전술, 예: "Bullish OB", "Range Bounce")
+    
+    # (v3.5 계승 필드)
+    signal_score: int
+    reason: str = "v3.5 Signal" # (하위 호환성을 위해 유지)
 
+# (Position: 봇이 현재 보유 중인 포지션)
 @dataclass
 class Position:
-    """ 현재 보유 포지션 (메모리 관리용) """
+    """
+    PositionManager가 현재 보유 중인 포지션을 관리하기 위한 객체
+    (봇 메모리에 1개만 존재)
+    """
     symbol: str
+    position_type: PositionType # [신규] (LONG/SHORT)
     entry_price: float
     volume: float
-    target_price: float # 익절가 (TP)
-    stop_loss_price: float # 손절가 (SL)
-    entry_timestamp: datetime = field(default_factory=datetime.now)
-    strategy_id: str = "v3.5"
+    target_price: float
+    stop_loss_price: float
+    
+    # (Owl v1 신규 필드)
+    entry_regime: MarketRegime # (진입 시점의 시장 국면)
+    
+    # (v3.5 계승 필드)
+    strategy_id: str = "v3.5" # (하위 호환성)
+    timestamp: datetime = field(default_factory=datetime.now)
 
+# (TradeLog: DB에 기록되는 모든 거래 내역)
 @dataclass
-class SignalV3_5:
-    """ Strategy v3.5 매매 신호 """
+class TradeLog:
+    """
+    모든 거래(진입/청산) 내역을 DB에 기록하기 위한 객체
+    """
     symbol: str
-    signal_type: str # 'LONG'
-    timestamp: datetime # 신호 발생 시간
-    entry_price_avg: float # 계산된 평균 진입가
-    stop_loss_price: float # 계산된 손절 라인
-    target_price: float # (Optional) 계산된 1차 익절 라인
-    total_position_size_krw: float # 총 투입 금액 (KRW)
-    total_position_size_coin: float # 최종 진입 수량 (Coin)
-    signal_score: int # 최종 점수 (3단계)
-    reason: str # 진입 근거 요약
+    side: Literal["buy", "sell"]
+    price: float
+    volume: float
+    
+    position_type: PositionType # [신규] (LONG/SHORT)
+    
+    profit: float = 0.0
+    strategy_id: str = "v3.5"
+    signal_score: int = 0
+    timestamp: datetime = field(default_factory=datetime.now)

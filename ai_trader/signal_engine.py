@@ -1,144 +1,187 @@
 # Athena_v1/ai_trader/signal_engine.py
 # [수정] 2024.11.11 - (오류) SyntaxError: invalid syntax (// 주석 수정)
-# [수정] 2024.11.11 - (오류) NameError: 'Optional' is not defined (typing 임포트 추가)
+# [수정] 2024.11.14 - (Owl v1) SignalEngineV3_5 -> SignalEngineOwlV1로 리팩토링
+# [수정] 2024.11.14 - (Owl v1) Phase 1: analyze_regime (국면 분석) 로직 추가
+# [수정] 2024.11.14 - (오류) ImportError: cannot import name 'find_bullish_ob_v3_5' (오타 수정)
+# [수정] 2024.11.14 - (Owl v1) Tactic 3 (Range Bounce) 구현
+# [수정] 2024.11.14 - (Owl v1) RiskManager 리팩토링 (SL/TP를 SignalEngine에서 계산)
 """
-매매 신호 생성 엔진 (Strategy v3.5 - 1, 2, 3단계)
-(DataManager로부터 H1 DataFrame을 받아, v3.5 전략을 분석하고
- 최종 점수(Score)와 신호 딕셔너리를 반환)
+Strategy Owl v1 - Phase 2: 국면별 진입 신호 분석 (Tactical Signal Analysis)
+
+'Owl' 전략의 핵심 엔진.
+Phase 1(Regime)의 분석 결과를 받아, 3가지 전술(Bull, Bear, Range) 중
+하나를 선택하여 진입 신호(dict)를 생성합니다.
 """
 import pandas as pd
-from typing import Optional, Dict, Any # [수정] NameError: 'Optional' is not defined 오류 해결
-from ai_trader.data_manager import DataManager
-from ai_trader.database import Database
+import numpy as np
+from typing import Dict, Any, Optional
+
+# [신규] (Owl v1) Phase 1 국면 분석기 임포트
+from ai_trader.strategy.regime import analyze_regime, MarketRegime
+# (v3.5 레거시 임포트)
+from ai_trader.strategy.context import calculate_pivots
+from ai_trader.strategy.patterns import (
+    find_bullish_ob, 
+    find_w_pattern, 
+    find_rsi_divergence,
+    find_bollinger_bounce_long # [신규] (Tactic 3)
+)
 from ai_trader.utils.logger import setup_logger
 
-# (v3.5 전략 세부 로직 임포트)
-from ai_trader.strategy.context import (
-    calculate_pivots, 
-    check_channel_v3_4
-)
-from ai_trader.strategy.order_block import (
-    find_valid_ob_v3_5
-)
-from ai_trader.strategy.patterns import (
-    check_bullish_patterns_v3_5
-)
+class SignalEngineOwlV1:
 
+    def __init__(self):
+        self.logger = setup_logger("SignalEngineOwlV1", "athena_v1.log")
+        self.logger.info("--- Strategy Owl v1 (Signal Engine) 초기화 ---")
 
-class SignalEngineV3_5: # [수정] 클래스 이름 변경 (SignalEngine -> SignalEngineV3_5)
-    
-    def __init__(self): # [수정] (data_manager, db, symbol 등 제거 - generate_signal에서 받음)
-        self.logger = setup_logger(f"SignalEngineV3.5", "athena_v1.log")
-        
-        # (v3.5 전략 점수 가중치)
-        self.weights_v3_5 = {
-            'context_channel': 5,     # 1-2. 채널 지지
-            'ob_valid': 5,            # 2-A. 유효 OB
-            'ob_frvp': 2,             # 2-B. OB가 FRVP 매물대와 일치
-            'pattern_bullish': 4,     # 2-C. 상승형 패턴
-            'pattern_continuation': 2 # 2-D. 지속형 패턴
-            # (총점 18점 만점)
-        }
-        self.logger.info("SignalEngineV3_5 초기화 완료.")
-
-    # [수정] 반환 타입 힌트 (Optional, Dict, Any) 임포트
-    def generate_signal(self, df_h1: pd.DataFrame, symbol: str) -> Optional[Dict[str, Any]]:
+    def generate_signal_owl(self, df_h1: pd.DataFrame, symbol: str) -> Optional[Dict[str, Any]]:
         """
-        v3.5 전략 1, 2, 3단계를 실행하여 Long 신호 딕셔너리를 반환합니다.
-        (신호가 없거나 점수가 12점 미만이면 None 반환)
-        [수정] (symbol을 인자로 받음)
+        Owl v1 전략의 메인 진입점 (Phase 1 -> Phase 2)
+        
+        1. (Phase 1) H1 차트를 분석하여 현재 시장 국면(Regime)을 판독합니다.
+        2. (Phase 2) 국면에 맞는 전술(Tactic)을 실행하여 신호를 생성합니다.
         """
         
-        if df_h1.empty or len(df_h1) < 50: # (최소 50개 캔들 필요)
-            self.logger.warning(f"[{symbol}] v3.5 신호 생성 실패 (H1 데이터 부족)")
-            return None
-
-        # --- (임시) 현재가 = 마지막 캔들 종가 ---
-        current_price = df_h1.iloc[-1]['close']
+        # --- Phase 1: 시장 국면 분석 ---
+        current_regime = analyze_regime(df_h1)
         
-        # (v3.5 신호 점수판)
-        score = 0
-        # (v3.5 신호 메타데이터)
-        signal_meta = {
-            "symbol": symbol,
-            "strategy_id": "v3.5",
-            "reason": "",
-            "ob_low": None,
-            "ob_high": None,
-            "ob_height": None,
-            "pattern_tp": None
-        }
+        signal_data: Optional[Dict[str, Any]] = None
 
+        # --- Phase 2: 국면별 전술 실행 ---
+        match current_regime:
+            
+            # --- Tactic 1: 상승 추세 (Bull Trend) ---
+            case "BULL":
+                self.logger.debug(f"[{symbol}] 국면 판독: BULL. (v3.5 Long 전술 실행)")
+                signal_data = self._tactic_bull_trend_v3_5(df_h1, symbol)
+            
+            # --- Tactic 2: 하락 추세 (Bear Trend) ---
+            case "BEAR":
+                self.logger.debug(f"[{symbol}] 국면 판독: BEAR. (Short 전술 실행)")
+                signal_data = self._tactic_bear_trend(df_h1, symbol)
+                
+            # --- Tactic 3: 횡보 국면 (Ranging) ---
+            case "RANGE":
+                self.logger.debug(f"[{symbol}] 국면 판독: RANGE. (Range Bounce 전술 실행)")
+                signal_data = self._tactic_range_bounce(df_h1, symbol)
+
+        if signal_data:
+            self.logger.info(f"[{symbol}] *** 신규 {signal_data.get('signal_type')} 신호 감지 (국면: {current_regime}) ***")
+            
+            # [신규] (RiskManager에게 국면/전술 전달)
+            signal_data['regime'] = current_regime
+            signal_data['tactic'] = signal_data.get('reason', 'Unknown Tactic')
+            
+            return signal_data
+            
+        return None
+
+    # --- Tactic 1: 상승 추세 (v3.5) ---
+    def _tactic_bull_trend_v3_5(self, df: pd.DataFrame, symbol: str) -> Optional[Dict[str, Any]]:
+        """
+        [v3.5 계승] Tactic 1: Bullish OB (지지 오더블록) 기반 롱 진입
+        """
         try:
-            # --- 1단계: 컨텍스트 분석 ---
-            # 1-1. 피벗 계산
-            df_h1 = calculate_pivots(df_h1, left=10, right=5)
+            current_price = df.iloc[-1]['close']
             
-            # 1-2. 채널 분석 (v3.4 기준)
-            # (현재가가 가장 최근 채널의 하단 지지선 근처인가?)
-            is_channel_support = check_channel_v3_4(df_h1, current_price)
-            if is_channel_support:
-                score += self.weights_v3_5['context_channel']
-                signal_meta['reason'] += "채널 하단 지지 (+5점)\n"
-                self.logger.info(f"[{symbol}] (v3.5) 1. 컨텍스트: 채널 하단 지지 (+5점)")
+            # --- 1. 컨텍스트 분석 (v3.5) ---
+            df = calculate_pivots(df, left=10, right=5)
+            
+            # --- 2. 신호 분석 (v3.5) ---
+            
+            # 2-1. (필수) 지지 오더블록 (Bullish OB)
+            ob_signal = find_bullish_ob(df, current_price)
+            if not ob_signal:
+                return None
+            
+            score = 10 
+            reason = f"Bullish OB ({ob_signal['ob_low']:.2f})"
+            
+            # 2-2. (가산) W-패턴 (이중 바닥)
+            w_pattern = find_w_pattern(df, current_price)
+            if w_pattern:
+                score += 4
+                reason += " + W-Pattern"
+                
+            # 2-3. (가산) RSI 상승 다이버전스
+            rsi_div = find_rsi_divergence(df, lookback=30)
+            if rsi_div:
+                score += 4
+                reason += " + RSI Div"
 
-            # --- 2단계: 핵심 근거 (OB, 패턴) ---
-            
-            # 2-A. 유효 오더블록(OB) 탐색
-            # (현재가 아래에 v3.5 기준을 만족하는 '지지 OB'가 있는가?)
-            valid_ob = find_valid_ob_v3_5(df_h1, current_price)
-            
-            if valid_ob:
-                score += self.weights_v3_5['ob_valid']
-                signal_meta['ob_low'] = valid_ob['low']
-                signal_meta['ob_high'] = valid_ob['high']
-                signal_meta['ob_height'] = valid_ob['high'] - valid_ob['low']
-                signal_meta['reason'] += f"유효 OB ({valid_ob['low']:.2f}) (+5점)\n"
-                self.logger.info(f"[{symbol}] (v3.5) 2A. 유효 OB 찾음: {valid_ob['low']:.2f}~{valid_ob['high']:.2f} (+5점)")
+            # --- 3. 진입 결정 (v3.5) ---
+            if score < 12:
+                return None
                 
-                # 2-B. OB + FRVP 매물대 (미구현)
-                # TODO: FRVP(고정 범위 볼륨 프로파일) 계산 로직 필요
-                # (임시) OB가 찾아지면 2-B도 만족했다고 가정
-                is_ob_on_frvp = True 
-                if is_ob_on_frvp:
-                    score += self.weights_v3_5['ob_frvp']
-                    signal_meta['reason'] += "OB가 FRVP 매물대와 일치 (+2점)\n"
-                    self.logger.info(f"[{symbol}] (v3.5) 2B. OB가 FRVP 매물대와 일치 (+2점)")
+            # --- [신규] (Owl v1) SL/TP 계산 (RiskManager 리팩토링) ---
+            sl_price = ob_signal['ob_low'] - (ob_signal['ob_height'] * 0.2)
             
-            # 2-C, 2-D. 고전 패턴 (상승형/지속형)
-            # (최근 N개 피벗이 상승형/지속형 패턴을 만들었는가?)
-            pattern_result = check_bullish_patterns_v3_5(df_h1)
-            if pattern_result:
-                pattern_type = pattern_result.get('type')
-                pattern_tp = pattern_result.get('target_price')
-                pattern_name = pattern_result.get('name')
-                
-                if pattern_type == 'bullish': # (상승형: 2-C)
-                    score += self.weights_v3_5['pattern_bullish']
-                    signal_meta['reason'] += f"상승형 패턴 ({pattern_name}) (+4점)\n"
-                    self.logger.info(f"[{symbol}] (v3.5) 2C. 상승형 패턴 감지: {pattern_name} (+4점)")
-                elif pattern_type == 'continuation': # (지속형: 2-D)
-                    score += self.weights_v3_5['pattern_continuation']
-                    signal_meta['reason'] += f"지속형 패턴 ({pattern_name}) (+2점)\n"
-                    self.logger.info(f"[{symbol}] (v3.5) 2D. 지속형 패턴 감지: {pattern_name} (+2점)")
-                
-                if pattern_tp:
-                    signal_meta['pattern_tp'] = pattern_tp
+            if w_pattern and w_pattern.get('target_price'):
+                tp_price = w_pattern['target_price']
+            else:
+                # (R:R = 2.0)
+                risk_per_coin = current_price - sl_price
+                tp_price = current_price + (risk_per_coin * 2.0)
+            
+            if sl_price >= current_price or tp_price <= current_price:
+                self.logger.warning(f"[{symbol}] v3.5 SL/TP 계산 오류 (SL: {sl_price}, TP: {tp_price}, 현재가: {current_price})")
+                return None
 
-            # --- 3단계: 점수 합산 및 진입 결정 ---
-            signal_meta['score'] = score
+            # --- 4. 리스크 계산용 데이터 반환 ---
+            signal_data = {
+                "symbol": symbol,
+                "signal_type": "LONG",
+                "score": score,
+                "reason": reason,
+                
+                # (RiskManager가 사용할 SL/TP)
+                "sl_price": sl_price,
+                "tp_price": tp_price
+            }
+            return signal_data
             
-            # (v3.5 3-2. 최소 점수)
-            if score >= 12:
-                self.logger.info(f"[{symbol}] (v3.5) 최종 진입 신호: 총 {score}점 (최소 12점 통과)")
-                return signal_meta
-            
-            # (점수 미달)
-            self.logger.debug(f"[{symbol}] (v3.5) 점수 미달: 총 {score}점 (12점 미만)")
+        except Exception as e:
+            self.logger.error(f"[{symbol}] _tactic_bull_trend_v3_5 실행 중 오류: {e}", exc_info=True)
             return None
+
+    # --- Tactic 2: 하락 추세 (Short) ---
+    def _tactic_bear_trend(self, df: pd.DataFrame, symbol: str) -> Optional[Dict[str, Any]]:
+        """
+        [신규] Tactic 2: Bearish OB (저항 오더블록) 기반 숏 진입
+        (TODO: 'Owl v1 - 4단계'에서 구현 예정)
+        """
+        # (현재는 구현되지 않았으므로 항상 None 반환)
+        return None
+
+    # --- Tactic 3: 횡보 국면 (Range) ---
+    def _tactic_range_bounce(self, df: pd.DataFrame, symbol: str) -> Optional[Dict[str, Any]]:
+        """
+        [신규] Tactic 3: Bollinger Bounce (볼린저 밴드) 기반 평균 회귀
+        """
+        try:
+            current_price = df.iloc[-1]['close']
+            
+            # (df에는 analyze_regime에서 계산한 BBANDS, RSI 지표가 이미 포함되어 있음)
+            
+            # 1. 롱(Long) 신호 확인
+            long_signal = find_bollinger_bounce_long(df, current_price)
+            
+            if long_signal:
+                signal_data = {
+                    "symbol": symbol,
+                    "signal_type": "LONG",
+                    "score": long_signal['score'],
+                    "reason": long_signal['reason'],
+                    "sl_price": long_signal['sl_price'],
+                    "tp_price": long_signal['tp_price']
+                }
+                return signal_data
+                
+            # 2. 숏(Short) 신호 확인
+            # (TODO: 'Owl v1 - 4단계'에서 find_bollinger_bounce_short 구현)
 
         except Exception as e:
-            self.logger.error(f"[{symbol}] v3.5 신호 생성 중 오류: {e}")
-            import traceback
-            self.logger.error(traceback.format_exc())
+            self.logger.error(f"[{symbol}] _tactic_range_bounce 실행 중 오류: {e}", exc_info=True)
             return None
+            
+        return None

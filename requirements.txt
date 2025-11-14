@@ -11,3 +11,4 @@ asyncio
 requests
 PyJWT
 certifi
+pandas-ta
