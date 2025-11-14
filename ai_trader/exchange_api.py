@@ -6,6 +6,7 @@
 # [수정] 2024.11.11 - (오류) InsufficientFundsBid Race Condition 해결 (pyupbit 캐시 우회)
 # [수정] 2024.11.11 - (요청) get_current_price가 List[str]를 지원하도록 수정
 # [수정] 2024.11.12 - (오류) 'float' object has no attribute 'get' (pyupbit 단일 리스트 반환 버그 수정)
+# [수정] 2024.11.14 - (오류) [SSL: CERTIFICATE_VERIFY_FAILED] (certifi 라이브러리 강제 적용)
 
 import pyupbit
 import asyncio
@@ -14,6 +15,8 @@ import pandas as pd
 from typing import Optional, List, Dict, Any
 import jwt  
 import uuid 
+import ssl # [신규] (SSL 오류 수정)
+import certifi # [신규] (SSL 오류 수정)
 
 from ai_trader.utils.logger import setup_logger
 
@@ -21,12 +24,21 @@ class UpbitExchange:
     
     _session: Optional[aiohttp.ClientSession] = None
 
+    # [수정] (SSL 오류 수정)
     @classmethod
     async def get_session(cls) -> aiohttp.ClientSession:
         if cls._session is None or cls._session.closed:
+            
+            # [신규] OS의 인증서 대신 certifi의 최신 인증서 목록 사용
+            ssl_context = ssl.create_default_context(cafile=certifi.where())
+            connector = aiohttp.TCPConnector(ssl=ssl_context)
+            
             timeout = aiohttp.ClientTimeout(total=5)
-            cls._session = aiohttp.ClientSession(timeout=timeout)
+            # [수정] (connector 주입)
+            cls._session = aiohttp.ClientSession(timeout=timeout, connector=connector)
+            
         return cls._session
+    # --- (수정 끝) ---
 
     @classmethod
     async def close_session(cls):
@@ -105,30 +117,24 @@ class UpbitExchange:
             self.logger.error(f"[{symbol}] {timeframe} OHLCV 조회 실패: {e}")
             return pd.DataFrame() 
 
-    # [수정] (오류 수정) (pyupbit 단일 리스트 반환 버그 수정)
     async def get_current_price(self, symbol: str | List[str]) -> Any: 
         try:
-            # (요청이 리스트였는지, 단일 문자열이었는지 기록)
             is_list_request = isinstance(symbol, list)
             
             loop = asyncio.get_running_loop()
             price_data = await loop.run_in_executor(None, pyupbit.get_current_price, symbol)
 
-            # (pyupbit이 None을 반환한 경우)
             if not price_data:
                 return {} if is_list_request else 0.0
 
-            # [핵심] (pyupbit 버그): 리스트(['KRW-BTC'])로 요청했는데 float(50000.0)을 반환한 경우
             if is_list_request and isinstance(price_data, float):
-                # (강제로 dict로 변환하여 반환)
                 return {symbol[0]: price_data}
             
-            # (정상 반환)
             return price_data
             
         except Exception as e:
             self.logger.error(f"[{symbol}] 현재가 조회 실패: {e}")
-            return {} if isinstance(symbol, list) else 0.0 # (요청 타입에 맞게 빈 값 반환)
+            return {} if isinstance(symbol, list) else 0.0 
 
     # --- Private API (키 필요) ---
 

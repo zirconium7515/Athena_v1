@@ -10,3 +10,4 @@ aiohttp
 asyncio
 requests
 PyJWT
+certifi
