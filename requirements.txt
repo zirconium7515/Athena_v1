@@ -7,8 +7,10 @@ pandas
 numpy
 SQLAlchemy
 aiohttp
-asyncio
 requests
 PyJWT
 certifi
 pandas-ta
+gunicorn
+aiohtttp
+python-jose

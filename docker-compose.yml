@@ -1,0 +1,52 @@
+# Athena_v1/docker-compose.yml
+# [신규] 2024.11.15 - (Docker 배포) 통합 실행 파일
+# --- (Vive Coding) Athena v1.1 Docker 통합 실행 ---
+# 실행: docker-compose up -d --build
+# 중지: docker-compose down
+
+version: '3.8'
+
+services:
+
+  # --- 1. 벡엔드 (FastAPI + Gunicorn) ---
+  athena-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: athena-backend
+    # (NAS 재부팅 시 자동 재시작)
+    restart: unless-stopped
+    volumes:
+      # (로그 파일/DB 파일을 NAS의 실제 폴더와 연결)
+      - ./logs:/app/logs
+      - ./db:/app/db
+    networks:
+      - athena-net
+    # (벡엔드 8000번 포트는 Nginx(프론트)하고만 통신 - 외부 노출 X)
+    ports:
+      - "8000:8000"
+
+  # --- 2. 프론트엔드 (React + Nginx) ---
+  athena-frontend:
+    # (Nginx 공식 이미지 사용)
+    image: nginx:alpine
+    container_name: athena-frontend
+    restart: unless-stopped
+    volumes:
+      # (1. React 빌드 결과물을 Nginx의 HTML 폴더로 연결)
+      - ./frontend/build:/usr/share/nginx/html
+      # (2. Nginx 설정을 컨테이너 내부로 복사)
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - athena-net
+    ports:
+      # (NAS의 8080 포트를 Nginx 80 포트와 연결)
+      # (접속 주소: http://[NAS IP]:8080)
+      - "8080:80"
+    # (벡엔드가 켜진 후에 프론트가 켜지도록)
+    depends_on:
+      - athena-backend
+
+networks:
+  athena-net:
+    driver: bridge
